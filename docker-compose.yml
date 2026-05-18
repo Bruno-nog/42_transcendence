@@ -10,6 +10,16 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  backend:
+    build: ./backend
+    container_name: transcendence_backend
+    env_file: .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
 
 volumes:
   postgres_data:
