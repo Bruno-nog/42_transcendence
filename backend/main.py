@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+connection = psycopg2.connect(os.getenv("DATABASE_URL"))
 app = FastAPI()
 tmdb_url = "https://api.themoviedb.org/3"
 tmdb_api = os.getenv("TMDB_API_KEY")
@@ -17,7 +17,7 @@ def search_movie(title: str):
     if not results:
         return{"Error: Movie not found!"}
     movie = results[0]
-    cursor = conn.cursor()
+    cursor = connection.cursor()
     cursor.execute("INSERT INTO media (external_id, media_type, title, description, cover_url, release_year) VALUES (%s, %s, %s, %s, %s, %s)",
     (
         str(movie["id"]),
@@ -27,5 +27,6 @@ def search_movie(title: str):
         "https://image.tmdb.org/t/p/w500" + movie["poster_path"],
         int(movie["release_date"].split("-")[0])
     ))
-    conn.commit()
-    return results[0]
+    connection.commit()
+    cursor.close()
+    return movie
