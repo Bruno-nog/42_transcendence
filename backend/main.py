@@ -1,14 +1,31 @@
 from fastapi import FastAPI
 import requests
+import psycopg2
 from dotenv import load_dotenv
 import os
 load_dotenv()
 
+conn = psycopg2.connect(os.getenv("DATABASE_URL"))
 app = FastAPI()
 tmdb_url = "https://api.themoviedb.org/3"
 tmdb_api = os.getenv("TMDB_API_KEY")
 
 @app.get("/search")
-def route_search(title: str):
+def search_movie(title: str):
     response = requests.get(tmdb_url + "/search/movie", params={"api_key": tmdb_api, "query": title, "language": "pt-BR"})
-    return response.json()["results"]
+    results = response.json()["results"]
+    if not results:
+        return{"Error: Movie not found!"}
+    movie = results[0]
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO media (external_id, media_type, title, description, cover_url, release_year) VALUES (%s, %s, %s, %s, %s, %s)",
+    (
+        str(movie["id"]),
+        "film",
+        movie["title"],
+        movie["overview"],
+        "https://image.tmdb.org/t/p/w500" + movie["poster_path"],
+        int(movie["release_date"].split("-")[0])
+    ))
+    conn.commit()
+    return results[0]
