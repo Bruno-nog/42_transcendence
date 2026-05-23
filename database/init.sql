@@ -10,7 +10,7 @@ CREATE TABLE media (
   id SERIAL PRIMARY KEY,
   external_id TEXT NOT NULL,
   media_type TEXT NOT NULL,
-  title TEXT NOT NULL,
+  title TEXT UNIQUE NOT NULL,
   description TEXT,
   cover_url TEXT,
   release_year INT,

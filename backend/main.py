@@ -18,15 +18,20 @@ def search_movie(title: str):
         return{"Error: Movie not found!"}
     movie = results[0]
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO media (external_id, media_type, title, description, cover_url, release_year) VALUES (%s, %s, %s, %s, %s, %s)",
-    (
-        str(movie["id"]),
-        "film",
-        movie["title"],
-        movie["overview"],
-        "https://image.tmdb.org/t/p/w500" + movie["poster_path"],
-        int(movie["release_date"].split("-")[0])
-    ))
+    cursor.execute("SELECT id FROM media WHERE external_id = %s", (str(movie["id"]),))
+    duplicates = cursor.fetchone()
+    if duplicates:
+        return {"message: duplicate found"}
+    else:
+        cursor.execute("INSERT INTO media (external_id, media_type, title, description, cover_url, release_year) VALUES (%s, %s, %s, %s, %s, %s)",
+        (
+            str(movie["id"]),
+            "film",
+            movie["title"],
+            movie["overview"],
+            "https://image.tmdb.org/t/p/w500" + movie["poster_path"],
+            int(movie["release_date"].split("-")[0])
+        ))
     connection.commit()
     cursor.close()
     return movie
