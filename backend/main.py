@@ -1,11 +1,16 @@
 from fastapi import FastAPI
 import requests
-# from passlib.context import CryptContext
+from passlib.context import CryptContext
 from pydantic import BaseModel
 from database import connection
 import os
 
-# pwd_context = CryptContext(schemes=["bcrypt"], decrepated="auto")
+class UserRegister(BaseModel):
+    username: str
+    email: str
+    password: str
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 app = FastAPI()
 tmdb_url = "https://api.themoviedb.org/3"
@@ -36,3 +41,10 @@ def search_movie(title: str):
     connection.commit()
     cursor.close()
     return movie
+
+@app.post("/register")
+def register(user: UserRegister):
+    user_data = user(username="john", email="john@gmail.com", password="12345")
+    print("aaaaaaaaaaa", user.username)
+    # cursor = connection.cursor()
+    # cursor.execute("INSERT INTO ")
