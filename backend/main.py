@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 import requests
-import psycopg2
-from dotenv import load_dotenv
+# from passlib.context import CryptContext
+from pydantic import BaseModel
+from database import connection
 import os
-load_dotenv()
 
-connection = psycopg2.connect(os.getenv("DATABASE_URL"))
+# pwd_context = CryptContext(schemes=["bcrypt"], decrepated="auto")
+
 app = FastAPI()
 tmdb_url = "https://api.themoviedb.org/3"
 tmdb_api = os.getenv("TMDB_API_KEY")
@@ -19,8 +20,8 @@ def search_movie(title: str):
     movie = results[0]
     cursor = connection.cursor()
     cursor.execute("SELECT id FROM media WHERE external_id = %s", (str(movie["id"]),))
-    duplicates = cursor.fetchone()
-    if duplicates:
+    exists = cursor.fetchone()
+    if exists:
         return {"message: duplicate found"}
     else:
         cursor.execute("INSERT INTO media (external_id, media_type, title, description, cover_url, release_year) VALUES (%s, %s, %s, %s, %s, %s)",
