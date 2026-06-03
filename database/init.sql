@@ -17,3 +17,11 @@ CREATE TABLE media (
   genres TEXT,
   created_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE reviews (
+  id SERIAL PRIMARY KEY,
+  external_id_film UNIQUE TEXT NOT NULL,
+  review TEXT,
+  date INT,
+  rate INT
+);

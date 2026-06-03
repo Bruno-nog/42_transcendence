@@ -85,7 +85,7 @@ def login(user: UserLogin):
     if not is_valid:
         return {"error": "Wrong password"}
     token = jwt.encode(
-        {"sub": str(db_user[0]), "exp": datetime.utcnow() + timedelta(minutes=60)},
+        {"sub": str(db_user[0]), "exp": datetime.utcnow() + timedelta(minutes=120)},
         os.getenv("SECRET_KEY"),
         algorithm="HS256"
     )
