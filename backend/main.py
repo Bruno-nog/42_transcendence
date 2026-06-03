@@ -3,10 +3,16 @@ import requests
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from database import get_connection
+from jose import jwt
+from datetime import datetime, timedelta
 import os
 
 class UserRegister(BaseModel):
     username: str
+    email: str
+    password: str
+
+class UserLogin(BaseModel):
     email: str
     password: str
 
@@ -63,3 +69,21 @@ def register(user: UserRegister):
     cursor.close()
     conn.close()
     return {"message": "User created succesfully", "Username": user.username}
+
+
+@app.post("/login")
+def login(user: UserLogin):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT email, hashed_password FROM users WHERE email = %s", (user.email,))
+    exists = cursor.fetchone()
+    if not exists:
+        return {"error": "Email not found"}
+    try:
+        pwd_context.verify(user.password, exists[1])
+        return {"message": "login success"}
+    except Exception as e:
+        print(f"An error ocurred: {e}")
+    conn.commit()
+    cursor.close()
+    conn.close()
