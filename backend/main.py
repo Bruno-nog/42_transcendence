@@ -75,15 +75,18 @@ def register(user: UserRegister):
 def login(user: UserLogin):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT email, hashed_password FROM users WHERE email = %s", (user.email,))
-    exists = cursor.fetchone()
-    if not exists:
-        return {"error": "Email not found"}
-    try:
-        pwd_context.verify(user.password, exists[1])
-        return {"message": "login success"}
-    except Exception as e:
-        print(f"An error ocurred: {e}")
-    conn.commit()
+    cursor.execute("SELECT email, hashed_password, id FROM users WHERE email = %s", (user.email,))
+    db_user = cursor.fetchone()
     cursor.close()
     conn.close()
+    if not db_user:
+        return {"error": "Email not found"}
+    is_valid = pwd_context.verify(user.password, db_user[1])
+    if not is_valid:
+        return {"error": "Wrong password"}
+    token = jwt.encode(
+        {"sub": str(db_user[0]), "exp": datetime.utcnow() + timedelta(minutes=60)},
+        os.getenv("SECRET_KEY"),
+        algorithm="HS256"
+    )
+    return {"token": token}
