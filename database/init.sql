@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   username TEXT NOT NULL,
   email TEXT NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE media (
+CREATE TABLE IF NOT EXISTS media (
   id SERIAL PRIMARY KEY,
   external_id TEXT NOT NULL,
   media_type TEXT NOT NULL,
@@ -18,10 +18,16 @@ CREATE TABLE media (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE reviews (
+CREATE TABLE IF NOT EXISTS reviews (
   id SERIAL PRIMARY KEY,
-  external_id_film UNIQUE TEXT NOT NULL,
+  media_id INT REFERENCES media(id),
+  user_id INT REFERENCES users(id),
   review TEXT,
-  date INT,
-  rate INT
+  date_film DATE,
+  rate INT,
+  acting FLOAT,
+  direction FLOAT,
+  photography FLOAT,
+  screenplay FLOAT,
+  soundtrack FLOAT
 );
