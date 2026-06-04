@@ -20,14 +20,17 @@ CREATE TABLE IF NOT EXISTS media (
 
 CREATE TABLE IF NOT EXISTS reviews (
   id SERIAL PRIMARY KEY,
-  media_id INT REFERENCES media(id),
-  user_id INT REFERENCES users(id),
+  media_id INT REFERENCES media(id) NOT NULL,
+  user_id INT REFERENCES users(id) NOT NULL,
   review TEXT,
   date_film DATE,
-  rate INT,
+  watched_before BOOLEAN DEFAULT FALSE,
+  liked BOOLEAN DEFAULT FALSE,
+  rate FLOAT,
   acting FLOAT,
   direction FLOAT,
   photography FLOAT,
   screenplay FLOAT,
-  soundtrack FLOAT
+  soundtrack FLOAT,
+  created_at TIMESTAMP DEFAULT NOW()
 );
