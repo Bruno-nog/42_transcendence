@@ -8,9 +8,9 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS media (
   id SERIAL PRIMARY KEY,
-  external_id TEXT NOT NULL,
+  external_id TEXT UNIQUE NOT NULL,
   media_type TEXT NOT NULL,
-  title TEXT UNIQUE NOT NULL,
+  title TEXT NOT NULL,
   description TEXT,
   cover_url TEXT,
   release_year INT,
