@@ -68,8 +68,7 @@ def register(user: UserRegister):
     conn.commit()
     cursor.close()
     conn.close()
-    return {"message": "User created succesfully", "Username": user.username}
-
+    return {"message": "User created successfully", "Username": user.username}
 
 @app.post("/login")
 def login(user: UserLogin):

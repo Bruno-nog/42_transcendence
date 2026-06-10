@@ -1,27 +1,27 @@
-# import psycopg2
-# from dotenv import load_dotenv
-# import os
-# load_dotenv()
-
-# def get_connection():
-#     return psycopg2.connect(os.getenv("DATABASE_URL"))
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, DeclarativeBase
+import psycopg2
 from dotenv import load_dotenv
 import os
-
 load_dotenv()
+# 
+def get_connection():
+    return psycopg2.connect(os.getenv("DATABASE_URL"))
 
-engine = create_engine(os.getenv("DATABASE_URL"))
-SessionLocal = sessionmaker(bind=engine)
+# from sqlalchemy import create_engine
+# from sqlalchemy.orm import sessionmaker, DeclarativeBase
+# from dotenv import load_dotenv
+# import os
 
-class Base(DeclarativeBase):
-    pass
+# load_dotenv()
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# engine = create_engine(os.getenv("DATABASE_URL"))
+# SessionLocal = sessionmaker(bind=engine)
+
+# class Base(DeclarativeBase):
+#     pass
+
+# def get_db():
+#     db = SessionLocal()
+#     try:
+#         yield db
+#     finally:
+#         db.close()
