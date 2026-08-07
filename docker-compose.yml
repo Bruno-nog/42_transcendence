@@ -28,6 +28,17 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  frontend:
+    build: ./frontend
+    container_name: transcendence_frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
 
 volumes:
   postgres_data:
