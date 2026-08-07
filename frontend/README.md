@@ -6,6 +6,17 @@ First, run the development server:
 
 ```bash
 npm run dev
+- if shows this error:
+# > frontend@0.1.0 dev
+# > next dev --turbopack -H 0.0.0.0
+
+# 'next' não é reconhecido como um comando interno
+# ou externo, um programa operável ou um arquivo em lotes.`
+
+- try this:
+$ rm -rf node_modules
+- then 
+npm run dev
 # or
 yarn dev
 # or
