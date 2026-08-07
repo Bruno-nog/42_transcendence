@@ -17,6 +17,8 @@ TMDB_API_KEY=1f80937de1f4ff93588373b36e7b6dde
 
 ```docker compose down -v```  The PostgreSQL volume is also removed
 
+```http://localhost:3000```  Para visualizar Frontend
+
 
 and then in another terminal:
 
