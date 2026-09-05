@@ -7,6 +7,7 @@ import { Typography } from "@/src/components/ui/Typography";
 import { Badge } from "@/src/components/ui/Badge";
 
 import { AlertCircle, CheckCircle2, Clock } from "lucide-react";
+import { Avatar } from "@/src/components/ui/Avatar";
 
 export default function HomePage() {
   return (
@@ -86,6 +87,32 @@ export default function HomePage() {
           <Badge size="sm">Pequeno</Badge>
           <Badge size="md">Médio</Badge>
           <Badge size="lg">Grande</Badge>
+
+
+          {/* 1. Com imagem funcional */}
+          <Avatar
+            src="https://github.com/shadcn.png"
+            alt="Foto de Perfil"
+            name="Shadcn"
+          />
+
+          {/* 2. Sem imagem (Fallback com Iniciais automáticas a partir do Nome) */}
+          <Avatar name="Leonardo Vinicius" />
+
+          {/* 3. Imagem com erro na URL (Fallback automático para as iniciais) */}
+          <Avatar
+            src="https://imagem-que-nao-existe.com/foto.png"
+            name="Carlos Eduardo"
+          />
+
+          {/* 4. Sem imagem e sem nome (Fallback para o Ícone de Usuário) */}
+          <Avatar />
+
+          {/* 5. Variação de Tamanhos */}
+          <Avatar size="sm" name="Ana Maria" />
+          <Avatar size="md" name="Ana Maria" />
+          <Avatar size="lg" name="Ana Maria" />
+          <Avatar size="xl" name="Ana Maria" />
         </div>
       </section>
     </main>
