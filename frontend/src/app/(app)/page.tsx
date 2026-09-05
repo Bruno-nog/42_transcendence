@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 import { Button } from "@/src/components/ui/button";
 import { Loader } from "../../components/ui/loader";
 import { Input } from "@/src/components/ui/Input";
@@ -9,8 +13,11 @@ import { Badge } from "@/src/components/ui/Badge";
 import { AlertCircle, CheckCircle2, Clock } from "lucide-react";
 import { Avatar } from "@/src/components/ui/Avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/Card";
+import { Modal, ModalContent, ModalDescription, ModalFooter, ModalHeader, ModalTitle } from "@/src/components/ui/Modal";
 
 export default function HomePage() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-6">
       <section className="w-full max-w-xl rounded-2xl border border-border bg-card p-10 shadow-lg">
@@ -133,6 +140,42 @@ export default function HomePage() {
                 <Button>Salvar</Button>
               </CardFooter>
             </Card>
+          </div>
+
+          <div className="p-8">
+            <Button onClick={() => setIsOpen(true)}>Abrir Modal</Button>
+
+            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+              <ModalContent size="md">
+                <ModalHeader>
+                  <ModalTitle>Confirmar Exclusão</ModalTitle>
+                  <ModalDescription>
+                    Esta ação não poderá ser desfeita. Deseja realmente excluir este item?
+                  </ModalDescription>
+                </ModalHeader>
+
+                <div className="py-2">
+                  <p className="text-sm text-gray-700">
+                    O item será permanentemente removido da sua conta.
+                  </p>
+                </div>
+
+                <ModalFooter>
+                  <Button variant="outline" onClick={() => setIsOpen(false)}>
+                    Cancelar
+                  </Button>
+                  <Button
+                    className="bg-red-600 hover:bg-red-700 text-white"
+                    onClick={() => {
+                      alert("Item excluído!");
+                      setIsOpen(false);
+                    }}
+                  >
+                    Excluir
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </div>
         </div>
       </section>
