@@ -4,6 +4,9 @@ import { Input } from "@/src/components/ui/Input";
 import { PasswordInput } from "@/src/components/ui/PasswordInput";
 import { Textarea } from "@/src/components/ui/Textarea";
 import { Typography } from "@/src/components/ui/Typography";
+import { Badge } from "@/src/components/ui/Badge";
+
+import { AlertCircle, CheckCircle2, Clock } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -54,6 +57,35 @@ export default function HomePage() {
           <Typography variant="h1">
             Dashboard Principal
           </Typography>
+
+          {/* Padrão */}
+          <Badge>Padrão</Badge>
+
+          {/* Secundário */}
+          <Badge variant="secondary">Secundário</Badge>
+
+          {/* Outline */}
+          <Badge variant="outline">Contorno</Badge>
+
+          {/* Sucesso com ícone */}
+          <Badge variant="success" icon={<CheckCircle2 className="w-3.5 h-3.5" />}>
+            Ativo
+          </Badge>
+
+          {/* Alerta/Aviso */}
+          <Badge variant="warning" icon={<Clock className="w-3.5 h-3.5" />}>
+            Pendente
+          </Badge>
+
+          {/* Erro */}
+          <Badge variant="error" icon={<AlertCircle className="w-3.5 h-3.5" />}>
+            Inativo
+          </Badge>
+
+          {/* Tamanhos */}
+          <Badge size="sm">Pequeno</Badge>
+          <Badge size="md">Médio</Badge>
+          <Badge size="lg">Grande</Badge>
         </div>
       </section>
     </main>
