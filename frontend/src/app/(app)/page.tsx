@@ -1,6 +1,7 @@
 import { Button } from "@/src/components/ui/button";
 import { Loader } from "../../components/ui/loader";
 import { Input } from "@/src/components/ui/Input";
+import { PasswordInput } from "@/src/components/ui/PasswordInput";
 
 export default function HomePage() {
   return (
@@ -34,10 +35,9 @@ export default function HomePage() {
             helperText="Usaremos este e-mail para confirmação"
           />
 
-          <Input
+          <PasswordInput
             label="Senha"
-            fullWidth="true"
-            placeholder="EX-1234"
+            placeholder="Digite sua senha"
           />
 
           <Button variant="outline">
