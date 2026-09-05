@@ -3,6 +3,7 @@ import { Loader } from "../../components/ui/loader";
 import { Input } from "@/src/components/ui/Input";
 import { PasswordInput } from "@/src/components/ui/PasswordInput";
 import { Textarea } from "@/src/components/ui/Textarea";
+import { Typography } from "@/src/components/ui/Typography";
 
 export default function HomePage() {
   return (
@@ -49,6 +50,10 @@ export default function HomePage() {
             label="Observações"
             placeholder="Escreva suas observações aqui..."
           />
+
+          <Typography variant="h1">
+            Dashboard Principal
+          </Typography>
         </div>
       </section>
     </main>
