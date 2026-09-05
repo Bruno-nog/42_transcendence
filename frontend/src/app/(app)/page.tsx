@@ -2,6 +2,7 @@ import { Button } from "@/src/components/ui/button";
 import { Loader } from "../../components/ui/loader";
 import { Input } from "@/src/components/ui/Input";
 import { PasswordInput } from "@/src/components/ui/PasswordInput";
+import { Textarea } from "@/src/components/ui/Textarea";
 
 export default function HomePage() {
   return (
@@ -43,6 +44,11 @@ export default function HomePage() {
           <Button variant="outline">
             Entrar
           </Button>
+
+          <Textarea
+            label="Observações"
+            placeholder="Escreva suas observações aqui..."
+          />
         </div>
       </section>
     </main>
