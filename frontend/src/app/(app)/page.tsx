@@ -1,5 +1,6 @@
 import { Button } from "@/src/components/ui/button";
 import { Loader } from "../../components/ui/loader";
+import { Input } from "@/src/components/ui/Input";
 
 export default function HomePage() {
   return (
@@ -24,6 +25,20 @@ export default function HomePage() {
               🚀 Frontend inicializado com sucesso.
             </p>
           </div>
+
+          <Input
+            label="E-mail"
+            type="email"
+            fullWidth="true"
+            placeholder="usuario@email.com"
+            helperText="Usaremos este e-mail para confirmação"
+          />
+
+          <Input
+            label="Senha"
+            fullWidth="true"
+            placeholder="EX-1234"
+          />
 
           <Button variant="outline">
             Entrar
