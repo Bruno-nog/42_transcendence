@@ -8,6 +8,7 @@ import { Badge } from "@/src/components/ui/Badge";
 
 import { AlertCircle, CheckCircle2, Clock } from "lucide-react";
 import { Avatar } from "@/src/components/ui/Avatar";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/src/components/ui/Card";
 
 export default function HomePage() {
   return (
@@ -113,6 +114,26 @@ export default function HomePage() {
           <Avatar size="md" name="Ana Maria" />
           <Avatar size="lg" name="Ana Maria" />
           <Avatar size="xl" name="Ana Maria" />
+
+          <div className="p-8 max-w-md">
+            <Card>
+              <CardHeader>
+                <CardTitle>Notificações</CardTitle>
+                <CardDescription>
+                  Escolha como você deseja receber os alertas do sistema.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Conteúdo principal do seu card aqui.
+                </p>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Button variant="outline">Cancelar</Button>
+                <Button>Salvar</Button>
+              </CardFooter>
+            </Card>
+          </div>
         </div>
       </section>
     </main>
