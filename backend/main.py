@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import os
 from database import get_db, engine
 from models import User, Media, Reviews, Base
+from fastapi.middleware.cors import CORSMiddleware
 
 class UserRegister(BaseModel):
     username: str
@@ -20,6 +21,15 @@ class UserLogin(BaseModel):
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 Base.metadata.create_all(bind=engine)
 tmdb_url = "https://api.themoviedb.org/3"
 tmdb_api = os.getenv("TMDB_API_KEY")
