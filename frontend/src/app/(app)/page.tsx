@@ -7,6 +7,7 @@ import { Avatar } from "@/src/components/ui/Avatar";
 import { useAuth } from "@/src/hooks/useAuth";
 import { Loader } from "@/src/components/ui/loader";
 import UserDashboard from "../Dashboard/page";
+import Footer from "@/src/components/Fotter";
 
 export default function HomePage() {
   const featuredMovies = [
@@ -145,9 +146,7 @@ export default function HomePage() {
         </div>
       </main>
 
-      <footer className="border-t border-white/10 py-6 text-center">
-        <span className="text-2xl">🍿</span>
-      </footer>
+      <Footer />
     </div>
   );
 }

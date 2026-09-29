@@ -8,6 +8,7 @@ import { useAuth } from "@/src/hooks/useAuth";
 import { Loader } from "@/src/components/ui/loader";
 import UserDashboard from "../Dashboard/page";
 import Header from "@/src/components/Header";
+import Footer from "@/src/components/Fotter";
 
 export default function HomePage() {
   const featuredMovies = [
@@ -182,9 +183,7 @@ export default function HomePage() {
       </div>
 
       {/* --- RODAPÉ --- */}
-      <footer className="mt-12 py-4 text-center">
-        <span className="text-2xl">🍿</span>
-      </footer>
+      <Footer/>
     </div>
   );
 }
