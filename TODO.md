@@ -44,10 +44,10 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 - [x] Docker Compose com PostgreSQL + Backend
 - [x] Healthcheck no banco antes de subir o backend
 - [x] Hot reload no backend (volume montado)
-- [ ] Configurar Alembic para migrations — `#11`
-- [ ] Criar primeira migration a partir dos models atuais — `#12` _(depende de #11)_
-- [ ] Adicionar frontend (Next.js) ao Docker Compose — `#13`
-- [ ] HTTPS via certificado self-signed ou Let's Encrypt — `#4`
+- [x] Configurar Alembic para migrations — `#11`
+- [x] Criar primeira migration a partir dos models atuais — `#12` _(depende de #11)_
+- [x] Adicionar frontend (Next.js) ao Docker Compose — `#13`
+- [x] HTTPS via certificado self-signed ou Let's Encrypt — `#4`
 
 ---
 
