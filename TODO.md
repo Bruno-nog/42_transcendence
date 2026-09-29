@@ -39,7 +39,7 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 
 ---
 
-## Infrastructure
+## Infrastructure - ANDRE
 
 - [x] Docker Compose com PostgreSQL + Backend
 - [x] Healthcheck no banco antes de subir o backend
@@ -51,7 +51,7 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 
 ---
 
-## Authentication
+## Authentication - BRUNO
 
 - [x] `POST /register` — cadastro com bcrypt
 - [x] `POST /login` — geração de JWT
@@ -61,7 +61,7 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 
 ---
 
-## Users / Profile
+## Users / Profile - ANDRE
 _(módulo: Standard user management — Major 2pts)_
 
 - [ ] `GET /users/{id}` — perfil público — `#17`
@@ -74,7 +74,7 @@ _(módulo: Standard user management — Major 2pts)_
 
 ---
 
-## Media / Movies & Games
+## Media / Movies & Games - BRUNO
 
 - [x] `GET /search?title=X` — busca na TMDB e salva sem duplicatas
 - [ ] `GET /media/{id}` — detalhes de uma mídia — `#24`
@@ -84,7 +84,7 @@ _(módulo: Standard user management — Major 2pts)_
 
 ---
 
-## Reviews / Ratings
+## Reviews / Ratings - BRUNO
 
 - [ ] `POST /reviews` — criar review com notas por categoria (requer login) — `#28` _(depende de #14)_
 - [ ] `GET /reviews/{id}` — ver review — `#29`
@@ -95,7 +95,7 @@ _(módulo: Standard user management — Major 2pts)_
 
 ---
 
-## Social
+## Social - BRUNO
 
 - [ ] `POST /users/{id}/follow` — seguir usuário — `#34` _(depende de #14)_
 - [ ] `DELETE /users/{id}/follow` — deixar de seguir — `#35` _(depende de #34)_
@@ -104,7 +104,7 @@ _(módulo: Standard user management — Major 2pts)_
 
 ---
 
-## Public API
+## Public API - BRUNO
 _(módulo: Web Major — 2pts)_
 
 - [ ] Documentação automática via FastAPI `/docs` — `#38`
@@ -114,7 +114,7 @@ _(módulo: Web Major — 2pts)_
 
 ---
 
-## Notifications
+## Notifications - BRUNO
 _(módulo: Web Minor — 1pt)_
 
 - [ ] Notificação quando alguém segue você — `#42`
@@ -123,7 +123,7 @@ _(módulo: Web Minor — 1pt)_
 
 ---
 
-## Analytics Dashboard
+## Analytics Dashboard - ANDRE
 _(módulo: Data & Analytics Major — 2pts)_
 
 - [ ] Dashboard com gráficos: filmes mais avaliados, média por gênero, etc. — `#45`
@@ -133,7 +133,7 @@ _(módulo: Data & Analytics Major — 2pts)_
 
 ---
 
-## GDPR Compliance
+## GDPR Compliance - BRUNO
 _(módulo: Data & Analytics Minor — 1pt)_
 
 - [ ] `GET /users/me/export` — exportar todos os dados do usuário — `#49`
@@ -142,7 +142,7 @@ _(módulo: Data & Analytics Minor — 1pt)_
 
 ---
 
-## Recomendações
+## Recomendações - ANDRE
 _(módulo: Modules of choice Minor — 1pt)_
 
 - [ ] Recomendar filmes baseado nas categorias com notas altas do usuário — `#52`
@@ -151,7 +151,7 @@ _(módulo: Modules of choice Minor — 1pt)_
 
 ---
 
-## Internacionalização
+## Internacionalização - ANDRE
 _(módulo: Accessibility Minor — 1pt)_
 
 - [ ] Setup de i18n no Next.js (PT, EN, ES) — `#55`
@@ -160,7 +160,7 @@ _(módulo: Accessibility Minor — 1pt)_
 
 ---
 
-## Frontend
+## Frontend - ANDRE
 
 - [ ] Setup Next.js com Tailwind no Docker — `#13`
 - [ ] Página de login e cadastro — `#58`
@@ -176,7 +176,7 @@ _(módulo: Accessibility Minor — 1pt)_
 
 ---
 
-## Deployment / Polish
+## Deployment / Polish - OS DOIS
 
 - [ ] HTTPS no backend — `#4`
 - [ ] README completo com todas as seções do subject — `#10`
