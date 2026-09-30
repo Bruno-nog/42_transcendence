@@ -25,6 +25,7 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
+      - ./certs:/certs:ro
     depends_on:
       db:
         condition: service_healthy
@@ -37,8 +38,9 @@ services:
       - ./frontend:/app
       - /app/node_modules
       - /app/.next
+      - ./certs:/certs:ro
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8000
+      NEXT_PUBLIC_API_URL: https://localhost:8000
 
 volumes:
   postgres_data:
