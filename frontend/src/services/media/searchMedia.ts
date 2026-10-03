@@ -1,4 +1,3 @@
-
 import { api } from '@/src/lib/axios';
 import { Media } from '@/src/types/media';
 

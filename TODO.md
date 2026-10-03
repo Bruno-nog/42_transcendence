@@ -164,7 +164,7 @@ _(módulo: Accessibility Minor — 1pt)_
 
 - [x] Setup Next.js com Tailwind no Docker — `#13`
 - [x] Página de login e cadastro — `#58`
-- [ ] Página home / descoberta de filmes — `#59`
+- [x] Página home / descoberta de filmes — `#59`
 - [ ] Página de detalhes de um filme/jogo — `#60`
 - [ ] Modal de review (notas por categoria) — `#61`
 - [x] Página de perfil do usuário — `#62`

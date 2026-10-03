@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { Avatar } from "@/src/components/ui/Avatar";
+import SideBar from "@/src/components/SideBar";
 import { Typography } from "@/src/components/ui/Typography";
-import Header from "@/src/components/Header";
 
 export default function ProfilePage() {
   const favoriteMovies = [
@@ -22,10 +20,8 @@ export default function ProfilePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#181d24] p-8 text-white">
+    <div className="flex-1 w-full flex flex-col items-center py-10">
       <div className="mx-auto max-w-6xl space-y-8">
-        <Header />
-
         {/* Informações do Perfil */}
         <div className="space-y-6">
           <div className="flex items-center gap-6">
@@ -123,7 +119,7 @@ export default function ProfilePage() {
 
           {/* Painel Lateral Direita (1 coluna) */}
           <div className="h-full min-h-[350px] rounded-xl bg-[#232a36] p-6">
-            {/* Espaço reservado para o conteúdo da lateral direita (Reviews, Atividades, etc) */}
+            <SideBar />
           </div>
         </div>
       </div>

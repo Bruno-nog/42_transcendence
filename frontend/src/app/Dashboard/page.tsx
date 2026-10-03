@@ -1,16 +1,29 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "@/src/components/ui/button";
 import { Typography } from "@/src/components/ui/Typography";
 import { Avatar } from "@/src/components/ui/Avatar";
 import { useAuth } from "@/src/hooks/useAuth";
 import { Loader } from "@/src/components/ui/loader";
-import UserDashboard from "../Dashboard/page";
-import Header from "@/src/components/Header";
 import Footer from "@/src/components/Fotter";
+import { useState } from "react";
+import { useSearchMedia } from "@/src/hooks/useSearchMedia";
+import { MediaCard } from "@/src/components/media/MediaCard";
 
 export default function HomePage() {
+  const [title, setTitle] = useState("");
+
+  const { mutate, data, isPending, error } = useSearchMedia();
+
+  function handleSearch() {
+    const trimmedTitle = title.trim();
+
+    if (!trimmedTitle) {
+      return;
+    }
+
+    mutate(trimmedTitle);
+  }
+
   const featuredMovies = [
     { title: "Avatar", image: "/f1.png" },
     { title: "Zero a Direita", image: "/f2.png" },
@@ -29,49 +42,69 @@ export default function HomePage() {
   }
 
   if (isAuthenticated) {
-    return <UserDashboard />;
-  }
-
-  return (
-    <div className="w-full flex flex-col items-center bg-[#14181f] text-white min-h-screen pb-12">
-      {/* --- HERO / BANNER SECTION --- */}
-      <section className="relative w-full h-[580px] bg-[url('/Banner.png')] bg-cover bg-center flex flex-col items-center justify-between pt-6 pb-10 px-4">
-        {/* Overlay escuro de fundo */}
-        <div className="absolute inset-0 bg-black/50" />
-
-        {/* Header dentro do Banner / Sobreposto */}
-        <div className="relative z-20 w-full max-w-4xl flex justify-center">
-          <Header />
-        </div>
-
-        {/* Conteúdo Central do Banner */}
-        <div className="relative z-10 flex flex-col items-center text-center max-w-lg mb-4">
-          <Typography variant="body1" className="text-sm md:text-base text-gray-200 leading-relaxed">
-            Registre os filmes que você já assistiu.
-            <br />
-            Salve aqueles que você quer ver.
-            <br />
-            Conte aos seus amigos o que você achou bom.
-          </Typography>
-
-          <Button href="/register" className="mt-6 bg-[#2ECC71] hover:bg-[#27ae60] text-black font-semibold px-8 py-2.5 rounded-md transition-colors">
-            Começar
-          </Button>
-
-          <Typography variant="caption" className="mt-4 text-xs text-gray-400">
-            A rede social para amantes do cinema.
-          </Typography>
-        </div>
-      </section>
+    return (
+      <div className="w-full flex flex-col items-center bg-[#14181f] text-white min-h-screen pb-12">
 
       {/* --- CONTEÚDO PRINCIPAL (CONTAINER CENTRALIZADO) --- */}
       <div className="w-full max-w-5xl px-6 py-10 flex flex-col gap-10">
+
+       <section className="mx-auto max-w-container">
+        <div className="flex flex-col gap-y-2">
+          <h1 className="text-3xl font-bold text-white">
+            Descubra filmes
+          </h1>
+
+          <p className="text-muted">
+            Pesquise por um filme para começar.
+          </p>
+        </div>
+
+        <div className="flex max-w-2xl gap-3">
+          <input
+            type="text"
+            placeholder="Digite o nome de um filme"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                handleSearch();
+              }
+            }}
+            className="h-11 flex-1 rounded-md border border-border bg-surface px-4 text-white outline-none placeholder:text-muted focus:border-primary"
+          />
+
+          <button
+            type="button"
+            onClick={handleSearch}
+            disabled={isPending}
+            className="h-11 rounded-md bg-primary px-6 font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+          >
+            {isPending ? "Buscando..." : "Buscar"}
+          </button>
+        </div>
+
+        {error && (
+          <p className="mt-6 text-danger">
+            Não foi possível encontrar o filme.
+          </p>
+        )}
+
+        {data && (
+          <section className="mt-10">
+            <h2 className="mb-4 text-xl font-semibold text-white">
+              Resultado
+            </h2>
+
+            <MediaCard media={data} />
+          </section>
+        )}
+      </section>
 
         {/* Filmes em Destaques */}
         <section className="space-y-3">
           <div className="flex items-center gap-2 border-l-2 border-[#2ECC71] pl-2">
             <Typography variant="h3" className="text-sm font-semibold text-white">
-              Filmes em Destaques
+              Filmes em Destaques 2
             </Typography>
           </div>
 
@@ -185,5 +218,6 @@ export default function HomePage() {
       {/* --- RODAPÉ --- */}
       <Footer/>
     </div>
-  );
+    )
+  }
 }

@@ -39,28 +39,31 @@ export default function Header() {
             </Button>
           </div>
         ) : (
-          <Avatar name="Maria R2D2" size="sm" />
+          <Link href="/profile"><Avatar name="Maria R2D2" size="sm" /></Link>
         )}
       </header>
 
-      <div className="relative z-10 my-auto flex flex-col items-center text-center">
-        <Typography variant="body1" className="max-w-md text-base text-gray-200">
-          Registre os filmes que você já assistiu.
-          <br />
-          Salve aqueles que você quer ver.
-          <br />
-          Conte aos seus amigos o que você achou bom.
-        </Typography>
+      {!isAuthenticated ? (
+        <div className="relative z-10 my-auto flex flex-col items-center text-center">
+          <Typography variant="body1" className="max-w-md text-base text-gray-200">
+            Registre os filmes que você já assistiu.
+            <br />
+            Salve aqueles que você quer ver.
+            <br />
+            Conte aos seus amigos o que você achou bom.
+          </Typography>
 
-        <Button href="/register" className="mt-6 bg-[#2ECC71] px-8 py-2.5 hover:bg-[#27ae60]">
-          Começar
-        </Button>
+          <Button href="/register" className="mt-6 bg-[#2ECC71] px-8 py-2.5 hover:bg-[#27ae60]">
+            Começar
+          </Button>
 
-        <Typography variant="caption" className="mt-4 text-xs text-gray-400">
-          A rede social para amantes do cinema.
-        </Typography>
-      </div>
+          <Typography variant="caption" className="mt-4 text-xs text-gray-400">
+            A rede social para amantes do cinema.
+          </Typography>
+        </div>
+      ) : (
+        <></>
+      )}
     </section>
-
   );
 }
