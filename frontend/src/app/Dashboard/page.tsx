@@ -5,14 +5,35 @@ import { Avatar } from "@/src/components/ui/Avatar";
 import { useAuth } from "@/src/hooks/useAuth";
 import { Loader } from "@/src/components/ui/loader";
 import Footer from "@/src/components/Fotter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchMedia } from "@/src/hooks/useSearchMedia";
 import { MediaCard } from "@/src/components/media/MediaCard";
+import { MovieDetailsModal } from "@/src/components/MovieDetailsModal";
+import { Media } from "@/src/types/media";
 
 export default function HomePage() {
   const [title, setTitle] = useState("");
+  const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
+  const [dbMovies, setDbMovies] = useState<Media[]>([]);
 
   const { mutate, data, isPending, error } = useSearchMedia();
+
+  // Busca os filmes cadastrados no banco de dados
+  useEffect(() => {
+    async function fetchDbMovies() {
+      try {
+        const res = await fetch("https://localhost:8000/movies?limit=8");
+        if (res.ok) {
+          const result = await res.json();
+          setDbMovies(result);
+        }
+      } catch (err) {
+        console.error("Erro ao carregar filmes do banco:", err);
+      }
+    }
+
+    fetchDbMovies();
+  }, []);
 
   function handleSearch() {
     const trimmedTitle = title.trim();
@@ -23,13 +44,6 @@ export default function HomePage() {
 
     mutate(trimmedTitle);
   }
-
-  const featuredMovies = [
-    { title: "Avatar", image: "/f1.png" },
-    { title: "Zero a Direita", image: "/f2.png" },
-    { title: "Pânico VI", image: "/f3.png" },
-    { title: "Vingadores", image: "/f4.png" },
-  ];
 
   const { isAuthenticated, isLoading } = useAuth();
 
@@ -49,17 +63,11 @@ export default function HomePage() {
       <div className="w-full max-w-5xl px-6 py-10 flex flex-col gap-10">
 
        <section className="mx-auto max-w-container">
-        <div className="flex flex-col gap-y-2">
-          <h1 className="text-3xl font-bold text-white">
-            Descubra filmes
-          </h1>
+        <h1 className="text-3xl font-bold text-white">
+          Descubra filmes
+        </h1>
 
-          <p className="text-muted">
-            Pesquise por um filme para começar.
-          </p>
-        </div>
-
-        <div className="flex max-w-2xl gap-3">
+        <div className="mt-6 flex max-w-2xl gap-3">
           <input
             type="text"
             placeholder="Digite o nome de um filme"
@@ -77,7 +85,7 @@ export default function HomePage() {
             type="button"
             onClick={handleSearch}
             disabled={isPending}
-            className="h-11 rounded-md bg-primary px-6 font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="h-11 rounded-md bg-primary px-6 font-semibold text-primary-foreground"
           >
             {isPending ? "Buscando..." : "Buscar"}
           </button>
@@ -95,30 +103,41 @@ export default function HomePage() {
               Resultado
             </h2>
 
-            <MediaCard media={data} />
+            <MediaCard
+              media={data}
+              onClick={() => setSelectedMovieId(String(data.external_id))}
+            />
           </section>
         )}
       </section>
+
+      <MovieDetailsModal
+        movieId={selectedMovieId}
+        onClose={() => setSelectedMovieId(null)}
+      />
 
         {/* Filmes em Destaques */}
         <section className="space-y-3">
           <div className="flex items-center gap-2 border-l-2 border-[#2ECC71] pl-2">
             <Typography variant="h3" className="text-sm font-semibold text-white">
-              Filmes em Destaques 2
+              Filmes em Destaques
             </Typography>
           </div>
 
           <div className="w-full rounded-2xl bg-[#1e2530] p-5">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {featuredMovies.map((movie, index) => (
-                <div
-                  key={index}
-                  className="group relative aspect-[2/3] overflow-hidden rounded-lg bg-gray-800 transition-transform hover:scale-105 shadow-md"
-                >
-                  <img src={movie.image} alt={movie.title} className="h-full w-full object-cover" />
-                </div>
-              ))}
-            </div>
+            {dbMovies.length === 0 ? (
+              <p className="text-sm text-gray-400">Nenhum filme cadastrado ainda.</p>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {dbMovies.slice(0, 4).map((movie) => (
+                  <MediaCard
+                    key={movie.id}
+                    media={movie}
+                    onClick={() => setSelectedMovieId(String(movie.external_id))}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
@@ -131,19 +150,21 @@ export default function HomePage() {
           </div>
 
           <div className="w-full rounded-2xl bg-[#1e2530] p-5">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {featuredMovies
-                .slice()
-                .reverse()
-                .map((movie, index) => (
-                  <div
-                    key={index}
-                    className="group relative aspect-[2/3] overflow-hidden rounded-lg bg-gray-800 transition-transform hover:scale-105 shadow-md"
-                  >
-                    <img src={movie.image} alt={movie.title} className="h-full w-full object-cover" />
-                  </div>
-                ))}
-            </div>
+            {dbMovies.length === 0 ? (
+              <p className="text-sm text-gray-400">Nenhum filme cadastrado ainda.</p>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {dbMovies
+                  .slice(4, 8)
+                  .map((movie) => (
+                    <MediaCard
+                      key={movie.id}
+                      media={movie}
+                      onClick={() => setSelectedMovieId(String(movie.external_id))}
+                    />
+                  ))}
+              </div>
+            )}
           </div>
         </section>
 

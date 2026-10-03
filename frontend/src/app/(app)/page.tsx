@@ -1,21 +1,36 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "@/src/components/ui/button";
 import { Typography } from "@/src/components/ui/Typography";
 import { Avatar } from "@/src/components/ui/Avatar";
 import { useAuth } from "@/src/hooks/useAuth";
 import { Loader } from "@/src/components/ui/loader";
 import UserDashboard from "../Dashboard/page";
 import Footer from "@/src/components/Fotter";
+import { Media } from "@/src/types/media";
+import { useEffect, useState } from "react";
+import { MovieDetailsModal } from "@/src/components/MovieDetailsModal";
+import { MediaCard } from "@/src/components/media/MediaCard";
 
 export default function HomePage() {
-  const featuredMovies = [
-    { title: "Avatar", image: "/f1.png" },
-    { title: "Zero a Direita", image: "/f2.png" },
-    { title: "Pânico VI", image: "/f3.png" },
-    { title: "Vingadores", image: "/f4.png" },
-  ];
+  const [dbMovies, setDbMovies] = useState<Media[]>([]);
+  const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
+
+  // Busca os filmes cadastrados no banco de dados
+  useEffect(() => {
+    async function fetchDbMovies() {
+      try {
+        const res = await fetch("https://localhost:8000/movies?limit=100");
+        if (res.ok) {
+          const result = await res.json();
+          setDbMovies(result);
+        }
+      } catch (err) {
+        console.error("Erro ao carregar filmes do banco:", err);
+      }
+    }
+
+    fetchDbMovies();
+  }, []);
 
   const { isAuthenticated, isLoading } = useAuth();
 
@@ -46,17 +61,20 @@ export default function HomePage() {
             </Typography>
           </div>
 
-          <div className="w-full rounded-xl bg-[#232a36] p-6">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {featuredMovies.map((movie, index) => (
-                <div
-                  key={index}
-                  className="group relative aspect-[2/3] overflow-hidden rounded-lg bg-gray-800 transition-transform hover:scale-105"
-                >
-                  <img src={movie.image} alt={movie.title} className="h-full w-full object-cover" />
-                </div>
-              ))}
-            </div>
+          <div className="w-full rounded-2xl bg-[#1e2530] p-5">
+            {dbMovies.length === 0 ? (
+              <p className="text-sm text-gray-400">Nenhum filme cadastrado ainda.</p>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {dbMovies.slice(0, 4).map((movie) => (
+                  <MediaCard
+                    key={movie.id}
+                    media={movie}
+                    onClick={() => setSelectedMovieId(String(movie.external_id))}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
@@ -67,20 +85,22 @@ export default function HomePage() {
             </Typography>
           </div>
 
-          <div className="rounded-xl bg-[#232a36] p-6">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {featuredMovies
-                .slice()
-                .reverse()
-                .map((movie, index) => (
-                  <div
-                    key={index}
-                    className="group relative aspect-[2/3] overflow-hidden rounded-lg bg-gray-800 transition-transform hover:scale-105"
-                  >
-                    <img src={movie.image} alt={movie.title} className="h-full w-full object-cover" />
-                  </div>
-                ))}
-            </div>
+          <div className="w-full rounded-2xl bg-[#1e2530] p-5">
+            {dbMovies.length === 0 ? (
+              <p className="text-sm text-gray-400">Nenhum filme cadastrado ainda.</p>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {dbMovies
+                  .slice(4, 8)
+                  .map((movie) => (
+                    <MediaCard
+                      key={movie.id}
+                      media={movie}
+                      onClick={() => setSelectedMovieId(String(movie.external_id))}
+                    />
+                  ))}
+              </div>
+            )}
           </div>
         </section>
 
@@ -144,6 +164,11 @@ export default function HomePage() {
             </div>
           </section>
         </div>
+
+        <MovieDetailsModal
+          movieId={selectedMovieId}
+          onClose={() => setSelectedMovieId(null)}
+        />
       </main>
 
       <Footer />

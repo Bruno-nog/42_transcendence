@@ -1,25 +1,24 @@
 import { Media } from "@/src/types/media";
-import Link from "next/link";
 
 interface MediaCardProps {
   media: Media;
+  onClick: () => void;
 }
 
-export function MediaCard({ media }: MediaCardProps) {
-  const releaseYear = media.release_date
-    ? media.release_date.split("-")[0]
-    : "—";
+export function MediaCard({ media, onClick }: MediaCardProps) {
+  const releaseYear = media.release_year;
 
   return (
-    <Link
-      href={`/films/${media.id}`}
-      className="block w-full max-w-[220px]"
+    <button
+      type="button"
+      onClick={onClick}
+      className="block w-full max-w-[220px] text-left"
     >
-      <article className="w-full max-w-[220px] overflow-hidden rounded-lg bg-card">
+      <article className="overflow-hidden rounded-lg bg-card transition-transform hover:-translate-y-1">
         <div className="aspect-[2/3] w-full overflow-hidden bg-surface">
-          {media.poster_path ? (
+          {media.cover_url ? (
             <img
-              src={`https://image.tmdb.org/t/p/w500${media.poster_path}`}
+              src={`https://image.tmdb.org/t/p/w500${media.cover_url}`}
               alt={`Poster de ${media.title}`}
               className="h-full w-full object-cover"
             />
@@ -39,11 +38,11 @@ export function MediaCard({ media }: MediaCardProps) {
             <span>{releaseYear}</span>
 
             <span>
-              ★ {media.vote_average?.toFixed(1)}
+              ★ {media.vote_average?.toFixed(1) ?? "—"}
             </span>
           </div>
         </div>
       </article>
-    </Link>
+    </button>
   );
 }
