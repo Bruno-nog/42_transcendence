@@ -162,16 +162,16 @@ _(módulo: Accessibility Minor — 1pt)_
 
 ## Frontend - ANDRE
 
-- [ ] Setup Next.js com Tailwind no Docker — `#13`
-- [ ] Página de login e cadastro — `#58`
+- [x] Setup Next.js com Tailwind no Docker — `#13`
+- [x] Página de login e cadastro — `#58`
 - [ ] Página home / descoberta de filmes — `#59`
 - [ ] Página de detalhes de um filme/jogo — `#60`
 - [ ] Modal de review (notas por categoria) — `#61`
-- [ ] Página de perfil do usuário — `#62`
+- [x] Página de perfil do usuário — `#62`
 - [ ] Feed de atividades — `#63`
 - [ ] Dashboard de analytics — `#64`
-- [ ] Página de Privacy Policy — `#6`
-- [ ] Página de Terms of Service — `#7`
+- [x] Página de Privacy Policy — `#6`
+- [x] Página de Terms of Service — `#7`
 - [ ] Integração com JWT (armazenar token, enviar nas requisições) — `#65`
 
 ---
