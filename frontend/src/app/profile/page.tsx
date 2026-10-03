@@ -12,117 +12,58 @@ export default function ProfilePage() {
     { title: "Avatar", image: "/f1.png" },
   ];
 
-  const stats = [
-    { label: "Filmes", value: "366" },
-    { label: "Review", value: "157" },
-    { label: "Curtidas", value: "58" },
-    { label: "Seguidores", value: "102" },
-  ];
-
   return (
-    <div className="flex-1 w-full flex flex-col items-center py-10">
-      <div className="mx-auto max-w-6xl space-y-8">
-        {/* Informações do Perfil */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-6">
-            {/* Foto de Perfil */}
-            <div className="h-28 w-28 overflow-hidden rounded-full border-2 border-emerald-500">
-              <img
-                src="/maria.png"
-                alt="Maria R2D2"
-                className="h-full w-full object-cover"
-              />
-            </div>
+    <div className="flex min-h-screen w-full bg-[#181d27] p-6 gap-6">
+      <SideBar />
 
-            {/* Nome e Estatísticas */}
-            <div className="space-y-3">
-              <Typography variant="h2" className="text-xl font-bold text-white">
-                Maria R2D2
-              </Typography>
-
-              <div className="flex gap-3">
-                {stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-center justify-center rounded-lg border border-gray-700 bg-[#1e2530] px-4 py-1.5 min-w-[70px]"
-                  >
-                    <span className="text-base font-bold text-white">{stat.value}</span>
-                    <span className="text-[10px] text-gray-400">{stat.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <main className="flex-1 space-y-8">
+        <section className="rounded-xl bg-[#232a36] p-6 space-y-5 shadow-lg">
+          <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-3">
+            <Typography variant="h3" className="text-base font-bold text-white">
+              Seus Favoritos
+            </Typography>
           </div>
 
-          {/* Abas / Indicadores */}
-          <div className="flex gap-3 pt-2">
-            <div className="h-3 w-16 rounded-full bg-emerald-500" />
-            <div className="h-3 w-16 rounded-full bg-[#232a36]" />
-            <div className="h-3 w-16 rounded-full bg-[#232a36]" />
-            <div className="h-3 w-16 rounded-full bg-[#232a36]" />
-            <div className="h-3 w-16 rounded-full bg-[#232a36]" />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            {favoriteMovies.map((movie, index) => (
+              <div
+                key={index}
+                className="group relative aspect-[2/3] overflow-hidden rounded-lg bg-gray-800 transition-transform hover:scale-105 shadow-md cursor-pointer"
+              >
+                <img
+                  src={movie.image}
+                  alt={movie.title}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ))}
           </div>
-        </div>
+        </section>
 
-        {/* Grid Principal do Perfil */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          {/* Seções da Esquerda (2 colunas) */}
-          <div className="space-y-6 lg:col-span-2">
-            {/* Seção 1: Seus Favoritos */}
-            <section className="rounded-xl bg-[#232a36] p-5 space-y-4">
-              <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
-                <Typography variant="h3" className="text-sm font-bold text-white">
-                  Seus Favoritos
-                </Typography>
-              </div>
-
-              <div className="grid grid-cols-5 gap-3">
-                {favoriteMovies.map((movie, index) => (
-                  <div
-                    key={index}
-                    className="group relative aspect-[2/3] overflow-hidden rounded-lg bg-gray-800 transition-transform hover:scale-105"
-                  >
-                    <img
-                      src={movie.image}
-                      alt={movie.title}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Seção 2: Seus Favoritos */}
-            <section className="rounded-xl bg-[#232a36] p-5 space-y-4">
-              <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
-                <Typography variant="h3" className="text-sm font-bold text-white">
-                  Seus Favoritos
-                </Typography>
-              </div>
-
-              <div className="grid grid-cols-5 gap-3">
-                {favoriteMovies.map((movie, index) => (
-                  <div
-                    key={index}
-                    className="group relative aspect-[2/3] overflow-hidden rounded-lg bg-gray-800 transition-transform hover:scale-105"
-                  >
-                    <img
-                      src={movie.image}
-                      alt={movie.title}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-            </section>
+        <section className="rounded-xl bg-[#232a36] p-6 space-y-5 shadow-lg">
+          <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-3">
+            <Typography variant="h3" className="text-base font-bold text-white">
+              Vistos Recentemente
+            </Typography>
           </div>
 
-          {/* Painel Lateral Direita (1 coluna) */}
-          <div className="h-full min-h-[350px] rounded-xl bg-[#232a36] p-6">
-            <SideBar />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            {favoriteMovies.map((movie, index) => (
+              <div
+                key={index}
+                className="group relative aspect-[2/3] overflow-hidden rounded-lg bg-gray-800 transition-transform hover:scale-105 shadow-md cursor-pointer"
+              >
+                <img
+                  src={movie.image}
+                  alt={movie.title}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ))}
           </div>
-        </div>
-      </div>
+        </section>
+
+      </main>
     </div>
   );
 }

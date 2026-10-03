@@ -39,7 +39,12 @@ export default function Header() {
             </Button>
           </div>
         ) : (
-          <Link href="/profile"><Avatar name="Maria R2D2" size="sm" /></Link>
+          <>
+            <Link href="/profile" className="text-sm font-medium text-gray-300 hover:text-white">
+              Perfil
+            </Link>
+            <Link href="/profile"><Avatar name="Maria R2D2" size="sm" /></Link>
+          </>
         )}
       </header>
 
