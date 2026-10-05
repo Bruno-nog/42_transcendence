@@ -9,6 +9,8 @@ import os
 from database import get_db, engine
 from models import User, Media, Reviews, Base
 from fastapi.middleware.cors import CORSMiddleware
+from auth import get_current_user
+
 
 class UserRegister(BaseModel):
     username: str
@@ -34,6 +36,10 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 tmdb_url = "https://api.themoviedb.org/3"
 tmdb_api = os.getenv("TMDB_API_KEY")
+
+@app.get("/me")
+def get_me(current_user: User = Depends(get_current_user)):
+    return {"username": current_user.username, "email": current_user.email}
 
 @app.post("/register")
 def register(user: UserRegister):
