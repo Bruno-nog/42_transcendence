@@ -30,4 +30,4 @@ def get_current_user(
             detail="Usuário não encontrado"
         )
 
-    return userç~;
+    return user

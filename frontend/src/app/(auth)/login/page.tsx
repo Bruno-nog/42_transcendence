@@ -12,17 +12,7 @@ import { Input } from "@/src/components/ui/Input";
 import { Typography } from "@/src/components/ui/Typography";
 import { PasswordInput } from "@/src/components/ui/PasswordInput";
 import { useLogin } from "@/src/hooks/useLogin";
-
-const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, "O e-mail é obrigatório")
-    .email("Insira um e-mail válido"),
-  password: z
-    .string()
-    .min(1, "A senha é obrigatória")
-    .min(6, "A senha deve ter no mínimo 6 caracteres"),
-});
+import { loginSchema } from "@/src/schemas/auth/login.schema";
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
