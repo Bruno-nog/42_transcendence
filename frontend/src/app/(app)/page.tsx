@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 
 import { Typography } from "@/src/components/ui/Typography";
 import { Avatar } from "@/src/components/ui/Avatar";
@@ -7,9 +8,9 @@ import { Loader } from "@/src/components/ui/loader";
 import UserDashboard from "../Dashboard/page";
 import Footer from "@/src/components/Fotter";
 import { Media } from "@/src/types/media";
-import { useEffect, useState } from "react";
 import { MovieDetailsModal } from "@/src/components/MovieDetailsModal";
 import { MediaCard } from "@/src/components/media/MediaCard";
+import SearchMovie from "@/src/components/SearchMovie";
 
 export default function HomePage() {
   const [dbMovies, setDbMovies] = useState<Media[]>([]);
@@ -34,7 +35,6 @@ export default function HomePage() {
 
   const { isAuthenticated, isLoading } = useAuth();
 
-  // 1. Enquanto carrega a verificação do localStorage
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-[#181d24]">
@@ -43,16 +43,15 @@ export default function HomePage() {
     );
   }
 
-  // 2. Se o usuário estiver logado, mostra APENAS o Dashboard (sem banner)
   if (isAuthenticated) {
     return <UserDashboard />;
   }
 
-  // 3. Se NÃO estiver logado, mostra a Landing Page completa (Banner, Conteúdo e Rodapé)
   return (
     <div className="min-h-screen bg-[#181d24] text-white">
 
-      {/* Conteúdo da Landing Page */}
+      <SearchMovie />
+
       <main className="flex w-full flex-col items-center justify-center gap-10 px-6 py-10">
         <section className="space-y-4">
           <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
