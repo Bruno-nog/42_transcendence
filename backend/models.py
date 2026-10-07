@@ -8,6 +8,7 @@ class User(Base):
     username = Column(String, nullable=False)
     email = Column(String, nullable=False, unique=True)
     hashed_password = Column(String, nullable=False)
+    bio = Column(String, nullable=True)
     created_at = Column(DateTime, default=func.now())
 
 class Media(Base):

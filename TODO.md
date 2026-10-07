@@ -64,8 +64,8 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 ## Users / Profile - ANDRE
 _(módulo: Standard user management — Major 2pts)_
 
-- [ ] `GET /users/{id}` — perfil público — `#17`
-- [ ] `PATCH /users/me` — editar perfil (bio) — `#18` _(depende de #14)_
+- [x] `GET /users/{id}` — perfil público — `#17`
+- [x] `PATCH /users/me` — editar perfil (bio) — `#18` _(depende de #14)_
 - [ ] Upload de avatar com default caso não tenha — `#19` _(depende de #18)_
 - [ ] Sistema de amigos (adicionar, remover, ver lista) — `#20` _(depende de #14)_
 - [ ] Online status dos usuários — `#21` _(depende de #20)_
@@ -84,7 +84,7 @@ _(módulo: Standard user management — Major 2pts)_
 
 ---
 
-## Reviews / Ratings - BRUNO
+## Reviews / Ratings - LUIZ
 
 - [ ] `POST /reviews` — criar review com notas por categoria (requer login) — `#28` _(depende de #14)_
 - [ ] `GET /reviews/{id}` — ver review — `#29`
@@ -95,7 +95,7 @@ _(módulo: Standard user management — Major 2pts)_
 
 ---
 
-## Social - BRUNO
+## Social - LUIZ
 
 - [ ] `POST /users/{id}/follow` — seguir usuário — `#34` _(depende de #14)_
 - [ ] `DELETE /users/{id}/follow` — deixar de seguir — `#35` _(depende de #34)_
@@ -114,7 +114,7 @@ _(módulo: Web Major — 2pts)_
 
 ---
 
-## Notifications - BRUNO
+## Notifications - LUIZ
 _(módulo: Web Minor — 1pt)_
 
 - [ ] Notificação quando alguém segue você — `#42`
