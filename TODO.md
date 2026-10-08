@@ -53,6 +53,7 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 
 ## Authentication - BRUNO
 
+
 - [x] `POST /register` — cadastro com bcrypt
 - [x] `POST /login` — geração de JWT
 - [x] Middleware de autenticação JWT (dependency do FastAPI) — `#14`
