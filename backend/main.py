@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, UploadFile, File
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 import requests
 from passlib.context import CryptContext
@@ -10,7 +11,8 @@ from database import get_db, engine
 from models import User, Media, Reviews, Base
 from fastapi.middleware.cors import CORSMiddleware
 from auth import get_current_user
-
+from pathlib import Path
+import uuid
 
 class UserRegister(BaseModel):
     username: str
@@ -40,6 +42,24 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 tmdb_url = "https://api.themoviedb.org/3"
 tmdb_api = os.getenv("TMDB_API_KEY")
+
+BASE_DIR = Path(__file__).resolve().parent
+UPLOADS_DIR = BASE_DIR / "uploads"
+AVATAR_DIR = UPLOADS_DIR / "avatars"
+
+ALLOWED_TYPES = {
+    "image/jpeg": ".jpg",
+    "image/png": ".png",
+    "image/webp": ".webp",
+}
+
+AVATAR_DIR.mkdir(parents=True, exist_ok=True)
+
+app.mount(
+    "/uploads",
+    StaticFiles(directory=UPLOADS_DIR),
+    name="uploads"
+)
 
 @app.get("/users/me")
 def get_my_profile(
@@ -94,6 +114,36 @@ def get_user_profile(
         "username": user.username,
         "bio": user.bio,
         "created_at": user.created_at
+    }
+
+@app.post("/users/me/avatar")
+async def upload_avatar(
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if file.content_type not in ALLOWED_TYPES:
+        raise HTTPException(
+            status_code=400,
+            detail="Formato de imagem não permitido"
+        )
+
+    extension = ALLOWED_TYPES[file.content_type]
+    filename = f"{uuid.uuid4()}{extension}"
+    file_path = AVATAR_DIR / filename
+
+    content = await file.read()
+
+    with open(file_path, "wb") as buffer:
+        buffer.write(content)
+
+    current_user.avatar_url = f"/uploads/avatars/{filename}"
+
+    db.commit()
+    db.refresh(current_user)
+
+    return {
+        "avatar_url": current_user.avatar_url
     }
 
 @app.post("/register")

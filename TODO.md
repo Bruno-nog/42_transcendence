@@ -66,7 +66,7 @@ _(módulo: Standard user management — Major 2pts)_
 
 - [x] `GET /users/{id}` — perfil público — `#17`
 - [x] `PATCH /users/me` — editar perfil (bio) — `#18` _(depende de #14)_
-- [ ] Upload de avatar com default caso não tenha — `#19` _(depende de #18)_
+- [x] Upload de avatar com default caso não tenha — `#19` _(depende de #18)_
 - [ ] Sistema de amigos (adicionar, remover, ver lista) — `#20` _(depende de #14)_
 - [ ] Online status dos usuários — `#21` _(depende de #20)_
 - [ ] `GET /users/{id}/reviews` — reviews de um usuário — `#22`
