@@ -70,6 +70,7 @@ def get_my_profile(
         "username": current_user.username,
         "email": current_user.email,
         "bio": current_user.bio,
+        "avatar_url": current_user.avatar_url,
         "created_at": current_user.created_at
     }
 
@@ -93,6 +94,7 @@ def update_my_profile(
         "username": current_user.username,
         "email": current_user.email,
         "bio": current_user.bio,
+        "avatar_url": current_user.avatar_url,
         "created_at": current_user.created_at
     }
 
