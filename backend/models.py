@@ -1,6 +1,7 @@
 from sqlalchemy.sql import func
 from database import Base
-from sqlalchemy import Column, Integer, String, DateTime, Date, Boolean, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Date, Boolean, Float, ForeignKey, UniqueConstraint, CheckConstraint
+
 class User(Base):
     __tablename__ = "users"
 
@@ -25,7 +26,6 @@ class Media(Base):
     genres = Column(String, nullable=True)
     created_at = Column(DateTime, default=func.now())
 
-
 class Reviews(Base):
     __tablename__ = "reviews"
     
@@ -43,3 +43,44 @@ class Reviews(Base):
     screenplay = Column(Float)
     soundtrack = Column(Float)
     created_at = Column(DateTime, default=func.now())
+
+class Favorite(Base):
+    __tablename__ = "favorites"
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    media_id = Column(
+        Integer,
+        ForeignKey("media.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    created_at = Column(DateTime, default=func.now())
+
+    __table_args__ = (
+        UniqueConstraint("user_id", "media_id", name="uq_favorite_user_media"),
+    )
+
+class Friendship(Base):
+    __tablename__ = "friendships"
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    friend_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    created_at = Column(DateTime, default=func.now())
+
+    __table_args__ = (
+        UniqueConstraint("user_id", "friend_id", name="uq_friendship_pair"),
+        CheckConstraint("user_id < friend_id", name="ck_friendship_distinct_users"),
+    )

@@ -18,13 +18,6 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const DEFAULT_AVATAR = "/maria.png";
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
-const stats = [
-  { label: "Filmes", value: "366" },
-  { label: "Review", value: "157" },
-  { label: "Curtidas", value: "58" },
-  { label: "Seguidores", value: "102" },
-];
-
 function getAvatarSrc(avatarUrl: string | null | undefined) {
   if (!avatarUrl) return DEFAULT_AVATAR;
   if (avatarUrl.startsWith("http://") || avatarUrl.startsWith("https://")) {

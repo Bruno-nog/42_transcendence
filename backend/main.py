@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException, UploadFile, File
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
+from sqlalchemy import or_
 import requests
 from passlib.context import CryptContext
 from pydantic import BaseModel
@@ -8,7 +9,7 @@ from jose import jwt
 from datetime import datetime, timedelta
 import os
 from database import get_db, engine
-from models import User, Media, Reviews, Base
+from models import User, Media, Reviews, Favorite, Friendship, Base
 from fastapi.middleware.cors import CORSMiddleware
 from auth import get_current_user
 from pathlib import Path
@@ -98,6 +99,151 @@ def update_my_profile(
         "created_at": current_user.created_at
     }
 
+@app.get("/users/search")
+def search_users(
+    username: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    users = (
+        db.query(User)
+        .filter(
+            User.username.ilike(f"%{username}%"),
+            User.id != current_user.id,
+        )
+        .limit(20)
+        .all()
+    )
+
+    return [
+        {
+            "id": user.id,
+            "username": user.username,
+            "bio": user.bio,
+            "avatar_url": user.avatar_url,
+        }
+        for user in users
+    ]
+
+
+@app.get("/users/me/friends")
+def get_my_friends(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    friendships = (
+        db.query(Friendship)
+        .filter(
+            or_(
+                Friendship.user_id == current_user.id,
+                Friendship.friend_id == current_user.id,
+            )
+        )
+        .all()
+    )
+
+    friend_ids = [
+        friendship.friend_id
+        if friendship.user_id == current_user.id
+        else friendship.user_id
+        for friendship in friendships
+    ]
+
+    if not friend_ids:
+        return []
+
+    friends = db.query(User).filter(User.id.in_(friend_ids)).all()
+
+    return [
+        {
+            "id": friend.id,
+            "username": friend.username,
+            "bio": friend.bio,
+            "avatar_url": friend.avatar_url,
+        }
+        for friend in friends
+    ]
+
+
+@app.post("/users/me/friends/{user_id}")
+def add_friend(
+    user_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if user_id == current_user.id:
+        raise HTTPException(
+            status_code=400,
+            detail="Você não pode adicionar a si mesmo",
+        )
+
+    friend = db.query(User).filter(User.id == user_id).first()
+
+    if not friend:
+        raise HTTPException(
+            status_code=404,
+            detail="Usuário não encontrado",
+        )
+
+    first_id, second_id = sorted([current_user.id, user_id])
+
+    existing = (
+        db.query(Friendship)
+        .filter(
+            Friendship.user_id == first_id,
+            Friendship.friend_id == second_id,
+        )
+        .first()
+    )
+
+    if existing:
+        return {"message": "Usuário já está na sua lista de amigos"}
+
+    friendship = Friendship(
+        user_id=first_id,
+        friend_id=second_id,
+    )
+
+    db.add(friendship)
+    db.commit()
+
+    return {"message": "Amigo adicionado com sucesso"}
+
+
+@app.delete("/users/me/friends/{user_id}")
+def remove_friend(
+    user_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if user_id == current_user.id:
+        raise HTTPException(
+            status_code=400,
+            detail="Operação inválida",
+        )
+
+    first_id, second_id = sorted([current_user.id, user_id])
+
+    friendship = (
+        db.query(Friendship)
+        .filter(
+            Friendship.user_id == first_id,
+            Friendship.friend_id == second_id,
+        )
+        .first()
+    )
+
+    if not friendship:
+        raise HTTPException(
+            status_code=404,
+            detail="Amizade não encontrada",
+        )
+
+    db.delete(friendship)
+    db.commit()
+
+    return {"message": "Amigo removido com sucesso"}
+
 @app.get("/users/{user_id}")
 def get_user_profile(
     user_id: int,
@@ -147,6 +293,143 @@ async def upload_avatar(
     return {
         "avatar_url": current_user.avatar_url
     }
+
+@app.get("/users/me/favorites")
+def get_my_favorites(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    favorites = (
+        db.query(Media)
+        .join(Favorite, Favorite.media_id == Media.id)
+        .filter(Favorite.user_id == current_user.id)
+        .order_by(Favorite.created_at.desc())
+        .all()
+    )
+
+    return favorites
+
+
+@app.post("/users/me/favorites/{external_id}")
+def add_favorite(
+    external_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    media = (
+        db.query(Media)
+        .filter(Media.external_id == external_id)
+        .first()
+    )
+
+    if not media:
+        response = requests.get(
+            f"{tmdb_url}/movie/{external_id}",
+            params={"api_key": tmdb_api, "language": "pt-BR"},
+            timeout=10,
+        )
+
+        if response.status_code == 404:
+            raise HTTPException(
+                status_code=404,
+                detail="Filme não encontrado no TMDB",
+            )
+
+        if response.status_code != 200:
+            raise HTTPException(
+                status_code=502,
+                detail="Erro ao consultar o TMDB",
+            )
+
+        movie = response.json()
+        release_date = movie.get("release_date", "")
+        release_year = (
+            int(release_date[:4])
+            if len(release_date) >= 4 and release_date[:4].isdigit()
+            else None
+        )
+        poster_path = movie.get("poster_path")
+        cover_url = (
+            f"https://image.tmdb.org/t/p/w500{poster_path}"
+            if poster_path
+            else None
+        )
+
+        media = Media(
+            external_id=str(movie["id"]),
+            media_type="film",
+            title=movie.get("title", "Sem título"),
+            description=movie.get("overview"),
+            cover_url=cover_url,
+            release_year=release_year,
+            genres=", ".join(
+                genre["name"] for genre in movie.get("genres", [])
+            ) or None,
+        )
+
+        db.add(media)
+        db.flush()
+
+    existing = (
+        db.query(Favorite)
+        .filter(
+            Favorite.user_id == current_user.id,
+            Favorite.media_id == media.id,
+        )
+        .first()
+    )
+
+    if existing:
+        return {"message": "Filme já está nos favoritos"}
+
+    favorite = Favorite(
+        user_id=current_user.id,
+        media_id=media.id,
+    )
+
+    db.add(favorite)
+    db.commit()
+
+    return {"message": "Filme adicionado aos favoritos"}
+
+
+@app.delete("/users/me/favorites/{external_id}")
+def remove_favorite(
+    external_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    media = (
+        db.query(Media)
+        .filter(Media.external_id == external_id)
+        .first()
+    )
+
+    if not media:
+        raise HTTPException(
+            status_code=404,
+            detail="Filme não encontrado",
+        )
+
+    favorite = (
+        db.query(Favorite)
+        .filter(
+            Favorite.user_id == current_user.id,
+            Favorite.media_id == media.id,
+        )
+        .first()
+    )
+
+    if not favorite:
+        raise HTTPException(
+            status_code=404,
+            detail="Filme não está nos seus favoritos",
+        )
+
+    db.delete(favorite)
+    db.commit()
+
+    return {"message": "Filme removido dos favoritos"}
 
 @app.post("/register")
 def register(user: UserRegister):
