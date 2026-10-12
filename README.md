@@ -44,3 +44,30 @@ You can see all routes in this link: http://localhost:8000/docs#/
 ```SELECT * FROM media;```
 
 ```DELETE FROM media;```  it will delete all of the films
+
+## Backend structure
+
+The FastAPI backend is organized by responsibility:
+
+```text
+backend/
+├── main.py              # Application factory and router registration
+├── routers/             # HTTP endpoints grouped by feature
+│   ├── auth.py
+│   ├── media.py
+│   ├── reviews.py
+│   └── users.py
+├── schemas.py           # Request payload validation
+├── services/tmdb.py     # TMDB integration
+├── models.py            # SQLAlchemy models
+├── database.py          # Engine and database session
+└── auth.py              # Authentication dependency
+```
+
+Each router keeps HTTP concerns close to its endpoints, while TMDB calls and
+request schemas are kept outside `main.py`. The application still starts with
+the existing command:
+
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
