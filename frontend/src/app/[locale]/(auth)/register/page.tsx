@@ -3,7 +3,6 @@
 import { ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 import { Button } from "@/src/components/ui/button";
@@ -12,7 +11,7 @@ import { registerSchema, RegisterFormData } from "@/src/schemas/auth/register.sc
 import { useRegister } from "@/src/hooks/useRegister";
 import { PasswordInput } from "@/src/components/ui/PasswordInput";
 import { Typography } from "@/src/components/ui/Typography";
-import { Link } from "@/src/i18n/routing";
+import { Link, useRouter } from "@/src/i18n/routing";
 
 export default function RegisterPage() {
   const router = useRouter();
