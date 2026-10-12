@@ -68,8 +68,8 @@ _(módulo: Standard user management — Major 2pts)_
 - [x] `GET /users/{id}` — perfil público — `#17`
 - [x] `PATCH /users/me` — editar perfil (bio) — `#18` _(depende de #14)_
 - [x] Upload de avatar com default caso não tenha — `#19` _(depende de #18)_
-- [ ] Sistema de amigos (adicionar, remover, ver lista) — `#20` _(depende de #14)_
-- [ ] Online status dos usuários — `#21` _(depende de #20)_
+- [x] Sistema de amigos (adicionar, remover, ver lista) — `#20` _(depende de #14)_
+- [x] Online status dos usuários — `#21` _(depende de #20)_
 - [ ] `GET /users/{id}/reviews` — reviews de um usuário — `#22`
 - [ ] `GET /users/{id}/stats` — estatísticas do usuário — `#23`
 
@@ -155,9 +155,9 @@ _(módulo: Modules of choice Minor — 1pt)_
 ## Internacionalização - ANDRE
 _(módulo: Accessibility Minor — 1pt)_
 
-- [ ] Setup de i18n no Next.js (PT, EN, ES) — `#55`
-- [ ] Traduções de todos os textos da UI — `#56`
-- [ ] Seletor de idioma na interface — `#57`
+- [x] Setup de i18n no Next.js (PT, EN, ES) — `#55`
+- [x] Traduções de todos os textos da UI — `#56`
+- [x] Seletor de idioma na interface — `#57`
 
 ---
 

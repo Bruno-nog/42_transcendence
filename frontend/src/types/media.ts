@@ -7,5 +7,5 @@ export interface Media {
   cover_url: string;
   release_year: number;
   genres?: string;
-  vote_average: number;
+  vote_average?: number;
 }
