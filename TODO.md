@@ -53,6 +53,7 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 
 ## Authentication - BRUNO
 
+
 - [x] `POST /register` — cadastro com bcrypt
 - [x] `POST /login` — geração de JWT
 - [x] Middleware de autenticação JWT (dependency do FastAPI) — `#14`
@@ -86,8 +87,8 @@ _(módulo: Standard user management — Major 2pts)_
 
 ## Reviews / Ratings - LUIZ
 
-- [ ] `POST /reviews` — criar review com notas por categoria (requer login) — `#28` _(depende de #14)_
-- [ ] `GET /reviews/{id}` — ver review — `#29`
+- [x] `POST /reviews` — criar review com notas por categoria (requer login) — `#28` _(depende de #14)_
+- [x] `GET /reviews/{id}` — ver review — `#29`
 - [ ] `PATCH /reviews/{id}` — editar própria review — `#30` _(depende de #14)_
 - [ ] `DELETE /reviews/{id}` — deletar própria review — `#31` _(depende de #14)_
 - [ ] Calcular média das notas por categoria automaticamente no backend — `#32` _(depende de #28)_

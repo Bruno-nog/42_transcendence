@@ -41,7 +41,7 @@ services:
       - /app/.next
       - ./certs:/certs:ro
     environment:
-      NEXT_PUBLIC_API_URL: https://localhost:8000
+      NEXT_PUBLIC_API_URL: http://localhost:8000
 
 volumes:
   postgres_data:
