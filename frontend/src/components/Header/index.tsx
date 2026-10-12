@@ -1,12 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "../ui/button";
 import { useAuth } from "@/src/hooks/useAuth";
 import { Avatar } from "../ui/Avatar";
 import { Typography } from "../ui/Typography";
+import { useTranslations } from "next-intl";
+import { LanguageSwitcher } from "../LanguageSwitcher";
+import { Link } from "@/src/i18n/routing";
 
 export default function Header() {
+  const t = useTranslations('Common');
   const { isAuthenticated } = useAuth();
 
   return (
@@ -18,52 +21,54 @@ export default function Header() {
 
         <nav className="flex items-center gap-6">
           <Link href="/" className="text-sm font-medium text-white hover:text-emerald-400">
-            Início
+            {t('HOME')}
           </Link>
           <Link href="/movies" className="text-sm font-medium text-gray-300 hover:text-white">
-            Filmes
+            {t('MOVIES')}
           </Link>
           <Link href="/lists" className="text-sm font-medium text-gray-300 hover:text-white">
-            Listas
+            {t('LISTS')}
           </Link>
         </nav>
 
         {!isAuthenticated ? (
           <div className="flex items-center gap-6">
             <Button className="bg-[#2ECC71] px-5 py-1.5 text-sm hover:bg-[#27ae60]">
-              <Link href="/login">Login</Link>
+              <Link href="/login">{t('LOG_IN')}</Link>
             </Button>
 
             <Button className="bg-[#e69512] px-5 py-1.5 text-sm hover:bg-[#bb7607]">
-              <Link href="/register">Registrar</Link>
+              <Link href="/register">{t('SIGN_UP')}</Link>
             </Button>
           </div>
         ) : (
           <>
             <Link href="/profile" className="text-sm font-medium text-gray-300 hover:text-white">
-              Perfil
+              {t('PROFILE')}
             </Link>
             <Link href="/profile"><Avatar name="Maria R2D2" size="sm" /></Link>
           </>
         )}
+
+        <LanguageSwitcher />
       </header>
 
       {!isAuthenticated ? (
         <div className="relative z-10 my-auto flex flex-col items-center text-center">
           <Typography variant="body1" className="max-w-md text-base text-gray-200">
-            Registre os filmes que você já assistiu.
+            {t('KEEP_A_RECORD_OF_THE_MOVIES_YOU_HAVE_WATCHED')}
             <br />
-            Salve aqueles que você quer ver.
+            {t('SAVE_THE_ONES_YOU_WANT_TO_SEE')}
             <br />
-            Conte aos seus amigos o que você achou bom.
+            {t('TELL_YOUR_FRIENDS_WHAT_YOU_LIKED')}
           </Typography>
 
           <Button href="/register" className="mt-6 bg-[#2ECC71] px-8 py-2.5 hover:bg-[#27ae60]">
-            Começar
+            {t('SIGN_UP')}
           </Button>
 
           <Typography variant="caption" className="mt-4 text-xs text-gray-400">
-            A rede social para amantes do cinema.
+            {t('THE_SOCIAL_NETWORK_FOR_MOVIE_LOVERS')}
           </Typography>
         </div>
       ) : (

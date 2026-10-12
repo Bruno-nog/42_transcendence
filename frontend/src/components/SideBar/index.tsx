@@ -12,6 +12,7 @@ import {
   type UserProfile,
 } from "../../services/auth/user";
 import EditProfileModal from "../ui/EditProfileModal";
+import { useTranslations } from "next-intl";
 
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -27,6 +28,7 @@ function getAvatarSrc(avatarUrl: string | null | undefined) {
 }
 
 export default function SideBar() {
+  const t = useTranslations('Profile');
   const { logout } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -40,7 +42,7 @@ export default function SideBar() {
         const userData = await getCurrentUser();
         setUser(userData);
       } catch {
-        toast.error("Não foi possível carregar seu perfil.");
+        toast.error(t('UNABLE_TO_LOAD_YOUR_PROFILE'));
       } finally {
         setLoadingUser(false);
       }
@@ -57,12 +59,12 @@ export default function SideBar() {
     const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
 
     if (!allowedTypes.includes(file.type)) {
-      toast.error("Selecione uma imagem JPG, PNG ou WebP.");
+      toast.error(t('SELECT_IMAGE'));
       return;
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      toast.error("A imagem deve ter no máximo 5 MB.");
+      toast.error(t('ERROR_UPLOAD_IMAGE'));
       return;
     }
 
@@ -77,9 +79,9 @@ export default function SideBar() {
           : currentUser
       );
 
-      toast.success("Avatar atualizado com sucesso!");
+      toast.success(t('AVATAR_UPDATED'));
     } catch {
-      toast.error("Não foi possível atualizar o avatar.");
+      toast.error(t('COULD_NOT_UPDATE_THE_AVATAR'));
     } finally {
       setUploading(false);
     }
@@ -100,7 +102,7 @@ export default function SideBar() {
           <div className="flex flex-col items-center gap-2">
             <Avatar
               src={getAvatarSrc(user?.avatar_url)}
-              alt={user?.username ?? "Avatar do usuário"}
+              alt={user?.username}
               name={user?.username}
               className="h-24 w-24 object-cover rounded-full"
             />
@@ -115,7 +117,7 @@ export default function SideBar() {
               disabled={!user || uploading}
               className="rounded-lg px-3 py-2 text-sm text-emerald-400 transition hover:bg-emerald-500/10 disabled:opacity-50"
             >
-              Editar perfil
+              {t('EDIT_PROFILE')}
             </button>
           </div>
 
@@ -126,25 +128,19 @@ export default function SideBar() {
               href="/"
               className="rounded-lg bg-emerald-500/10 py-2 text-sm font-medium text-emerald-400 transition hover:bg-emerald-500/20"
             >
-              Home
-            </Link>
-            <Link
-              href="/discover"
-              className="rounded-lg py-2 text-sm text-gray-300 transition hover:bg-gray-800/50 hover:text-white"
-            >
-              Descobrir
+              {t('HOME')}
             </Link>
             <Link
               href="/movies"
               className="rounded-lg py-2 text-sm text-gray-300 transition hover:bg-gray-800/50 hover:text-white"
             >
-              Filmes
+              {t('MOVIES')}
             </Link>
             <Link
               href="/liked"
               className="rounded-lg py-2 text-sm text-gray-300 transition hover:bg-gray-800/50 hover:text-white"
             >
-              Curtidos
+              {t('LIKES')}
             </Link>
           </nav>
         </div>
@@ -156,7 +152,7 @@ export default function SideBar() {
             onClick={logout}
             className="w-full cursor-pointer rounded-2xl bg-red-500 py-1 text-center text-xs text-white transition-colors"
           >
-            Sair
+            {t('LOGOUT')}
           </button>
         </div>
       </aside>

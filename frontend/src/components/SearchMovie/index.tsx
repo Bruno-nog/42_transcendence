@@ -5,8 +5,10 @@ import { useSearchMedia } from "@/src/hooks/useSearchMedia";
 import { MovieDetailsModal } from "../MovieDetailsModal";
 import { MediaCard } from "../media/MediaCard";
 import { Media } from "@/src/types/media";
+import { useTranslations } from "next-intl";
 
 export default function SearchMovie() {
+  const t = useTranslations('Common');
   const [title, setTitle] = useState("");
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
 
@@ -30,7 +32,7 @@ export default function SearchMovie() {
   return (
     <section className="mx-auto max-w-container">
       <h1 className="text-3xl font-bold text-white">
-        Descubra filmes
+        {t('DISCOVER_MOVIES')}
       </h1>
 
       <div className="mt-6 flex max-w-2xl gap-3">
@@ -72,20 +74,20 @@ export default function SearchMovie() {
           disabled={isPending}
           className="h-11 rounded-md bg-primary px-6 font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
         >
-          {isPending ? "Buscando..." : "Buscar"}
+          {isPending ? `${t('SEARCHING')}` : `${t('SEARCH')}`}
         </button>
       </div>
 
       {error && (
         <p className="mt-6 text-danger">
-          Não foi possível encontrar o filme.
+          {t('THE_MOVIE_COULD_NOT_BE_FOUND')}
         </p>
       )}
 
       {data && (
         <section className="mt-10">
           <h2 className="mb-4 text-xl font-semibold text-white">
-            Resultados da busca
+            {t('SEARCH_RESULTS')}
           </h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">

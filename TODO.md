@@ -154,9 +154,9 @@ _(módulo: Modules of choice Minor — 1pt)_
 ## Internacionalização - ANDRE
 _(módulo: Accessibility Minor — 1pt)_
 
-- [ ] Setup de i18n no Next.js (PT, EN, ES) — `#55`
-- [ ] Traduções de todos os textos da UI — `#56`
-- [ ] Seletor de idioma na interface — `#57`
+- [x] Setup de i18n no Next.js (PT, EN, ES) — `#55`
+- [x] Traduções de todos os textos da UI — `#56`
+- [x] Seletor de idioma na interface — `#57`
 
 ---
 

@@ -24,10 +24,9 @@ export function MovieDetailsModal({ movieId, onClose }: MovieDetailsModalProps) 
         setLoading(true);
         setError(null);
 
-        // Busca os detalhes do filme e a lista de favoritos em paralelo
         const [movieRes, favorites] = await Promise.all([
           fetch(`https://localhost:8000/movies/${movieId}`),
-          getFavorites().catch(() => []), // Retorna vazio caso ocorra erro ao buscar favoritos
+          getFavorites().catch(() => []),
         ]);
 
         if (!movieRes.ok) {
@@ -37,7 +36,6 @@ export function MovieDetailsModal({ movieId, onClose }: MovieDetailsModalProps) 
         const movieData = await resJsonOrNull(movieRes);
         setMovie(movieData);
 
-        // Verifica se o filme atual já está na lista de favoritos do usuário usando o external_id
         const alreadyFavorite = favorites.some(
           (fav) => String(fav.external_id) === String(movieId)
         );
@@ -157,7 +155,6 @@ export function MovieDetailsModal({ movieId, onClose }: MovieDetailsModalProps) 
                 </div>
               </div>
 
-              {/* Botão de Favoritar / Desfavoritar */}
               <div className="pt-2 border-t border-zinc-800 flex items-center justify-end">
                 <button
                   onClick={handleToggleFavorite}
