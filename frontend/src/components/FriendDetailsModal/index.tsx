@@ -2,6 +2,7 @@
 
 import { Friend } from "@/src/services/auth/friends";
 import { Typography } from "@/src/components/ui/Typography";
+import { Avatar } from "../ui/Avatar";
 
 interface FriendDetailsModalProps {
   friend: Friend | null;
@@ -37,11 +38,19 @@ export function FriendDetailsModal({
         </button>
 
         <div className="flex flex-col items-center text-center space-y-4 pt-2">
-          <img
-            src={getImageUrl(friend.avatar_url)}
-            alt={friend.username}
-            className="w-24 h-24 rounded-full object-cover border-2 border-emerald-500 shadow-md"
-          />
+          <div className="relative">
+            <Avatar
+              src={getImageUrl(friend.avatar_url)}
+              alt={friend.username}
+              className="w-24 h-24 rounded-full object-cover border-2 border-emerald-500 shadow-md"
+            />
+            <span
+              title={friend.is_online ? "Online" : "Offline"}
+              className={`absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-zinc-900 ${
+                friend.is_online ? "bg-emerald-500" : "bg-gray-500"
+              }`}
+            />
+          </div>
 
           <div className="space-y-1">
             <Typography variant="h3" className="text-xl font-bold text-white">

@@ -11,6 +11,7 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     bio = Column(String, nullable=True)
     avatar_url = Column(String, nullable=True)
+    last_seen_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=func.now())
 
 class Media(Base):

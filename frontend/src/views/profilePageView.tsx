@@ -11,6 +11,7 @@ import { FriendDetailsModal } from "@/src/components/FriendDetailsModal";
 import { useTranslations } from "next-intl";
 import { Link } from "../i18n/routing";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
+import { Avatar } from "../components/ui/Avatar";
 
 export default function ProfilePageView() {
   const t = useTranslations('Profile');
@@ -41,7 +42,18 @@ export default function ProfilePageView() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchProfileData();
+
+    const interval = setInterval(() => {
+      getFriends()
+        .then((friendsData) => setFriends(friendsData || []))
+        .catch((error) => {
+          console.error(t("ERROR_LOADING_PROFILE_DATA"), error);
+        });
+    }, 30_000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleRemoveFriend = async (userId: number) => {
@@ -125,11 +137,19 @@ export default function ProfilePageView() {
                     onClick={() => setSelectedFriend(friend)}
                     className="group relative flex flex-col items-center p-4 rounded-lg bg-gray-800/60 hover:bg-gray-800 transition-all border border-gray-700/50 cursor-pointer"
                   >
-                    <img
-                      src={getImageUrl(friend.avatar_url)}
-                      alt={friend.username}
-                      className="w-16 h-16 rounded-full object-cover mb-3 border-2 border-emerald-500/50"
-                    />
+                    <div className="relative">
+                      <Avatar
+                        src={getImageUrl(friend.avatar_url)}
+                        alt={friend.username}
+                        className="w-24 h-24 rounded-full object-cover border-2 border-emerald-500 shadow-md"
+                      />
+                      <span
+                        title={friend.is_online ? "Online" : "Offline"}
+                        className={`absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-zinc-900 ${
+                          friend.is_online ? "bg-emerald-500" : "bg-gray-500"
+                        }`}
+                      />
+                    </div>
                     <Typography className="text-sm font-medium text-white truncate max-w-full">
                       {friend.username}
                     </Typography>

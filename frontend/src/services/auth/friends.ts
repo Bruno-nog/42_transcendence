@@ -5,6 +5,7 @@ export interface Friend {
   username: string;
   bio: string | null;
   avatar_url: string | null;
+  is_online: boolean;
 }
 
 export async function getFriends(): Promise<Friend[]> {

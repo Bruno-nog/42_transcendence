@@ -5,6 +5,7 @@ import { routing } from "@/src/i18n/routing";
 import { notFound } from "next/navigation";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import { UserPresence } from "@/src/components/UserPresence.tsx";
 
 export const metadata: Metadata = {
   title: "MediaHub",
@@ -31,7 +32,7 @@ export default async function LocaleLayout({
       <body>
         <NextIntlClientProvider messages={messages}>
           <Providers>
-            {/* O esqueleto principal garante as tags obrigatórias */}
+            <UserPresence />
             <div className="min-h-screen w-full flex flex-col bg-[#181d27]">
               {children}
             </div>

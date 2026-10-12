@@ -62,6 +62,16 @@ app.mount(
     name="uploads"
 )
 
+ONLINE_TIMEOUT_SECONDS = 90
+
+def is_user_online(user: User) -> bool:
+    if user.last_seen_at is None:
+        return False
+
+    elapsed = (datetime.utcnow() - user.last_seen_at).total_seconds()
+
+    return elapsed <= ONLINE_TIMEOUT_SECONDS
+
 @app.get("/users/me")
 def get_my_profile(
     current_user: User = Depends(get_current_user)
@@ -160,6 +170,7 @@ def get_my_friends(
             "username": friend.username,
             "bio": friend.bio,
             "avatar_url": friend.avatar_url,
+            "is_online": is_user_online(friend),
         }
         for friend in friends
     ]
@@ -261,6 +272,7 @@ def get_user_profile(
         "id": user.id,
         "username": user.username,
         "bio": user.bio,
+        "is_online": is_user_online(friend),
         "created_at": user.created_at
     }
 
@@ -293,6 +305,17 @@ async def upload_avatar(
     return {
         "avatar_url": current_user.avatar_url
     }
+
+@app.post("/users/me/heartbeat")
+def update_user_activity(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    current_user.last_seen_at = datetime.utcnow()
+
+    db.commit()
+
+    return {"message": "Atividade atualizada"}
 
 @app.get("/users/me/favorites")
 def get_my_favorites(

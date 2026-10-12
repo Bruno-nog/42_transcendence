@@ -5,10 +5,10 @@ export interface FavoriteMedia {
   external_id: string;
   media_type: string;
   title: string;
-  description: string | null;
-  cover_url: string | null;
-  release_year: number | null;
-  genres: string | null;
+  description: string;
+  cover_url: string;
+  release_year: number;
+  genres: string;
   created_at: string;
 }
 
