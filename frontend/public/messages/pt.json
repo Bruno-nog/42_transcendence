@@ -1,0 +1,52 @@
+{
+  "Common": {
+    "FEATURED_MOVIES": "Filmes em Destaques",
+    "ERROR_SERACH_MOVIE": "Nenhum filme cadastrado ainda.",
+    "IVE_JUST_ANALYZED": "Acabei de analisar...",
+    "WRITE_AND_SHARE_REVIEWS_CREATE_YOUR_OWN_LISTS": "Escreva e compartilhe resenhas. Crie suas próprias listas.",
+    "SHARE_YOUR_LIFE_THROUGH_CINEMA": "Compartilhe sua vida através do cinema.",
+    "THIS_WEEK_MOST_POPULAR_REVIEWS": "Avaliações mais populares desta semana",
+    "POPULAR_LISTS": "Listas populares",
+    "HOME": "Início",
+    "MOVIES": "Filmes",
+    "LISTS": "Listas",
+    "LOG_IN": "Login",
+    "SIGN_UP": "Registrar",
+    "LIKES": "Curtidos",
+    "PROFILE": "Perfil",
+    "KEEP_A_RECORD_OF_THE_MOVIES_YOU_HAVE_WATCHED": "Registre os filmes que você já assistiu.",
+    "SAVE_THE_ONES_YOU_WANT_TO_SEE": "Salve aqueles que você quer ver.",
+    "TELL_YOUR_FRIENDS_WHAT_YOU_LIKED": "Conte aos seus amigos o que você achou bom.",
+    "START": "Começar",
+    "THE_SOCIAL_NETWORK_FOR_MOVIE_LOVERS": "A rede social para amantes do cinema.",
+    "DISCOVER_MOVIES": "Descubra filmes",
+    "THE_MOVIE_COULD_NOT_BE_FOUND": "Não foi possível encontrar o filme.",
+    "SEARCH_RESULTS": "Resultados da busca",
+    "SEARCHING": "Buscando...",
+    "SEARCH": "Buscar"
+  },
+  "Profile": {
+    "HOME": "Início",
+    "MOVIES": "Filmes",
+    "LIKES": "Curtidos",
+    "LOGOUT": "Sair",
+    "UNABLE_TO_LOAD_YOUR_PROFILE": "Não foi possível carregar seu perfil.",
+    "SELECT_IMAGE": "Selecione uma imagem JPG, PNG ou Web.",
+    "ERROR_UPLOAD_IMAGE": "A imagem deve ter no máximo 5 MB.",
+    "AVATAR_UPDATED": "Avatar atualizado com sucesso!",
+    "COULD_NOT_UPDATE_THE_AVATAR": "Não foi possível atualizar o avatar.",
+    "EDIT_PROFILE": "Editar perfil",
+    "ERROR_LOADING_PROFILE_DATA": "Erro ao carregar dados do perfil:",
+    "ERROR_REMOVING_FRIEND": "Erro ao remover amigo:",
+    "YOUR_FAVORITES": "Seus Favoritos",
+    "LOADING_FAVORITES": "Carregando favoritos...",
+    "NO_FAVORITES_FOUND": "Nenhum favorito encontrado.",
+    "YOUR_FRIENDS": "Seus Amigos",
+    "LOADING_FRIENDS": "Carregando amigos...",
+    "NO_FRIENDS_ADDED_YET": "Nenhum amigo adicionado ainda."
+  },
+  "Language": {
+    "pt": "Português",
+    "en": "Inglês"
+  }
+}

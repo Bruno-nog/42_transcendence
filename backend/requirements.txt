@@ -9,3 +9,4 @@ python-jose[cryptography]
 sqlalchemy
 alembic
 psycopg[binary]
+python-multipart

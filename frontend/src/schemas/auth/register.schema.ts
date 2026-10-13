@@ -9,7 +9,7 @@ export const registerSchema = z.object({
 
   password: z
     .string()
-    .min(8, "A senha deve conter no mínimo 8 caracteres"),
+    .min(6, "A senha deve conter no mínimo 6 caracteres"),
 });
 
 export type RegisterFormData = z.infer<typeof registerSchema>;

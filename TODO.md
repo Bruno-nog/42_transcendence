@@ -53,6 +53,7 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 
 ## Authentication - BRUNO
 
+
 - [x] `POST /register` — cadastro com bcrypt
 - [x] `POST /login` — geração de JWT
 - [x] Middleware de autenticação JWT (dependency do FastAPI) — `#14`
@@ -64,11 +65,11 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 ## Users / Profile - ANDRE
 _(módulo: Standard user management — Major 2pts)_
 
-- [ ] `GET /users/{id}` — perfil público — `#17`
-- [ ] `PATCH /users/me` — editar perfil (bio) — `#18` _(depende de #14)_
-- [ ] Upload de avatar com default caso não tenha — `#19` _(depende de #18)_
-- [ ] Sistema de amigos (adicionar, remover, ver lista) — `#20` _(depende de #14)_
-- [ ] Online status dos usuários — `#21` _(depende de #20)_
+- [x] `GET /users/{id}` — perfil público — `#17`
+- [x] `PATCH /users/me` — editar perfil (bio) — `#18` _(depende de #14)_
+- [x] Upload de avatar com default caso não tenha — `#19` _(depende de #18)_
+- [x] Sistema de amigos (adicionar, remover, ver lista) — `#20` _(depende de #14)_
+- [x] Online status dos usuários — `#21` _(depende de #20)_
 - [ ] `GET /users/{id}/reviews` — reviews de um usuário — `#22`
 - [ ] `GET /users/{id}/stats` — estatísticas do usuário — `#23`
 
@@ -86,8 +87,8 @@ _(módulo: Standard user management — Major 2pts)_
 
 ## Reviews / Ratings - LUIZ
 
-- [ ] `POST /reviews` — criar review com notas por categoria (requer login) — `#28` _(depende de #14)_
-- [ ] `GET /reviews/{id}` — ver review — `#29`
+- [x] `POST /reviews` — criar review com notas por categoria (requer login) — `#28` _(depende de #14)_
+- [x] `GET /reviews/{id}` — ver review — `#29`
 - [ ] `PATCH /reviews/{id}` — editar própria review — `#30` _(depende de #14)_
 - [ ] `DELETE /reviews/{id}` — deletar própria review — `#31` _(depende de #14)_
 - [ ] Calcular média das notas por categoria automaticamente no backend — `#32` _(depende de #28)_
@@ -154,9 +155,9 @@ _(módulo: Modules of choice Minor — 1pt)_
 ## Internacionalização - ANDRE
 _(módulo: Accessibility Minor — 1pt)_
 
-- [ ] Setup de i18n no Next.js (PT, EN, ES) — `#55`
-- [ ] Traduções de todos os textos da UI — `#56`
-- [ ] Seletor de idioma na interface — `#57`
+- [x] Setup de i18n no Next.js (PT, EN, ES) — `#55`
+- [x] Traduções de todos os textos da UI — `#56`
+- [x] Seletor de idioma na interface — `#57`
 
 ---
 
