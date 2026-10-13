@@ -18,18 +18,15 @@ SECRET_KEY=d00d78f8dafde68448d096ca5c388c1adcfb66c1d4664ab92ead27140dccd924
 
 ```docker compose down -v```  The PostgreSQL volume is also removed
 
-```http://localhost:3000```  Para visualizar Frontend
-
-
 and then in another terminal:
 
 ```docker exec -it transcendence_db psql -U bruno -d transcendence```
 
 You can add an film going through this localhost:
-http://localhost:8000/search?title=Tenet
+https://localhost:8000/search?title=Tenet
 ![](media/images/route_search.png)
 
-You can see all routes in this link: http://localhost:8000/docs#/
+You can see all routes in this link: https://localhost:8000/docs#/
 ![](media/images/fastapi_routes.png)
 ## Commands to test:
 
@@ -69,5 +66,7 @@ request schemas are kept outside `main.py`. The application still starts with
 the existing command:
 
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload \
+  --ssl-keyfile ../certs/localhost.key \
+  --ssl-certfile ../certs/localhost.crt
 ```
