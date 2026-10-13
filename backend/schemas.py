@@ -20,7 +20,7 @@ class UserUpdate(BaseModel):
 
 
 class ReviewCreate(BaseModel):
-    mediaId: str
+    mediaId: int
     review: str
     rate: int
     acting: int
