@@ -57,7 +57,7 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 - [x] `POST /register` — cadastro com bcrypt
 - [x] `POST /login` — geração de JWT
 - [x] Middleware de autenticação JWT (dependency do FastAPI) — `#14`
-- [ ] Proteger rotas que exigem login — `#15` _(depende de #14)_
+- [X] Proteger rotas que exigem login — `#15` _(depende de #14)_
 - [ ] OAuth 2.0 com Google ou GitHub — `#16` _(módulo User Management Minor)_
 
 ---
