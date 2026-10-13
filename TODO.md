@@ -56,7 +56,7 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 - [x] `POST /register` — cadastro com bcrypt
 - [x] `POST /login` — geração de JWT
 - [x] Middleware de autenticação JWT (dependency do FastAPI) — `#14`
-- [ ] Proteger rotas que exigem login — `#15` _(depende de #14)_
+- [X] Proteger rotas que exigem login — `#15` _(depende de #14)_
 - [ ] OAuth 2.0 com Google ou GitHub — `#16` _(módulo User Management Minor)_
 
 ---
@@ -84,7 +84,7 @@ _(módulo: Standard user management — Major 2pts)_
 
 ---
 
-## Reviews / Ratings - BRUNO
+## Reviews / Ratings - LUIZ
 
 - [ ] `POST /reviews` — criar review com notas por categoria (requer login) — `#28` _(depende de #14)_
 - [ ] `GET /reviews/{id}` — ver review — `#29`
@@ -95,7 +95,7 @@ _(módulo: Standard user management — Major 2pts)_
 
 ---
 
-## Social - BRUNO
+## Social - LUIZ
 
 - [ ] `POST /users/{id}/follow` — seguir usuário — `#34` _(depende de #14)_
 - [ ] `DELETE /users/{id}/follow` — deixar de seguir — `#35` _(depende de #34)_
@@ -114,7 +114,7 @@ _(módulo: Web Major — 2pts)_
 
 ---
 
-## Notifications - BRUNO
+## Notifications - LUIZ
 _(módulo: Web Minor — 1pt)_
 
 - [ ] Notificação quando alguém segue você — `#42`
