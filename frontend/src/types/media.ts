@@ -9,3 +9,5 @@ export interface Media {
   genres?: string;
   vote_average?: number;
 }
+
+export interface MediaDetails extends Media {}
