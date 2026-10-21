@@ -12,6 +12,7 @@ import { MovieDetailsModal } from "@/src/components/MovieDetailsModal";
 import { MediaCard } from "@/src/components/media/MediaCard";
 import SearchMovie from "@/src/components/SearchMovie";
 import { useTranslations } from "next-intl";
+import { LatestReviewsSection } from "@/src/components/LatestReviewsSection";
 
 export default function HomePage() {
   const t = useTranslations('Profile');
@@ -81,28 +82,14 @@ export default function HomePage() {
 
         <section className="space-y-4">
           <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
-            <Typography variant="h3" className="text-lg font-bold text-white">
-              {t('IVE_JUST_ANALYZED')}
+            <Typography variant="h3" className="text-sm font-semibold text-white">
+              Últimas avaliações
             </Typography>
           </div>
-
-          <div className="w-full rounded-2xl bg-[#1e2530] p-5">
-            {dbMovies.length === 0 ? (
-              <p className="text-sm text-gray-400">{t('ERROR_SERACH_MOVIE')}</p>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {dbMovies
-                  .slice(4, 8)
-                  .map((movie) => (
-                    <MediaCard
-                      key={movie.id}
-                      media={movie}
-                      onClick={() => setSelectedMovieId(String(movie.external_id))}
-                    />
-                  ))}
-              </div>
-            )}
-          </div>
+          <LatestReviewsSection
+            onSelectMovie={(id) => setSelectedMovieId(id)}
+            limit={4}
+          />
         </section>
 
         <div className="py-6 text-center">
