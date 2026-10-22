@@ -9,6 +9,74 @@ from schemas import ReviewCreate
 
 router = APIRouter(prefix="/reviews", tags=["reviews"])
 
+@router.get("/users/{user_id}")
+def get_user_reviews(
+    user_id: int,
+    db: Session = Depends(get_db),
+):
+    reviews = (
+        db.query(Reviews, Media)
+        .join(Media, Reviews.media_id == Media.id)
+        .filter(Reviews.user_id == user_id)
+        .order_by(Reviews.created_at.desc())
+        .all()
+    )
+
+    return [
+        {
+            "id": review.id,
+            "user_id": review.user_id,
+            "media_id": media.id,
+            "external_id": media.external_id,
+            "media_type": media.media_type,
+            "title": media.title,
+            "cover_url": media.cover_url,
+            "release_year": media.release_year,
+            "review": review.review,
+            "rate": review.rate,
+            "acting": review.acting,
+            "direction": review.direction,
+            "photography": review.photography,
+            "screenplay": review.screenplay,
+            "soundtrack": review.soundtrack,
+            "liked": review.liked,
+            "watched_before": review.watched_before,
+            "date_film": review.date_film,
+            "created_at": review.created_at,
+        }
+        for review, media in reviews
+    ]
+
+@router.get("")
+def get_latest_reviews(limit: int = 4, db: Session = Depends(get_db)):
+    results = (
+        db.query(Reviews, Media, User)
+        .join(Media, Reviews.media_id == Media.id)
+        .join(User, Reviews.user_id == User.id)
+        .order_by(Reviews.created_at.desc())
+        .limit(limit)
+        .all()
+    )
+
+    return [
+        {
+            "id": review.id,
+            "media_id": media.id,
+            "external_id": media.external_id,
+            "title": media.title,
+            "cover_url": media.cover_url,
+            "release_year": media.release_year,
+            "review": review.review,
+            "rate": review.rate,
+            "liked": review.liked,
+            "date_film": review.date_film,
+            "created_at": review.created_at,
+            "user_id": user.id,
+            "username": user.username,
+            "user_avatar": user.avatar_url,
+        }
+        for review, media, user in results
+    ]
 
 @router.get("/{review_id}")
 def get_review(review_id: int, db: Session = Depends(get_db)):

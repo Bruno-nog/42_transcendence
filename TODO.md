@@ -70,7 +70,7 @@ _(módulo: Standard user management — Major 2pts)_
 - [x] Upload de avatar com default caso não tenha — `#19` _(depende de #18)_
 - [x] Sistema de amigos (adicionar, remover, ver lista) — `#20` _(depende de #14)_
 - [x] Online status dos usuários — `#21` _(depende de #20)_
-- [ ] `GET /users/{id}/reviews` — reviews de um usuário — `#22`
+- [x] `GET /users/{id}/reviews` — reviews de um usuário — `#22`
 - [ ] `GET /users/{id}/stats` — estatísticas do usuário — `#23`
 
 ---
@@ -173,7 +173,7 @@ _(módulo: Accessibility Minor — 1pt)_
 - [ ] Dashboard de analytics — `#64`
 - [x] Página de Privacy Policy — `#6`
 - [x] Página de Terms of Service — `#7`
-- [ ] Integração com JWT (armazenar token, enviar nas requisições) — `#65`
+- [x] Integração com JWT (armazenar token, enviar nas requisições) — `#65`
 
 ---
 

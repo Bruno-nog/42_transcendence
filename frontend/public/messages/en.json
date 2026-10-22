@@ -29,6 +29,13 @@
     "MOVIES": "Movies",
     "LIKES": "Likes",
     "LOGOUT": "Log out",
+    "FEATURED_MOVIES": "Featured Movies",
+    "ERROR_SERACH_MOVIE": "No movies registered yet.",
+    "IVE_JUST_ANALYZED": "I've just analyzed...",
+    "WRITE_AND_SHARE_REVIEWS_CREATE_YOUR_OWN_LISTS": "Write and share reviews. Create your own lists.",
+    "SHARE_YOUR_LIFE_THROUGH_CINEMA": "Share your life through cinema.",
+    "THIS_WEEK_MOST_POPULAR_REVIEWS": "Most popular reviews this week",
+    "POPULAR_LISTS": "Popular lists",
     "UNABLE_TO_LOAD_YOUR_PROFILE": "Unable to load your profile.",
     "SELECT_IMAGE": "Select a JPG, PNG, or WebP image.",
     "ERROR_UPLOAD_IMAGE": "The image must be a maximum of 5 MB.",
@@ -42,7 +49,8 @@
     "NO_FAVORITES_FOUND": "No favorites found.",
     "YOUR_FRIENDS": "Your Friends",
     "LOADING_FRIENDS": "Loading friends...",
-    "NO_FRIENDS_ADDED_YET": "No friends added yet."
+    "NO_FRIENDS_ADDED_YET": "No friends added yet.",
+    "LATEST_REVIEWS": "Latest reviews"
   },
   "Language": {
     "pt": "Portuguese",

@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { Button } from "../ui/button";
 import { useAuth } from "@/src/hooks/useAuth";
 import { Avatar } from "../ui/Avatar";
@@ -7,10 +9,47 @@ import { Typography } from "../ui/Typography";
 import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 import { Link } from "@/src/i18n/routing";
+import { getCurrentUser } from "@/src/services/auth/user";
+import toast from "react-hot-toast";
+
+interface UserData {
+  id: number;
+  username: string;
+  avatar_url: string | null;
+}
 
 export default function Header() {
   const t = useTranslations('Common');
   const { isAuthenticated } = useAuth();
+
+  const [user, setUser] = useState<UserData | null>(null);
+  const [loadingUser, setLoadingUser] = useState(true);
+
+  const API_BASE_URL = "https://localhost:8000";
+
+  useEffect(() => {
+    async function loadUser() {
+      if (!isAuthenticated) {
+        setLoadingUser(false);
+        return;
+      }
+      try {
+        const userData = await getCurrentUser();
+        setUser(userData);
+      } catch {
+        toast.error(t('UNABLE_TO_LOAD_YOUR_PROFILE'));
+      } finally {
+        setLoadingUser(false);
+      }
+    }
+    loadUser();
+  }, [isAuthenticated]);
+
+  const getImageUrl = (url: string | null) => {
+    if (!url) return undefined;
+    if (url.startsWith("http")) return url;
+    return `${API_BASE_URL}${url}`;
+  };
 
   return (
     <section className="relative flex h-[520px] w-full flex-col items-center justify-between bg-[url('/Banner.png')] bg-cover bg-center px-6 py-6 before:absolute before:inset-0 before:bg-black/40">
@@ -43,10 +82,14 @@ export default function Header() {
           </div>
         ) : (
           <>
-            <Link href="/profile" className="text-sm font-medium text-gray-300 hover:text-white">
-              {t('PROFILE')}
+            <Link href="/profile" className="flex items-center justify-between gap-2">
+              <Typography variant='body1' className="text-amber-100">{user?.username}</Typography>
+              <Avatar 
+                src={getImageUrl(user?.avatar_url ?? null)} 
+                name={user?.username || "Usuário"} 
+                size="sm" 
+              />
             </Link>
-            <Link href="/profile"><Avatar name="Maria R2D2" size="sm" /></Link>
           </>
         )}
 
