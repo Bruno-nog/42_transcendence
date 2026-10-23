@@ -166,8 +166,8 @@ _(módulo: Accessibility Minor — 1pt)_
 - [x] Setup Next.js com Tailwind no Docker — `#13`
 - [x] Página de login e cadastro — `#58`
 - [x] Página home / descoberta de filmes — `#59`
-- [ ] Página de detalhes de um filme/jogo — `#60`
-- [ ] Modal de review (notas por categoria) — `#61`
+- [x] Página de detalhes de um filme/jogo — `#60`
+- [x] Modal de review (notas por categoria) — `#61`
 - [x] Página de perfil do usuário — `#62`
 - [ ] Feed de atividades — `#63`
 - [ ] Dashboard de analytics — `#64`
@@ -179,7 +179,7 @@ _(módulo: Accessibility Minor — 1pt)_
 
 ## Deployment / Polish - OS DOIS
 
-- [ ] HTTPS no backend — `#4`
+- [x] HTTPS no backend — `#4`
 - [ ] README completo com todas as seções do subject — `#10`
 - [ ] `.env.example` atualizado — `#66`
 - [ ] Testar tudo no Chrome sem erros de console — `#8`

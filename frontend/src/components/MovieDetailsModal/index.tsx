@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "@/src/i18n/routing";
 import { Media } from "@/src/types/media";
 import {
   getFavorites,
@@ -20,6 +21,7 @@ export function MovieDetailsModal({
   movieId,
   onClose,
 }: MovieDetailsModalProps) {
+  const router = useRouter();
   const { isAuthenticated } = useAuth();
 
   const [movie, setMovie] = useState<Media | null>(null);
@@ -54,12 +56,12 @@ export function MovieDetailsModal({
         setMovie(movieData);
 
         const alreadyFavorite = favorites.some(
-          (favorite) => String(favorite.external_id) === String(movieId),
+          (favorite) => String(favorite.external_id) === String(movieId)
         );
         setIsFavorite(alreadyFavorite);
       } catch (err) {
         setError(
-          err instanceof Error ? err.message : "Erro inesperado.",
+          err instanceof Error ? err.message : "Erro inesperado."
         );
       } finally {
         setLoading(false);
@@ -97,6 +99,12 @@ export function MovieDetailsModal({
     } finally {
       setActionLoading(false);
     }
+  };
+
+  const handleGoToMoviePage = () => {
+    if (!movie) return;
+    onClose();
+    router.push(`/movies/${movie.external_id || movie.id}`);
   };
 
   if (!movieId) return null;
@@ -179,30 +187,37 @@ export function MovieDetailsModal({
                   </div>
                 </div>
 
-                {isAuthenticated && (
-                  <div className="flex flex-wrap items-center justify-end gap-2 border-t border-zinc-800 pt-4">
-                    <Button
-                      onClick={() => setReviewModalOpen(true)}
-                      className="rounded-lg border border-zinc-600 px-4 py-2 text-sm font-semibold transition hover:bg-zinc-800"
-                    >
-                      Avaliar filme
-                    </Button>
+                <div className="flex flex-wrap items-center justify-between gap-2 border-t border-zinc-800 pt-4">
+                  <Button
+                    onClick={handleGoToMoviePage}
+                    className="rounded-lg bg-zinc-800 px-4 py-2 text-xs font-semibold text-zinc-300 hover:bg-zinc-700 hover:text-white transition"
+                  >
+                    Ver página completa →
+                  </Button>
 
-                    <Button
-                      onClick={handleToggleFavorite}
-                      disabled={actionLoading}
-                      className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition disabled:opacity-50 ${
-                        isFavorite
-                          ? "border border-red-600/50 bg-red-600/20 text-red-400 hover:bg-red-600/30"
-                          : "bg-emerald-600 text-white hover:bg-emerald-500"
-                      }`}
-                    >
-                      {isFavorite
-                        ? "♥ Remover dos Favoritos"
-                        : "♡ Adicionar aos Favoritos"}
-                    </Button>
-                  </div>
-                )}
+                  {isAuthenticated && (
+                    <div className="flex items-center gap-2">
+                      <Button
+                        onClick={() => setReviewModalOpen(true)}
+                        className="rounded-lg border border-zinc-600 px-4 py-2 text-sm font-semibold transition hover:bg-zinc-800"
+                      >
+                        Avaliar
+                      </Button>
+
+                      <Button
+                        onClick={handleToggleFavorite}
+                        disabled={actionLoading}
+                        className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition disabled:opacity-50 ${
+                          isFavorite
+                            ? "border border-red-600/50 bg-red-600/20 text-red-400 hover:bg-red-600/30"
+                            : "bg-emerald-600 text-white hover:bg-emerald-500"
+                        }`}
+                      >
+                        {isFavorite ? "♥ Favorito" : "♡ Favoritar"}
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           )}

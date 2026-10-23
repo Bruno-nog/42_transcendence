@@ -1,7 +1,6 @@
 "use client";
 
 import { React, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import toast from "react-hot-toast";
 import { Avatar } from "../ui/Avatar";
 import { Typography } from "../ui/Typography";
@@ -13,6 +12,7 @@ import {
 } from "../../services/auth/user";
 import EditProfileModal from "../ui/EditProfileModal";
 import { useTranslations } from "next-intl";
+import { Link } from "@/src/i18n/routing";
 
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -136,13 +136,13 @@ export default function SideBar() {
             >
               {t('MOVIES')}
             </Link>
-            <Link
-              href="/liked"
-              className="rounded-lg py-2 text-sm text-gray-300 transition hover:bg-gray-800/50 hover:text-white"
-            >
-              {t('LIKES')}
-            </Link>
           </nav>
+
+          <hr className="w-full border-gray-700/60" />
+
+          <div className="flex w-full flex-col gap-3 text-center">
+            <p>add numeros de seguidores</p>
+          </div>
         </div>
 
         <div className="flex w-full flex-col gap-4 pt-4">
