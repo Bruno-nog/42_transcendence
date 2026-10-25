@@ -65,3 +65,11 @@ def get_movie(external_id: str) -> dict[str, Any]:
         genre["name"] for genre in movie.get("genres", [])
     ) or None
     return summary
+
+def get_popular_movies(page: int = 1) -> list[dict[str, Any]]:
+    response = _request("movie/popular", page=page)
+    if response.status_code != 200:
+        raise HTTPException(status_code=502, detail="Erro ao consultar filmes populares no TMDB")
+
+    results = response.json().get("results", [])
+    return [movie_summary(movie) for movie in results]

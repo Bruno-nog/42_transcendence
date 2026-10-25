@@ -70,7 +70,7 @@ _(módulo: Standard user management — Major 2pts)_
 - [x] Upload de avatar com default caso não tenha — `#19` _(depende de #18)_
 - [x] Sistema de amigos (adicionar, remover, ver lista) — `#20` _(depende de #14)_
 - [x] Online status dos usuários — `#21` _(depende de #20)_
-- [ ] `GET /users/{id}/reviews` — reviews de um usuário — `#22`
+- [x] `GET /users/{id}/reviews` — reviews de um usuário — `#22`
 - [ ] `GET /users/{id}/stats` — estatísticas do usuário — `#23`
 
 ---
@@ -127,10 +127,10 @@ _(módulo: Web Minor — 1pt)_
 ## Analytics Dashboard - ANDRE
 _(módulo: Data & Analytics Major — 2pts)_
 
-- [ ] Dashboard com gráficos: filmes mais avaliados, média por gênero, etc. — `#45`
-- [ ] Estatísticas do usuário: gênero favorito, média geral, evolução mensal — `#46`
-- [ ] Exportação dos dados em CSV/PDF — `#47`
-- [ ] Filtros por data e categoria — `#48`
+- [x] Dashboard com gráficos: filmes mais avaliados, média por gênero, etc. — `#45`
+- [x] Estatísticas do usuário: gênero favorito, média geral, evolução mensal — `#46`
+- [x] Exportação dos dados em CSV/PDF — `#47`
+- [x] Filtros por data e categoria — `#48`
 
 ---
 
@@ -166,20 +166,20 @@ _(módulo: Accessibility Minor — 1pt)_
 - [x] Setup Next.js com Tailwind no Docker — `#13`
 - [x] Página de login e cadastro — `#58`
 - [x] Página home / descoberta de filmes — `#59`
-- [ ] Página de detalhes de um filme/jogo — `#60`
-- [ ] Modal de review (notas por categoria) — `#61`
+- [x] Página de detalhes de um filme/jogo — `#60`
+- [x] Modal de review (notas por categoria) — `#61`
 - [x] Página de perfil do usuário — `#62`
 - [ ] Feed de atividades — `#63`
-- [ ] Dashboard de analytics — `#64`
+- [x] Dashboard de analytics — `#64`
 - [x] Página de Privacy Policy — `#6`
 - [x] Página de Terms of Service — `#7`
-- [ ] Integração com JWT (armazenar token, enviar nas requisições) — `#65`
+- [x] Integração com JWT (armazenar token, enviar nas requisições) — `#65`
 
 ---
 
 ## Deployment / Polish - OS DOIS
 
-- [ ] HTTPS no backend — `#4`
+- [x] HTTPS no backend — `#4`
 - [ ] README completo com todas as seções do subject — `#10`
 - [ ] `.env.example` atualizado — `#66`
 - [ ] Testar tudo no Chrome sem erros de console — `#8`

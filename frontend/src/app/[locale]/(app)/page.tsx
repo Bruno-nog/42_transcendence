@@ -1,5 +1,7 @@
 "use client";
+
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { Typography } from "@/src/components/ui/Typography";
 import { Avatar } from "@/src/components/ui/Avatar";
@@ -11,18 +13,20 @@ import { Media } from "@/src/types/media";
 import { MovieDetailsModal } from "@/src/components/MovieDetailsModal";
 import { MediaCard } from "@/src/components/media/MediaCard";
 import SearchMovie from "@/src/components/SearchMovie";
-import { useTranslations } from "next-intl";
+import { LatestReviewsSection } from "@/src/components/LatestReviewsSection";
 
 export default function HomePage() {
-  const t = useTranslations('Profile');
+  const t = useTranslations("Profile");
   const [dbMovies, setDbMovies] = useState<Media[]>([]);
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
+
+  const API_BASE_URL = "https://localhost:8000";
 
   // Busca os filmes cadastrados no banco de dados
   useEffect(() => {
     async function fetchDbMovies() {
       try {
-        const res = await fetch("https://localhost:8000/movies?limit=100");
+        const res = await fetch(`${API_BASE_URL}/media?limit=100`);
         if (res.ok) {
           const result = await res.json();
           setDbMovies(result);
@@ -50,127 +54,132 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#181d24] text-white">
+    <div className="min-h-screen bg-[#181d24] text-white flex flex-col justify-between">
+      <div>
+        <SearchMovie />
 
-      <SearchMovie />
+        <main className="w-full max-w-6xl mx-auto flex flex-col items-center gap-10 px-4 sm:px-6 py-10">
+          <section className="w-full space-y-4">
+            <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
+              <Typography variant="h3" className="text-lg font-bold text-white">
+                {t("FEATURED_MOVIES")}
+              </Typography>
+            </div>
 
-      <main className="flex w-full flex-col items-center justify-center gap-10 px-6 py-10">
-        <section className="space-y-4">
-          <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
-            <Typography variant="h3" className="text-lg font-bold text-white">
-              {t('FEATURED_MOVIES')}
-            </Typography>
-          </div>
-
-          <div className="w-full rounded-2xl bg-[#1e2530] p-5">
-            {dbMovies.length === 0 ? (
-              <p className="text-sm text-gray-400">{t('ERROR_SERACH_MOVIE')}</p>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {dbMovies.slice(0, 4).map((movie) => (
-                  <MediaCard
-                    key={movie.id}
-                    media={movie}
-                    onClick={() => setSelectedMovieId(String(movie.external_id))}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-
-        <section className="space-y-4">
-          <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
-            <Typography variant="h3" className="text-lg font-bold text-white">
-              {t('IVE_JUST_ANALYZED')}
-            </Typography>
-          </div>
-
-          <div className="w-full rounded-2xl bg-[#1e2530] p-5">
-            {dbMovies.length === 0 ? (
-              <p className="text-sm text-gray-400">{t('ERROR_SERACH_MOVIE')}</p>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {dbMovies
-                  .slice(4, 8)
-                  .map((movie) => (
+            <div className="w-full rounded-2xl bg-[#1e2530] p-4 sm:p-5">
+              {dbMovies.length === 0 ? (
+                <p className="text-sm text-gray-400">{t("ERROR_SERACH_MOVIE")}</p>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                  {dbMovies.slice(0, 4).map((movie) => (
                     <MediaCard
                       key={movie.id}
                       media={movie}
                       onClick={() => setSelectedMovieId(String(movie.external_id))}
                     />
                   ))}
-              </div>
-            )}
-          </div>
-        </section>
-
-        <div className="py-6 text-center">
-          <Typography variant="body1" className="text-base text-gray-300">
-            {t('WRITE_AND_SHARE_REVIEWS_CREATE_YOUR_OWN_LISTS')}
-            <br />
-            {t('SHARE_YOUR_LIFE_THROUGH_CINEMA')}
-          </Typography>
-        </div>
-
-        <div className="flex justify-baseline gap-80">
-          <section className="flex flex-col justify-between gap-5">
-            <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
-              <Typography variant="h3" className="text-base font-bold text-white">
-                {t('THIS_WEEK_MOST_POPULAR_REVIEWS')}
-              </Typography>
-            </div>
-
-            <div className="flex flex-col gap-5">
-              {[1, 2].map((item) => (
-                <div key={item} className="flex gap-4 rounded-xl bg-[#2b3342] p-4">
-                  <div className="h-20 w-14 flex-shrink-0 overflow-hidden rounded bg-gray-700">
-                    <img src="/f7.png" alt="Poster" className="h-full w-full object-cover" />
-                  </div>
-                  <div className="flex flex-1 flex-col justify-between">
-                    <div>
-                      <Typography variant="h4" className="text-sm font-bold text-white">
-                        A Odisseia
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        className="mt-1 line-clamp-2 text-xs text-gray-400"
-                      >
-                        Agamemnon estava nos portões da frente de Troia, movendo-se como Darth Vader...
-                      </Typography>
-                    </div>
-                    <div className="flex items-center justify-between pt-2">
-                      <Avatar name="Usuário" size="sm" />
-                    </div>
-                  </div>
                 </div>
-              ))}
+              )}
             </div>
           </section>
 
-          <section className="flex flex-col gap-5">
+          <section className="w-full">
             <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
-              <Typography variant="h3" className="text-base font-bold text-white">
-                {t('POPULAR_LISTS')}
+              <Typography variant="h3" className="text-sm font-semibold text-white">
+                {t("LATEST_REVIEWS")}
               </Typography>
             </div>
-
-            <div className="flex flex-col gap-5">
-              <div className="h-28 w-50 overflow-hidden rounded-xl bg-gray-800">
-                <img src="/f5.png" alt="Lista 1" className="h-full w-full object-cover" />
-              </div>
-              <div className="h-28 w-50 overflow-hidden rounded-xl bg-gray-800">
-                <img src="/f6.png" alt="Lista 2" className="h-full w-full object-cover" />
-              </div>
-            </div>
+            <LatestReviewsSection limit={4} />
           </section>
-        </div>
 
-        <MovieDetailsModal
-          movieId={selectedMovieId}
-          onClose={() => setSelectedMovieId(null)}
-        />
-      </main>
+          <div className="py-4 text-center">
+            <Typography variant="body1" className="text-sm sm:text-base text-gray-300 leading-relaxed">
+              {t("WRITE_AND_SHARE_REVIEWS_CREATE_YOUR_OWN_LISTS")}
+              <br className="hidden sm:inline" />{" "}
+              {t("SHARE_YOUR_LIFE_THROUGH_CINEMA")}
+            </Typography>
+          </div>
+
+          {/* Seção Inferior: Grid Responsivo com Avaliações Populares e Listas */}
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            {/* Coluna Esquerda: Avaliações da Semana */}
+            <section className="flex flex-col gap-4 w-full">
+              <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
+                <Typography variant="h3" className="text-base font-bold text-white">
+                  {t("THIS_WEEK_MOST_POPULAR_REVIEWS")}
+                </Typography>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                {[1, 2].map((item) => (
+                  <div
+                    key={item}
+                    className="flex gap-4 rounded-xl bg-[#2b3342] p-4 transition hover:bg-[#323c4e]"
+                  >
+                    <div className="h-20 w-14 flex-shrink-0 overflow-hidden rounded bg-gray-700">
+                      <img
+                        src="/f7.png"
+                        alt="Poster"
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col justify-between min-w-0">
+                      <div>
+                        <Typography
+                          variant="h4"
+                          className="text-sm font-bold text-white truncate"
+                        >
+                          A Odisseia
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          className="mt-1 line-clamp-2 text-xs text-gray-400 leading-snug"
+                        >
+                          Agamemnon estava nos portões da frente de Troia,
+                          movendo-se como Darth Vader...
+                        </Typography>
+                      </div>
+                      <div className="flex items-center justify-between pt-2">
+                        <Avatar name="Usuário" size="sm" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="flex flex-col gap-4 w-full">
+              <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
+                <Typography variant="h3" className="text-base font-bold text-white">
+                  {t("POPULAR_LISTS")}
+                </Typography>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="h-28 w-full overflow-hidden rounded-xl bg-gray-800 transition hover:opacity-90">
+                  <img
+                    src="/f5.png"
+                    alt="Lista 1"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="h-28 w-full overflow-hidden rounded-xl bg-gray-800 transition hover:opacity-90">
+                  <img
+                    src="/f6.png"
+                    alt="Lista 2"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <MovieDetailsModal
+            movieId={selectedMovieId}
+            onClose={() => setSelectedMovieId(null)}
+          />
+        </main>
+      </div>
 
       <Footer />
     </div>

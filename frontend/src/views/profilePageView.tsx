@@ -12,6 +12,11 @@ import { useTranslations } from "next-intl";
 import { Link } from "../i18n/routing";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { Avatar } from "../components/ui/Avatar";
+import { getCurrentUser } from "@/src/services/auth/user";
+import {
+  getUserReviews,
+  UserReview,
+} from "@/src/services/auth/reviews";
 
 export default function ProfilePageView() {
   const t = useTranslations('Profile');
@@ -21,21 +26,28 @@ export default function ProfilePageView() {
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
   const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
+  const [reviews, setReviews] = useState<UserReview[]>([]);
 
   const API_BASE_URL = "https://localhost:8000";
 
   const fetchProfileData = async () => {
     try {
       setLoading(true);
-      const [favoritesData, friendsData] = await Promise.all([
-        getFavorites(),
-        getFriends(),
-      ]);
+
+      const user = await getCurrentUser();
+
+      const [favoritesData, friendsData, reviewsData] =
+        await Promise.all([
+          getFavorites(),
+          getFriends(),
+          getUserReviews(user.id),
+        ]);
 
       setFavorites(favoritesData || []);
       setFriends(friendsData || []);
+      setReviews(reviewsData || []);
     } catch (error) {
-      console.error(t('ERROR_LOADING_PROFILE_DATA'), error);
+      console.error(t("ERROR_LOADING_PROFILE_DATA"), error);
     } finally {
       setLoading(false);
     }
@@ -159,6 +171,73 @@ export default function ProfilePageView() {
                       </Typography>
                     )}
                   </div>
+                ))}
+              </div>
+            )}
+          </section>
+
+          <section className="rounded-xl bg-[#232a36] p-6 space-y-5 shadow-lg">
+            <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-3">
+              <Typography
+                variant="h3"
+                className="text-base font-bold text-white"
+              >
+                Minhas avaliações
+              </Typography>
+            </div>
+
+            {loading ? (
+              <Typography className="text-gray-400">
+                Carregando avaliações...
+              </Typography>
+            ) : reviews.length === 0 ? (
+              <Typography className="text-gray-400">
+                Você ainda não publicou nenhuma avaliação.
+              </Typography>
+            ) : (
+              /* Grid Responsivo: 1 coluna em telas menores e 2 colunas a partir de telas médias (md) */
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {reviews.map((review) => (
+                  <article
+                    key={review.id}
+                    className="flex gap-4 rounded-lg border border-gray-700/50 bg-gray-800/50 p-4"
+                  >
+                    {review.cover_url && (
+                      <img
+                        src={getImageUrl(review.cover_url)}
+                        alt={review.title}
+                        className="h-28 w-20 shrink-0 rounded-md object-cover"
+                      />
+                    )}
+
+                    <div className="min-w-0 flex-1 space-y-2">
+                      <Typography className="font-semibold text-white truncate">
+                        {review.title}
+                        {review.release_year
+                          ? ` (${review.release_year})`
+                          : ""}
+                      </Typography>
+
+                      <Typography className="text-sm text-emerald-400 font-medium">
+                        Nota: {review.rate ?? "Não informada"}/10
+                      </Typography>
+
+                      {review.review && (
+                        <Typography className="text-sm text-gray-300 line-clamp-3">
+                          {review.review}
+                        </Typography>
+                      )}
+
+                      {review.date_film && (
+                        <Typography className="text-xs text-gray-500">
+                          Assistido em:{" "}
+                          {new Date(`${review.date_film}T12:00:00`).toLocaleDateString(
+                            "pt-BR",
+                          )}
+                        </Typography>
+                      )}
+                    </div>
+                  </article>
                 ))}
               </div>
             )}
