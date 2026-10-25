@@ -25,16 +25,23 @@ def search_movie(title: str, db: Session = Depends(get_db)):
 def search_tmdb_movies(title: str):
     return search_movies(title)
 
-
-@router.get("/movies")
+@router.get("/media")
 def list_movies(limit: int = 100, db: Session = Depends(get_db)):
     return db.query(Media).order_by(Media.created_at.desc()).limit(limit).all()
 
-
-@router.get("/movies/{tmdb_id}")
+@router.get("/media/{tmdb_id}")
 def get_movie_details(tmdb_id: str, db: Session = Depends(get_db)):
     media = db.query(Media).filter(Media.external_id == str(tmdb_id)).first()
-    return media if media else get_movie(tmdb_id)
+
+    if media:
+        if not media.genres:
+            movie = get_movie(tmdb_id)
+            media.genres = movie.get("genres")
+            db.commit()
+            db.refresh(media)
+        return media
+
+    return get_movie(tmdb_id)
 
 
 @router.post("/movies/populate")
