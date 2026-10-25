@@ -26,7 +26,7 @@ export default function HomePage() {
   useEffect(() => {
     async function fetchDbMovies() {
       try {
-        const res = await fetch("https://localhost:8000/movies?limit=8");
+        const res = await fetch("https://localhost:8000/media?limit=8");
         if (res.ok) {
           const result = await res.json();
           setDbMovies(result);

@@ -36,7 +36,7 @@ export default function MovieDetailsPage({ params }: PageProps) {
       try {
         setLoading(true);
         const [res, favorites] = await Promise.all([
-          fetch(`${API_BASE_URL}/movies/${id}`),
+          fetch(`${API_BASE_URL}/media/${id}`),
           getFavorites().catch(() => []),
         ]);
 

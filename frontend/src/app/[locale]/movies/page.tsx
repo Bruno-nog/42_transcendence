@@ -28,7 +28,7 @@ export default function AllMoviesPage() {
     async function fetchAllMovies() {
       setIsLoading(true);
       try {
-        const res = await fetch(`${API_BASE_URL}/movies?limit=500`);
+        const res = await fetch(`${API_BASE_URL}/media?limit=500`);
         if (res.ok) {
           const result = await res.json();
           setDbMovies(result);
