@@ -1,6 +1,6 @@
 "use client";
 
-import { React, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { Avatar } from "../ui/Avatar";
 import { Typography } from "../ui/Typography";
@@ -135,6 +135,13 @@ export default function SideBar() {
               className="rounded-lg py-2 text-sm text-gray-300 transition hover:bg-gray-800/50 hover:text-white"
             >
               {t('MOVIES')}
+            </Link>
+
+            <Link
+              href="/analytics"
+              className="rounded-lg py-2 text-sm text-gray-300 transition hover:bg-gray-800/50 hover:text-white"
+            >
+              {t('GRAPHIC')}
             </Link>
           </nav>
 

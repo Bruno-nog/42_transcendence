@@ -127,10 +127,10 @@ _(módulo: Web Minor — 1pt)_
 ## Analytics Dashboard - ANDRE
 _(módulo: Data & Analytics Major — 2pts)_
 
-- [ ] Dashboard com gráficos: filmes mais avaliados, média por gênero, etc. — `#45`
-- [ ] Estatísticas do usuário: gênero favorito, média geral, evolução mensal — `#46`
-- [ ] Exportação dos dados em CSV/PDF — `#47`
-- [ ] Filtros por data e categoria — `#48`
+- [x] Dashboard com gráficos: filmes mais avaliados, média por gênero, etc. — `#45`
+- [x] Estatísticas do usuário: gênero favorito, média geral, evolução mensal — `#46`
+- [x] Exportação dos dados em CSV/PDF — `#47`
+- [x] Filtros por data e categoria — `#48`
 
 ---
 
@@ -170,7 +170,7 @@ _(módulo: Accessibility Minor — 1pt)_
 - [x] Modal de review (notas por categoria) — `#61`
 - [x] Página de perfil do usuário — `#62`
 - [ ] Feed de atividades — `#63`
-- [ ] Dashboard de analytics — `#64`
+- [x] Dashboard de analytics — `#64`
 - [x] Página de Privacy Policy — `#6`
 - [x] Página de Terms of Service — `#7`
 - [x] Integração com JWT (armazenar token, enviar nas requisições) — `#65`

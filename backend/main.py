@@ -9,6 +9,7 @@ from routers.auth import router as auth_router
 from routers.media import router as media_router
 from routers.reviews import router as reviews_router
 from routers.users import router as users_router
+from routers.analytics import router as analytics
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -44,6 +45,7 @@ def create_app() -> FastAPI:
     application.include_router(users_router)
     application.include_router(media_router)
     application.include_router(reviews_router)
+    application.include_router(analytics)
     return application
 
 
