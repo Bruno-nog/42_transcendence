@@ -1,3 +1,4 @@
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
 import uuid
@@ -8,7 +9,7 @@ from sqlalchemy.orm import Session
 
 from auth import get_current_user
 from database import get_db
-from models import Favorite, Friendship, Media, User
+from models import Favorite, Friendship, Media, Reviews, User
 from schemas import UserUpdate
 from services.tmdb import get_movie
 
@@ -145,6 +146,114 @@ def remove_friend(
     db.delete(friendship)
     db.commit()
     return {"message": "Amigo removido com sucesso"}
+
+
+@router.get("/me/recommendations")
+def get_my_recommendations(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    high_rated_reviews = (
+        db.query(Reviews, Media)
+        .join(Media, Reviews.media_id == Media.id)
+        .filter(
+            Reviews.user_id == current_user.id,
+            Reviews.rate >= 8,
+        )
+        .all()
+    )
+
+    genre_counts = Counter()
+    for _, media in high_rated_reviews:
+        if not media.genres:
+            continue
+        for genre in media.genres.split(","):
+            genre = genre.strip()
+            if genre:
+                genre_counts[genre] += 1
+
+    if not genre_counts:
+        return {
+            "recommendations": [],
+            "message": (
+                "Você ainda não tem avaliações com nota 8 ou maior "
+                "suficientes para gerar recomendações personalizadas."
+            ),
+        }
+
+    preferred_genres = set(genre_counts.keys())
+    reviewed_media_ids = (
+        db.query(Reviews.media_id)
+        .filter(Reviews.user_id == current_user.id)
+        .subquery()
+    )
+
+    candidates = (
+        db.query(Media)
+        .filter(
+            Media.id.notin_(reviewed_media_ids),
+            Media.media_type.ilike("film"),
+        )
+        .all()
+    )
+
+    ranked_recommendations = []
+    for media in candidates:
+        media_genres = {
+            genre.strip()
+            for genre in (media.genres or "").split(",")
+            if genre.strip()
+        }
+        matched_genres = sorted(media_genres & preferred_genres)
+        if not matched_genres:
+            continue
+
+        score = sum(genre_counts[genre] for genre in matched_genres)
+        ranked_recommendations.append(
+            {
+                "id": media.id,
+                "external_id": media.external_id,
+                "title": media.title,
+                "media_type": media.media_type,
+                "description": media.description,
+                "cover_url": media.cover_url,
+                "release_year": media.release_year,
+                "genres": media.genres,
+                "matched_genres": matched_genres,
+                "recommendation_score": score,
+                "reason": (
+                    "Recomendado porque combina com gêneros de filmes "
+                    "que você avaliou com nota 8 ou maior: "
+                    + ", ".join(matched_genres)
+                    + "."
+                ),
+            }
+        )
+
+    ranked_recommendations.sort(
+        key=lambda item: (
+            -item["recommendation_score"],
+            -(item["release_year"] or 0),
+            item["title"].lower(),
+        )
+    )
+
+    return {
+        "recommendations": ranked_recommendations[:10],
+        "based_on": {
+            "minimum_rating": 8,
+            "preferred_genres": sorted(
+                preferred_genres,
+                key=lambda genre: (-genre_counts[genre], genre.lower()),
+            ),
+        },
+        "message": (
+            "Recomendações geradas com base nos gêneros das suas avaliações "
+            "com nota 8 ou maior."
+            if ranked_recommendations
+            else "Não encontramos filmes disponíveis no catálogo para os seus gêneros favoritos."
+        ),
+    }
 
 
 @router.get("/{user_id}")

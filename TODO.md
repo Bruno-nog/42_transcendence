@@ -146,9 +146,9 @@ _(módulo: Data & Analytics Minor — 1pt)_
 ## Recomendações - ANDRE
 _(módulo: Modules of choice Minor — 1pt)_
 
-- [ ] Recomendar filmes baseado nas categorias com notas altas do usuário — `#52`
-- [ ] `GET /users/me/recommendations` — endpoint de recomendações — `#53`
-- [ ] Justificativa do módulo no README.md — `#54`
+- [x] Recomendar filmes baseado nas categorias com notas altas do usuário — `#52`
+- [x] `GET /users/me/recommendations` — endpoint de recomendações — `#53`
+- [x] Justificativa do módulo no README.md — `#54`
 
 ---
 

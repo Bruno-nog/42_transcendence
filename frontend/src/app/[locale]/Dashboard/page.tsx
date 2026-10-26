@@ -14,6 +14,10 @@ import { Media } from "@/src/types/media";
 import SearchMovie from "@/src/components/SearchMovie";
 import { MovieDetailsModal } from "@/src/components/MovieDetailsModal";
 import { LatestReviewsSection } from "@/src/components/LatestReviewsSection";
+import {
+  getRecommendations,
+  type Recommendation,
+} from "@/src/services/auth/recommendations";
 
 export default function HomePage() {
   const t = useTranslations("Profile");
@@ -21,6 +25,10 @@ export default function HomePage() {
   const [dbMovies, setDbMovies] = useState<Media[]>([]);
 
   const { isAuthenticated, isLoading } = useAuth();
+
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
+  const [recommendationsLoading, setRecommendationsLoading] = useState(false);
+  const [recommendationsMessage, setRecommendationsMessage] = useState("");
 
   // Busca os filmes cadastrados no banco de dados
   useEffect(() => {
@@ -38,6 +46,33 @@ export default function HomePage() {
 
     fetchDbMovies();
   }, []);
+
+  
+  useEffect(() => {
+    if (!isAuthenticated || isLoading) return;
+
+    async function fetchRecommendations() {
+      setRecommendationsLoading(true);
+
+      try {
+        const data = await getRecommendations();
+
+        setRecommendations(data.recommendations ?? []);
+        setRecommendationsMessage(data.message ?? "");
+      } catch (error) {
+        console.error("Erro ao carregar recomendações:", error);
+        setRecommendations([]);
+        setRecommendationsMessage(
+          "Não foi possível carregar suas recomendações.",
+        );
+      } finally {
+        setRecommendationsLoading(false);
+      }
+    }
+
+    fetchRecommendations();
+  }, [isAuthenticated, isLoading]);
+
 
   if (isLoading) {
     return (
@@ -75,6 +110,53 @@ export default function HomePage() {
                   />
                 ))}
               </div>
+            )}
+          </div>
+        </section>
+
+        <section className="w-full space-y-3">
+          <div className="flex items-center gap-2 border-l-2 border-[#2ECC71] pl-2">
+            <Typography
+              variant="h3"
+              className="text-sm font-semibold text-white"
+            >
+              Recomendações para você
+            </Typography>
+          </div>
+
+          <div className="w-full rounded-2xl bg-[#1e2530] p-5">
+            {recommendationsLoading ? (
+              <div className="flex justify-center py-6">
+                <Loader />
+              </div>
+            ) : recommendations.length > 0 ? (
+              <>
+                <p className="mb-4 text-sm text-gray-400">
+                  Filmes selecionados com base nas suas avaliações.
+                </p>
+
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                  {recommendations.map((movie) => (
+                    <div key={movie.id} className="min-w-0">
+                      <MediaCard
+                        media={movie}
+                        onClick={() =>
+                          setSelectedMovieId(String(movie.external_id))
+                        }
+                      />
+
+                      <p className="mt-2 text-xs text-gray-400">
+                        {movie.reason}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p className="text-sm text-gray-400">
+                {recommendationsMessage ||
+                  "Avalie alguns filmes com nota 8 ou superior para receber recomendações personalizadas."}
+              </p>
             )}
           </div>
         </section>
