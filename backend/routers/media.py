@@ -5,6 +5,10 @@ from database import get_db
 from models import Media
 from services.tmdb import get_movie, search_movies, get_popular_movies
 
+from models import Media, Reviews
+from fastapi import APIRouter, Depends, HTTPException
+
+
 router = APIRouter(tags=["media"])
 
 
@@ -43,7 +47,6 @@ def get_movie_details(tmdb_id: str, db: Session = Depends(get_db)):
 
     return get_movie(tmdb_id)
 
-
 @router.post("/movies/populate")
 def populate_movies(total: int = 50, db: Session = Depends(get_db)):
     added_count = 0
@@ -70,3 +73,11 @@ def populate_movies(total: int = 50, db: Session = Depends(get_db)):
         page += 1
         
     return {"message": f"{added_count} filmes adicionados com sucesso ao banco de dados!"}
+
+@router.get("/media/{media_id}/reviews")
+def get_media_reviews(media_id: int, db: Session = Depends(get_db)):
+    media = db.query(Media).filter(Media.id == media_id).first()
+    if not media:
+        raise HTTPException(status_code=404, detail="Mídia não encontrada")
+
+    return db.query(Reviews).filter(Reviews.media_id == media_id).all()
