@@ -70,3 +70,16 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload \
   --ssl-keyfile ../certs/localhost.key \
   --ssl-certfile ../certs/localhost.crt
 ```
+
+## Recommendations module
+The recommendations module provides personalized film suggestions based on the genres of films the authenticated user has rated highly. The API endpoint is GET ```/users/me/recommendations.```
+
+The recommendation logic:
+1. Reads the authenticated user's reviews with a rating of 8/10 or higher.
+2. Counts the genres present in those highly rated films to identify the user's preferred genres.
+3. Searches the local media catalog for films in those genres that the user has not reviewed yet.
+4. Ranks candidates by how strongly they match the user's preferred genres and returns up to 10 results.
+5. Includes matched genres and a short explanation with each recommendation so the user can understand why it was suggested.
+The endpoint requires authentication and only uses the current user's reviews to build their preferences. If the user has no highly rated reviews, it returns an empty recommendation list with an explanatory message.
+
+This module was selected because it adds a personalized discovery feature to the platform using existing review and media data, without requiring a separate recommendation service or machine-learning infrastructure. It is a small, explainable recommendation system that can be extended in the future.
