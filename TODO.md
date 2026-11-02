@@ -92,7 +92,7 @@ _(módulo: Standard user management — Major 2pts)_
 - [x] `PATCH /reviews/{id}` — editar própria review — `#30` _(depende de #14)_
 - [x] `DELETE /reviews/{id}` — deletar própria review — `#31` _(depende de #14)_
 - [ ] Calcular média das notas por categoria automaticamente no backend — `#32` _(depende de #28)_
-- [ ] `POST /reviews/{id}/like` — dar like — `#33` _(depende de #14)_
+- [X] `POST /reviews/{id}/like` — dar like — `#33` _(depende de #14)_
 
 ---
 
