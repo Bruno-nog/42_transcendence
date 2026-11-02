@@ -35,5 +35,6 @@ CREATE TABLE IF NOT EXISTS reviews (
   photography FLOAT,
   screenplay FLOAT,
   soundtrack FLOAT,
+  likes INT NOT NULL DEFAULT 0,
   created_at TIMESTAMP DEFAULT NOW()
 );

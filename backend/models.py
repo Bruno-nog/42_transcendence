@@ -43,6 +43,7 @@ class Reviews(Base):
     photography = Column(Float)
     screenplay = Column(Float)
     soundtrack = Column(Float)
+    likes = Column(Integer, nullable=False, default=0, server_default="0")
     created_at = Column(DateTime, default=func.now())
 
 class Favorite(Base):
