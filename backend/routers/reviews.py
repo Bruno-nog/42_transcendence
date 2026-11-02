@@ -1,9 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy import update
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from auth import get_current_user
 from database import get_db
-from models import Media, Reviews, User
+from models import Media, ReviewLike, Reviews, User
 from schemas import ReviewCreate
 
 
@@ -83,6 +85,81 @@ def get_latest_reviews(limit: int = 4, db: Session = Depends(get_db)):
 @router.get("/{review_id}")
 def get_review(review_id: int, db: Session = Depends(get_db)):
     return db.query(Reviews).filter(Reviews.id == review_id).first()
+
+
+@router.post("/{review_id}/like")
+def like_review(
+    review_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    review = db.query(Reviews).filter(Reviews.id == review_id).first()
+    if not review:
+        raise HTTPException(status_code=404, detail="Review não encontrada")
+
+    db.add(ReviewLike(user_id=current_user.id, review_id=review_id))
+    try:
+        db.flush()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(
+            status_code=409,
+            detail="Você já curtiu esta review",
+        )
+
+    db.execute(
+        update(Reviews)
+        .where(Reviews.id == review_id)
+        .values(likes=Reviews.likes + 1)
+    )
+    db.commit()
+    db.refresh(review)
+
+    return {
+        "review_id": review.id,
+        "likes": review.likes,
+        "liked": True,
+    }
+
+
+@router.delete("/{review_id}/like")
+def unlike_review(
+    review_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    review = db.query(Reviews).filter(Reviews.id == review_id).first()
+    if not review:
+        raise HTTPException(status_code=404, detail="Review não encontrada")
+
+    review_like = (
+        db.query(ReviewLike)
+        .filter(
+            ReviewLike.user_id == current_user.id,
+            ReviewLike.review_id == review_id,
+        )
+        .first()
+    )
+    if not review_like:
+        raise HTTPException(
+            status_code=404,
+            detail="Você não curtiu esta review",
+        )
+
+    db.delete(review_like)
+    db.execute(
+        update(Reviews)
+        .where(Reviews.id == review_id)
+        .values(likes=Reviews.likes - 1)
+    )
+    db.commit()
+    db.refresh(review)
+
+    return {
+        "review_id": review.id,
+        "likes": review.likes,
+        "liked": False,
+    }
 
 
 @router.post("")
