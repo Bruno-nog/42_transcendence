@@ -46,6 +46,23 @@ class Reviews(Base):
     likes = Column(Integer, nullable=False, default=0, server_default="0")
     created_at = Column(DateTime, default=func.now())
 
+
+class ReviewLike(Base):
+    __tablename__ = "review_likes"
+
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
+    review_id = Column(
+        Integer,
+        ForeignKey("reviews.id", ondelete="CASCADE"),
+        primary_key=True,
+    )
+    created_at = Column(DateTime, default=func.now(), nullable=False)
+
+
 class Favorite(Base):
     __tablename__ = "favorites"
 
