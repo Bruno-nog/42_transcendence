@@ -157,9 +157,8 @@ export default function ProfilePageView() {
                       />
                       <span
                         title={friend.is_online ? "Online" : "Offline"}
-                        className={`absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-zinc-900 ${
-                          friend.is_online ? "bg-emerald-500" : "bg-gray-500"
-                        }`}
+                        className={`absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-zinc-900 ${friend.is_online ? "bg-emerald-500" : "bg-gray-500"
+                          }`}
                       />
                     </div>
                     <Typography className="text-sm font-medium text-white truncate max-w-full">
@@ -221,6 +220,12 @@ export default function ProfilePageView() {
                       <Typography className="text-sm text-emerald-400 font-medium">
                         Nota: {review.rate ?? "Não informada"}/10
                       </Typography>
+
+                      <div className="w-fit border border-gray-700/50 p-2 rounded-md">
+                        <Typography className="text-sm text-gray-300 font-medium">
+                          Likes: {review.likes ?? "Não informada"}
+                        </Typography>
+                      </div>
 
                       {review.review && (
                         <Typography className="text-sm text-gray-300 line-clamp-3">
