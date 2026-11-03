@@ -239,7 +239,7 @@ def get_my_recommendations(
     )
 
     return {
-        "recommendations": ranked_recommendations[:10],
+        "recommendations": ranked_recommendations[:8],
         "based_on": {
             "minimum_rating": 8,
             "preferred_genres": sorted(

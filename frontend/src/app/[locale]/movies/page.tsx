@@ -8,6 +8,7 @@ import { Media } from "@/src/types/media";
 import { MovieDetailsModal } from "@/src/components/MovieDetailsModal";
 import { MediaCard } from "@/src/components/media/MediaCard";
 import { Button } from "@/src/components/ui/button";
+import { API_BASE_URL } from "@/src/utils/data";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -21,8 +22,6 @@ export default function AllMoviesPage() {
   const [selectedYear, setSelectedYear] = useState<string>("");
   const [selectedGenre, setSelectedGenre] = useState<string>("");
   const [sortBy, setSortBy] = useState<string>("recent");
-
-  const API_BASE_URL = "https://localhost:8000";
 
   useEffect(() => {
     async function fetchAllMovies() {

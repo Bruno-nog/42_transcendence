@@ -11,6 +11,7 @@ import { LanguageSwitcher } from "../LanguageSwitcher";
 import { Link } from "@/src/i18n/routing";
 import { getCurrentUser } from "@/src/services/auth/user";
 import toast from "react-hot-toast";
+import { API_BASE_URL } from "@/src/utils/data";
 
 interface UserData {
   id: number;
@@ -28,8 +29,6 @@ export default function Header({ bannerUrl }: HeaderProps) {
 
   const [user, setUser] = useState<UserData | null>(null);
   const [loadingUser, setLoadingUser] = useState(true);
-
-  const API_BASE_URL = "https://localhost:8000";
 
   useEffect(() => {
     async function loadUser() {

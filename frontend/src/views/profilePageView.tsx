@@ -17,6 +17,7 @@ import {
   getUserReviews,
   UserReview,
 } from "@/src/services/auth/reviews";
+import { API_BASE_URL } from "../utils/data";
 
 export default function ProfilePageView() {
   const t = useTranslations('Profile');
@@ -27,8 +28,6 @@ export default function ProfilePageView() {
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
   const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
   const [reviews, setReviews] = useState<UserReview[]>([]);
-
-  const API_BASE_URL = "https://localhost:8000";
 
   const fetchProfileData = async () => {
     try {

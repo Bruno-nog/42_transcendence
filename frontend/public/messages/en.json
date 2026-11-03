@@ -23,7 +23,9 @@
     "THE_MOVIE_COULD_NOT_BE_FOUND": "The movie could not be found.",
     "SEARCH_RESULTS": "Search results",
     "SEARCHING": "Searching...",
-    "SEARCH": "Search"
+    "SEARCH": "Search",
+    "PRIVACY_POLICY": "Privacy Policy",
+    "TERMS_OF_SERVICE": "Terms of Service"
   },
   "Profile": {
     "HOME": "Home",

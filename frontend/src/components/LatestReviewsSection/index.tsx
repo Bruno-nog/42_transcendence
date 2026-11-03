@@ -9,6 +9,7 @@ import { addFriend, getFriends } from "@/src/services/auth/friends";
 import { getLatestReviews, type PublicReview } from "@/src/services/auth/reviews";
 import toast from "react-hot-toast";
 import { UserPlus, Check } from "lucide-react";
+import { API_BASE_URL } from "@/src/utils/data";
 
 interface LatestReviewsSectionProps {
   limit?: number;
@@ -24,8 +25,6 @@ export function LatestReviewsSection({
   const [loadingReviews, setLoadingReviews] = useState(true);
   const [addingFriendId, setAddingFriendId] = useState<number | null>(null);
   const [friendsIds, setFriendsIds] = useState<number[]>([]);
-
-  const API_BASE_URL = "https://localhost:8000";
 
   const getImageUrl = (url: string | null) => {
     if (!url) return "/placeholder.png";
