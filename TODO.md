@@ -115,7 +115,7 @@ _(módulo: Web Major — 2pts)_
 
 ---
 
-## Notifications - LUIZ
+## Notifications - GABRIEL
 _(módulo: Web Minor — 1pt)_
 
 - [ ] Notificação quando alguém segue você — `#42`
