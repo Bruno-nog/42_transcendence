@@ -43,11 +43,6 @@ export function MovieDetailsModal({
         setLoading(true);
         setError(null);
 
-        // const [movieRes, favorites] = await Promise.all([
-        //   fetch(`https://localhost:8000/media/${movieId}`),
-        //   getFavorites().catch(() => []),
-        // ]);
-
         const [movieRes] = await Promise.all([
           fetch(`https://localhost:8000/media/${movieId}`),
           isAuthenticated ? getFavorites().catch(() => []) : Promise.resolve([])
