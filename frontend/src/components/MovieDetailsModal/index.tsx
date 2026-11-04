@@ -43,10 +43,17 @@ export function MovieDetailsModal({
         setLoading(true);
         setError(null);
 
-        const [movieRes, favorites] = await Promise.all([
+        // const [movieRes, favorites] = await Promise.all([
+        //   fetch(`https://localhost:8000/media/${movieId}`),
+        //   getFavorites().catch(() => []),
+        // ]);
+
+        const [movieRes] = await Promise.all([
           fetch(`https://localhost:8000/media/${movieId}`),
-          getFavorites().catch(() => []),
+          isAuthenticated ? getFavorites().catch(() => []) : Promise.resolve([])
         ]);
+
+        const favorites = isAuthenticated ? await getFavorites().catch(() => []) : [];
 
         if (!movieRes.ok) {
           throw new Error("Erro ao carregar os detalhes do filme.");

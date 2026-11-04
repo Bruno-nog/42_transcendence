@@ -35,10 +35,8 @@ export default function MovieDetailsPage({ params }: PageProps) {
     async function fetchMovieDetails() {
       try {
         setLoading(true);
-        const [res, favorites] = await Promise.all([
-          fetch(`${API_BASE_URL}/media/${id}`),
-          getFavorites().catch(() => []),
-        ]);
+
+        const res = await fetch(`${API_BASE_URL}/media/${id}`);
 
         if (!res.ok) {
           throw new Error("Filme não encontrado.");
@@ -47,10 +45,13 @@ export default function MovieDetailsPage({ params }: PageProps) {
         const data = await res.json();
         setMovie(data);
 
-        const alreadyFavorite = favorites.some(
-          (fav) => String(fav.external_id) === String(id) || String(fav.id) === String(id)
-        );
-        setIsFavorite(alreadyFavorite);
+        if (isAuthenticated) {
+          const favorites = await getFavorites().catch(() => []);
+          const alreadyFavorite = favorites.some(
+            (fav) => String(fav.external_id) === String(id) || String(fav.id) === String(id)
+          );
+          setIsFavorite(alreadyFavorite);
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : "Erro ao carregar filme.");
       } finally {
@@ -61,7 +62,7 @@ export default function MovieDetailsPage({ params }: PageProps) {
     if (id) {
       fetchMovieDetails();
     }
-  }, [id]);
+  }, [id, isAuthenticated]);
 
   const handleToggleFavorite = async () => {
     if (!movie) return;
