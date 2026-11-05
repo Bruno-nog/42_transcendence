@@ -35,5 +35,13 @@ CREATE TABLE IF NOT EXISTS reviews (
   photography FLOAT,
   screenplay FLOAT,
   soundtrack FLOAT,
+  likes INT NOT NULL DEFAULT 0,
   created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS review_likes (
+  user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  review_id INT NOT NULL REFERENCES reviews(id) ON DELETE CASCADE,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (user_id, review_id)
 );

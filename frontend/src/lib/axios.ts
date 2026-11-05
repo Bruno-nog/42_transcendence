@@ -15,4 +15,24 @@ api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
 
   return config;
-})
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401 && typeof window !== "undefined") {
+      localStorage.removeItem("token");
+
+      const pathSegments = window.location.pathname.split("/").filter(Boolean);
+      const locale = pathSegments[0];
+      const loginPath =
+        locale === "pt" || locale === "en" ? `/${locale}/login` : "/login";
+
+      if (window.location.pathname !== loginPath) {
+        window.location.replace(loginPath);
+      }
+    }
+
+    return Promise.reject(error);
+  },
+);

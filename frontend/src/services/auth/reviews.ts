@@ -17,6 +17,7 @@ export interface UserReview {
   photography: number | null;
   screenplay: number | null;
   soundtrack: number | null;
+  likes: number;
   liked: boolean;
   watched_before: boolean;
   date_film: string | null;
