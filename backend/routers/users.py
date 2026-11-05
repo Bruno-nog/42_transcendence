@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 
 from auth import get_current_user
 from database import get_db
-from models import Favorite, Friendship, Media, Reviews, User
+from models import Favorite, Follow, Friendship, Media, Reviews, User
 from schemas import UserUpdate
 from services.tmdb import get_movie
 
@@ -146,6 +146,74 @@ def remove_friend(
     db.delete(friendship)
     db.commit()
     return {"message": "Amigo removido com sucesso"}
+
+
+@router.post("/{user_id}/follow")
+def follow_user(
+    user_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if user_id == current_user.id:
+        raise HTTPException(400, "Você não pode seguir a si mesmo")
+    if not db.query(User).filter(User.id == user_id).first():
+        raise HTTPException(404, "Usuário não encontrado")
+    existing = db.query(Follow).filter(
+        Follow.follower_id == current_user.id,
+        Follow.following_id == user_id,
+    ).first()
+    if existing:
+        raise HTTPException(409, "Você já segue este usuário")
+    db.add(Follow(follower_id=current_user.id, following_id=user_id))
+    db.commit()
+    return {"message": "Usuário seguido com sucesso", "following": True}
+
+
+@router.delete("/{user_id}/follow")
+def unfollow_user(
+    user_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if not db.query(User).filter(User.id == user_id).first():
+        raise HTTPException(404, "Usuário não encontrado")
+    follow = db.query(Follow).filter(
+        Follow.follower_id == current_user.id,
+        Follow.following_id == user_id,
+    ).first()
+    if not follow:
+        raise HTTPException(404, "Você não segue este usuário")
+    db.delete(follow)
+    db.commit()
+    return {"message": "Você deixou de seguir o usuário", "following": False}
+
+
+@router.get("/{user_id}/followers")
+def get_followers(user_id: int, db: Session = Depends(get_db)):
+    if not db.query(User).filter(User.id == user_id).first():
+        raise HTTPException(404, "Usuário não encontrado")
+    followers = (
+        db.query(User)
+        .join(Follow, Follow.follower_id == User.id)
+        .filter(Follow.following_id == user_id)
+        .order_by(User.username)
+        .all()
+    )
+    return [user_profile(user) for user in followers]
+
+
+@router.get("/{user_id}/following")
+def get_following(user_id: int, db: Session = Depends(get_db)):
+    if not db.query(User).filter(User.id == user_id).first():
+        raise HTTPException(404, "Usuário não encontrado")
+    following = (
+        db.query(User)
+        .join(Follow, Follow.following_id == User.id)
+        .filter(Follow.follower_id == user_id)
+        .order_by(User.username)
+        .all()
+    )
+    return [user_profile(user) for user in following]
 
 
 @router.get("/me/recommendations")

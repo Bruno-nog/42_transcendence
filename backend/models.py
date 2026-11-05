@@ -103,3 +103,32 @@ class Friendship(Base):
         UniqueConstraint("user_id", "friend_id", name="uq_friendship_pair"),
         CheckConstraint("user_id < friend_id", name="ck_friendship_distinct_users"),
     )
+
+
+class Follow(Base):
+    __tablename__ = "follows"
+
+    id = Column(Integer, primary_key=True)
+    follower_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    following_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    created_at = Column(DateTime, default=func.now(), nullable=False)
+
+    __table_args__ = (
+        UniqueConstraint(
+            "follower_id",
+            "following_id",
+            name="uq_follow_follower_following",
+        ),
+        CheckConstraint(
+            "follower_id != following_id",
+            name="ck_follow_distinct_users",
+        ),
+    )
