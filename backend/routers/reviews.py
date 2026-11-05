@@ -50,6 +50,21 @@ def get_user_reviews(
         for review, media in reviews
     ]
 
+@router.get("/likes/me")
+def get_my_liked_reviews(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    likes = (
+        db.query(ReviewLike.review_id)
+        .filter(ReviewLike.user_id == current_user.id)
+        .all()
+    )
+
+    return {
+        "review_ids": [review_id for (review_id,) in likes]
+    }
+
 @router.get("")
 def get_latest_reviews(limit: int = 4, db: Session = Depends(get_db)):
     results = (

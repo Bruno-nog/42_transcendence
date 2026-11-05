@@ -17,6 +17,7 @@ import {
   getUserReviews,
   UserReview,
 } from "@/src/services/auth/reviews";
+import { API_BASE_URL } from "../utils/data";
 
 export default function ProfilePageView() {
   const t = useTranslations('Profile');
@@ -27,8 +28,6 @@ export default function ProfilePageView() {
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
   const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
   const [reviews, setReviews] = useState<UserReview[]>([]);
-
-  const API_BASE_URL = "https://localhost:8000";
 
   const fetchProfileData = async () => {
     try {
@@ -181,7 +180,7 @@ export default function ProfilePageView() {
                 variant="h3"
                 className="text-base font-bold text-white"
               >
-                Minhas avaliações
+                {t('MY_REVIEWS')}
               </Typography>
             </div>
 
@@ -218,12 +217,12 @@ export default function ProfilePageView() {
                       </Typography>
 
                       <Typography className="text-sm text-emerald-400 font-medium">
-                        Nota: {review.rate ?? "Não informada"}/10
+                        {t('NOTE')}: {review.rate ?? "Não informada"}/10
                       </Typography>
 
                       <div className="w-fit border border-gray-700/50 p-2 rounded-md">
                         <Typography className="text-sm text-gray-300 font-medium">
-                          Likes: {review.likes ?? "Não informada"}
+                          {t('LIKES')}: {review.likes ?? "Não informada"}
                         </Typography>
                       </div>
 
@@ -235,7 +234,7 @@ export default function ProfilePageView() {
 
                       {review.date_film && (
                         <Typography className="text-xs text-gray-500">
-                          Assistido em:{" "}
+                          {t('WATCHED_ON')}:{" "}
                           {new Date(`${review.date_film}T12:00:00`).toLocaleDateString(
                             "pt-BR",
                           )}

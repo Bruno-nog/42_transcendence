@@ -124,7 +124,7 @@ export default function HomePage() {
             </Typography>
           </div>
 
-          <div className="w-full rounded-2xl bg-[#1e2530] p-5">
+          <div className="flex flex-col gap-4 w-full rounded-2xl bg-[#1e2530] p-5">
             {recommendationsLoading ? (
               <div className="flex justify-center py-6">
                 <Loader />
@@ -135,7 +135,7 @@ export default function HomePage() {
                   Filmes selecionados com base nas suas avaliações.
                 </p>
 
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
                   {recommendations.map((movie) => (
                     <div key={movie.id} className="min-w-0">
                       <MediaCard
@@ -145,7 +145,7 @@ export default function HomePage() {
                         }
                       />
 
-                      <p className="mt-2 text-xs text-gray-400">
+                      <p className="my-2 text-xs text-gray-400">
                         {movie.reason}
                       </p>
                     </div>
@@ -168,7 +168,6 @@ export default function HomePage() {
             </Typography>
           </div>
           <LatestReviewsSection
-            onSelectMovie={(id) => setSelectedMovieId(id)}
             limit={4}
           />
         </section>

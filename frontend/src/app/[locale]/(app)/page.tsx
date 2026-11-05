@@ -14,13 +14,12 @@ import { MovieDetailsModal } from "@/src/components/MovieDetailsModal";
 import { MediaCard } from "@/src/components/media/MediaCard";
 import SearchMovie from "@/src/components/SearchMovie";
 import { LatestReviewsSection } from "@/src/components/LatestReviewsSection";
+import { API_BASE_URL } from "@/src/utils/data";
 
 export default function HomePage() {
   const t = useTranslations("Profile");
   const [dbMovies, setDbMovies] = useState<Media[]>([]);
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
-
-  const API_BASE_URL = "https://localhost:8000";
 
   // Busca os filmes cadastrados no banco de dados
   useEffect(() => {

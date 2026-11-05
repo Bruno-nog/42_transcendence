@@ -3,6 +3,7 @@
 import { Friend } from "@/src/services/auth/friends";
 import { Typography } from "@/src/components/ui/Typography";
 import { Avatar } from "../ui/Avatar";
+import { API_BASE_URL } from "@/src/utils/data";
 
 interface FriendDetailsModalProps {
   friend: Friend | null;
@@ -15,9 +16,6 @@ export function FriendDetailsModal({
   onClose,
   onRemoveFriend,
 }: FriendDetailsModalProps) {
-  const API_BASE_URL = "https://localhost:8000";
-
-  console.log("friend", friend)
 
   if (!friend) return null;
 

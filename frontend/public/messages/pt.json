@@ -25,7 +25,34 @@
     "SEARCH_RESULTS": "Resultados da busca",
     "SEARCHING": "Buscando...",
     "SEARCH": "Buscar",
-    "LATEST_REVIEWS": "Últimas avaliações"
+    "LATEST_REVIEWS": "Últimas avaliações",
+    "PRIVACY_POLICY": "Política de Privacidade",
+    "TERMS_OF_SERVICE": "Termos de Serviços"
+  },
+  "Authentication": {
+    "LOGIN": "Logar",
+    "REGISTER": "CADASTRO",
+    "WELCOME_BACK_PLEASE_ENTRE_YOUR_DETAILS": "Bem vindo de volta! Por favor insira seus dados",
+    "EMAIL": "Email",
+    "ENTER_YOUR_EMAIL": "Digite seu email",
+    "PASSWORD": "Senha",
+    "ENTER_YOUR_PASSWORD": "Digite sua senha",
+    "I_FORGOT_MY_PASSWORD": "Esqueci minha senha",
+    "DOESNT_HAVE_AN_ACCOUNT": "não tem conta?",
+    "SIGN_UP": "Inscrever-se",
+
+    "CREATE_YOUR": "Crie sua conta no MediaHub para começar",
+    "USER": "Usuário",
+    "ENTER_YOUR_USER": "Digite seu usuário",
+    "CREATE_ACCOUNT": "Criar conta",
+    "ALREADY_HAVE_AN_ACCOUNT": "Já possui uma conta?",
+    "TO_ENTER": "Entrar",
+
+    "ERROR_EMAIL_OR_PASSWORD": "E-mail ou senha incorretos..",
+    "ERROR_TOO_MANY": "Muitas tentativas de login. Aguarde um momento.",
+    "ERROR_UNABLE_TO_CONNECT_TO_THE_SERVER": "Não foi possível conectar ao servidor. Verifique sua conexão.",
+    "ERROR_AN_ERROR_OCCURRED_WHILE_LOGGING_IN": "Ocorreu um erro ao realizar o login. Tente novamente.",
+    "ERROR_AN_UNEXPECTED_ERROR_OCCURRED": "Ocorreu um erro inesperado. Tente novamente."
   },
   "Profile": {
     "HOME": "Início",
@@ -52,7 +79,11 @@
     "YOUR_FRIENDS": "Seus Amigos",
     "LOADING_FRIENDS": "Carregando amigos...",
     "NO_FRIENDS_ADDED_YET": "Nenhum amigo adicionado ainda.",
-    "LATEST_REVIEWS": "Últimas avaliações"
+    "LATEST_REVIEWS": "Últimas avaliações",
+    "MY_REVIEWS": "Minhas avaliações",
+    "NOTE": "Nota",
+    "LIKES": "Curtidas",
+    "WATCHED_ON": "Assistido em"
   },
   "Analytics": {
     "HOME": "Início",

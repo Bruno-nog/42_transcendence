@@ -13,6 +13,7 @@ import {
   removeFavorite,
 } from "@/src/services/auth/favorites";
 import { ReviewModal } from "@/src/components/ReviewModal";
+import { API_BASE_URL } from "@/src/utils/data";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -28,8 +29,6 @@ export default function MovieDetailsPage({ params }: PageProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
-
-  const API_BASE_URL = "https://localhost:8000";
 
   useEffect(() => {
     async function fetchMovieDetails() {
