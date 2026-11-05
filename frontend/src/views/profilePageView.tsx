@@ -180,7 +180,7 @@ export default function ProfilePageView() {
                 variant="h3"
                 className="text-base font-bold text-white"
               >
-                Minhas avaliações
+                {t('MY_REVIEWS')}
               </Typography>
             </div>
 
@@ -217,12 +217,12 @@ export default function ProfilePageView() {
                       </Typography>
 
                       <Typography className="text-sm text-emerald-400 font-medium">
-                        Nota: {review.rate ?? "Não informada"}/10
+                        {t('NOTE')}: {review.rate ?? "Não informada"}/10
                       </Typography>
 
                       <div className="w-fit border border-gray-700/50 p-2 rounded-md">
                         <Typography className="text-sm text-gray-300 font-medium">
-                          Likes: {review.likes ?? "Não informada"}
+                          {t('LIKES')}: {review.likes ?? "Não informada"}
                         </Typography>
                       </div>
 
@@ -234,7 +234,7 @@ export default function ProfilePageView() {
 
                       {review.date_film && (
                         <Typography className="text-xs text-gray-500">
-                          Assistido em:{" "}
+                          {t('WATCHED_ON')}:{" "}
                           {new Date(`${review.date_film}T12:00:00`).toLocaleDateString(
                             "pt-BR",
                           )}

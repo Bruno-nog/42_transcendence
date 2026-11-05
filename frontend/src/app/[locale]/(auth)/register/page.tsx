@@ -12,8 +12,11 @@ import { useRegister } from "@/src/hooks/useRegister";
 import { PasswordInput } from "@/src/components/ui/PasswordInput";
 import { Typography } from "@/src/components/ui/Typography";
 import { Link, useRouter } from "@/src/i18n/routing";
+import { LanguageSwitcher } from "@/src/components/LanguageSwitcher";
+import { useTranslations } from "next-intl";
 
 export default function RegisterPage() {
+  const t = useTranslations("Authentication");
   const router = useRouter();
   const { mutateAsync, isPending } = useRegister();
 
@@ -40,13 +43,15 @@ export default function RegisterPage() {
   return (
     <div className="flex min-h-screen bg-[#2C3440] text-white px-10 py-2">
       <div className="flex flex-1 flex-col justify-between p-8 sm:p-12 lg:p-16">
-        <div>
+        <div className="flex justify-between w-full">
           <Link
             href="/login"
             className="inline-flex items-center text-white/80 transition-colors hover:text-white"
           >
             <ArrowLeft className="h-5 w-5" />
           </Link>
+
+          <LanguageSwitcher />
         </div>
 
         <div className="mx-auto w-full max-w-md py-8">
@@ -54,11 +59,11 @@ export default function RegisterPage() {
             variant="h1"
             className="text-4xl font-black uppercase tracking-wider text-white"
           >
-            CADASTRO
+            {t('REGISTER')}
           </Typography>
 
           <Typography variant="body1" className="mt-2 text-gray-300">
-            Crie sua conta no MediaHub para começar
+            {t('CREATE_YOUR')}
           </Typography>
 
           <form
@@ -67,8 +72,8 @@ export default function RegisterPage() {
           >
             <div className="flex flex-col gap-1.5">
               <Input
-                label="Usuário"
-                placeholder="Digite seu usuário"
+                label={t('USER')}
+                placeholder={t('ENTER_YOUR_USER')}
                 error={Boolean(errors.username)}
                 helperText={errors.username?.message}
                 {...register("username")}
@@ -78,9 +83,9 @@ export default function RegisterPage() {
 
             <div className="flex flex-col gap-1.5">
               <Input
-                label="E-mail"
+                label={t('EMAIL')}
                 type="email"
-                placeholder="Digite seu e-mail"
+                placeholder={t('ENTER_YOUR_EMAIL')}
                 error={Boolean(errors.email)}
                 helperText={errors.email?.message}
                 {...register("email")}
@@ -90,8 +95,8 @@ export default function RegisterPage() {
 
             <div className="flex flex-col gap-1.5">
               <PasswordInput
-                label="Senha"
-                placeholder="Digite sua senha"
+                label={t('PASSWORD')}
+                placeholder={t('ENTER_YOUR_PASSWORD')}
                 error={Boolean(errors.password)}
                 helperText={errors.password?.message}
                 {...register("password")}
@@ -105,17 +110,17 @@ export default function RegisterPage() {
               fullWidth
               className="mt-2 bg-[#2ECC71] text-white hover:bg-[#27ae60] focus-visible:ring-[#2ECC71]"
             >
-              Criar conta
+              {t('CREATE_ACCOUNT')}
             </Button>
 
             <div className="mt-4 text-center">
               <Typography variant="body2" className="text-gray-300">
-                Já possui uma conta?{" "}
+                {t('ALREADY_HAVE_AN_ACCOUNT')}{" "}
                 <Link
                   href="/login"
                   className="font-medium text-white underline hover:text-emerald-400"
                 >
-                  Entrar
+                  {t('TO_ENTER')}
                 </Link>
               </Typography>
             </div>

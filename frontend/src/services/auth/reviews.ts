@@ -1,4 +1,3 @@
-import { PublicReview } from "@/src/components/LatestReviewsSection";
 import { api } from "@/src/lib/axios";
 
 export interface UserReview {
@@ -36,6 +35,53 @@ export interface ReviewPayload {
   like: boolean;
   whatchedBefore: boolean;
   dateFilm: string;
+}
+
+export interface PublicReview {
+  id: number;
+  user_id: number;
+  username: string;
+  user_avatar: string | null;
+  title: string;
+  cover_url: string | null;
+  review: string | null;
+  rate: number | null;
+  likes: number;
+  created_at: string;
+}
+
+export interface ReviewLikeResponse {
+  review_id: number;
+  likes: number;
+  liked: boolean;
+}
+
+export async function getMyLikedReviews(): Promise<number[]> {
+  const response = await api.get<{ review_ids: number[] }>(
+    "/reviews/likes/me",
+  );
+
+  return response.data.review_ids;
+}
+
+export async function likeReview(
+  reviewId: number,
+): Promise<ReviewLikeResponse> {
+  const response = await api.post<ReviewLikeResponse>(
+    `/reviews/${reviewId}/like`,
+  );
+
+  return response.data;
+}
+
+export async function unlikeReview(
+  reviewId: number,
+): Promise<ReviewLikeResponse> {
+  const response = await api.delete<ReviewLikeResponse>(
+    `/reviews/${reviewId}/like`,
+  );
+
+  return response.data;
 }
 
 export async function getUserReviews(

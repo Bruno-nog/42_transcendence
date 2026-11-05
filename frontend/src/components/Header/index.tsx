@@ -88,6 +88,8 @@ export default function Header({ bannerUrl }: HeaderProps) {
             <Button className="bg-[#e69512] px-5 py-1.5 text-sm hover:bg-[#bb7607]">
               <Link href="/register">{t('SIGN_UP')}</Link>
             </Button>
+
+            <LanguageSwitcher />
           </div>
         ) : (
           <div className="flex gap-5">

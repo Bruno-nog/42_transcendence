@@ -1,14 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Typography } from "@/src/components/ui/Typography";
-import { Avatar } from "@/src/components/ui/Avatar";
-import { useAuth } from "@/src/hooks/useAuth";
+
+import toast from "react-hot-toast";
+import { Heart, UserPlus, Check } from "lucide-react";
+
 import { getCurrentUser } from "@/src/services/auth/user";
 import { addFriend, getFriends } from "@/src/services/auth/friends";
-import { getLatestReviews, type PublicReview } from "@/src/services/auth/reviews";
-import toast from "react-hot-toast";
-import { UserPlus, Check } from "lucide-react";
+import {
+  getLatestReviews,
+  getMyLikedReviews,
+  likeReview,
+  unlikeReview,
+  type PublicReview,
+} from "@/src/services/auth/reviews";
+
+import { useAuth } from "@/src/hooks/useAuth";
+import { Avatar } from "@/src/components/ui/Avatar";
+import { Typography } from "@/src/components/ui/Typography";
+
 import { API_BASE_URL } from "@/src/utils/data";
 
 interface LatestReviewsSectionProps {
@@ -25,6 +35,9 @@ export function LatestReviewsSection({
   const [loadingReviews, setLoadingReviews] = useState(true);
   const [addingFriendId, setAddingFriendId] = useState<number | null>(null);
   const [friendsIds, setFriendsIds] = useState<number[]>([]);
+
+  const [likedReviewIds, setLikedReviewIds] = useState<number[]>([]);
+  const [likingReviewId, setLikingReviewId] = useState<number | null>(null);
 
   const getImageUrl = (url: string | null) => {
     if (!url) return "/placeholder.png";
@@ -69,6 +82,75 @@ export function LatestReviewsSection({
 
     fetchReviews();
   }, [limit]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const fetchLikedReviews = async () => {
+      if (!isAuthenticated) {
+        if (!cancelled) {
+          setLikedReviewIds([]);
+        }
+        return;
+      }
+
+      try {
+        const reviewIds = await getMyLikedReviews();
+
+        if (!cancelled) {
+          setLikedReviewIds(reviewIds);
+        }
+      } catch {
+        if (!cancelled) {
+          setLikedReviewIds([]);
+        }
+      }
+    };
+
+    fetchLikedReviews();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isAuthenticated]);
+
+  const handleToggleLike = async (review: PublicReview) => {
+    if (!isAuthenticated) {
+      toast.error("Faça login para curtir avaliações.");
+      return;
+    }
+
+    if (likingReviewId !== null) return;
+
+    const alreadyLiked = likedReviewIds.includes(review.id);
+
+    try {
+      setLikingReviewId(review.id);
+
+      const response = alreadyLiked
+        ? await unlikeReview(review.id)
+        : await likeReview(review.id);
+
+      setLatestReviews((prev) =>
+        prev.map((item) =>
+          item.id === review.id
+            ? { ...item, likes: response.likes }
+            : item,
+        ),
+      );
+
+      setLikedReviewIds((prev) =>
+        alreadyLiked
+          ? prev.filter((id) => id !== review.id)
+          : [...prev, review.id],
+      );
+    } catch (error) {
+      console.error("Erro ao atualizar curtida:", error);
+      toast.error("Não foi possível atualizar sua curtida.");
+    } finally {
+      setLikingReviewId(null);
+    }
+  };
 
   const handleAddFriend = async (userId: number, username?: string) => {
     if (!isAuthenticated) {
@@ -150,27 +232,53 @@ export function LatestReviewsSection({
                     </div>
 
                     {!isSelf && isAuthenticated && (
-                      <button
-                        type="button"
-                        disabled={isLoadingThis || isAlreadyFriend}
-                        onClick={() => handleAddFriend(review.user_id, review.username)}
-                        title={
-                          isAlreadyFriend
-                            ? "Já é seu amigo"
-                            : "Adicionar amigo"
-                        }
-                        className={`p-1.5 rounded-lg text-xs transition flex items-center gap-1 ${
-                          isAlreadyFriend
-                            ? "bg-emerald-600/20 text-emerald-400 cursor-default"
-                            : "bg-gray-700/60 text-gray-300 hover:bg-emerald-600 hover:text-white"
-                        } disabled:opacity-50`}
-                      >
-                        {isAlreadyFriend ? (
-                          <Check className="w-3.5 h-3.5" />
-                        ) : (
-                          <UserPlus className="w-3.5 h-3.5" />
-                        )}
-                      </button>
+                      <>
+                        <button
+                          type="button"
+                          disabled={isLoadingThis || isAlreadyFriend}
+                          onClick={() => handleAddFriend(review.user_id, review.username)}
+                          title={
+                            isAlreadyFriend
+                              ? "Já é seu amigo"
+                              : "Adicionar amigo"
+                          }
+                          className={`p-1.5 rounded-lg text-xs transition flex items-center gap-1 ${
+                            isAlreadyFriend
+                              ? "bg-emerald-600/20 text-emerald-400 cursor-default"
+                              : "bg-gray-700/60 text-gray-300 hover:bg-emerald-600 hover:text-white"
+                          } disabled:opacity-50`}
+                        >
+                          {isAlreadyFriend ? (
+                            <Check className="w-3.5 h-3.5" />
+                          ) : (
+                            <UserPlus className="w-3.5 h-3.5" />
+                          )}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleToggleLike(review)}
+                          disabled={likingReviewId === review.id}
+                          title={
+                            likedReviewIds.includes(review.id)
+                              ? "Descurtir avaliação"
+                              : "Curtir avaliação"
+                          }
+                          className="flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-xs transition hover:bg-gray-700/60 disabled:opacity-50"
+                        >
+                          <Heart
+                            className={`h-4 w-4 transition ${
+                              likedReviewIds.includes(review.id)
+                                ? "fill-red-500 text-red-500"
+                                : "text-gray-400"
+                            }`}
+                          />
+
+                          <span className="text-gray-300">
+                            {review.likes ?? 0}
+                          </span>
+                        </button>
+                      </>
                     )}
                   </div>
                 </div>

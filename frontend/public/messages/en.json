@@ -27,6 +27,31 @@
     "PRIVACY_POLICY": "Privacy Policy",
     "TERMS_OF_SERVICE": "Terms of Service"
   },
+  "Authentication": {
+    "LOGIN": "Login",
+    "REGISTER": "REGISTER",
+    "WELCOME_BACK_PLEASE_ENTRE_YOUR_DETAILS": "Welcome back! Please enter your details",
+    "EMAIL": "Email",
+    "ENTER_YOUR_EMAIL": "Enter your email",
+    "PASSWORD": "Password",
+    "ENTER_YOUR_PASSWORD": "Enter your password",
+    "I_FORGOT_MY_PASSWORD": "I forgot my password",
+    "DOESNT_HAVE_AN_ACCOUNT": "doesn't have an account?",
+    "SIGN_UP": "Sign up",
+
+    "CREATE_YOUR": "Create your MediaHub account to get started",
+    "USER": "User",
+    "ENTER_YOUR_USER": "Enter your user",
+    "CREATE_ACCOUNT": "Create account",
+    "ALREADY_HAVE_AN_ACCOUNT": "Already have an account",
+    "TO_ENTER": "To enter",
+
+    "ERROR_EMAIL_OR_PASSWORD": "Incorrect email or password.",
+    "ERROR_TOO_MANY": "Too many login attempts. Please wait a moment.",
+    "ERROR_UNABLE_TO_CONNECT_TO_THE_SERVER": "Unable to connect to the server. Check your connection.",
+    "ERROR_AN_ERROR_OCCURRED_WHILE_LOGGING_IN": "An error occurred while logging in. Please try again.",
+    "ERROR_AN_UNEXPECTED_ERROR_OCCURRED": "An unexpected error occurred. Please try again."
+  },
   "Profile": {
     "HOME": "Home",
     "MOVIES": "Movies",
@@ -53,7 +78,11 @@
     "YOUR_FRIENDS": "Your Friends",
     "LOADING_FRIENDS": "Loading friends...",
     "NO_FRIENDS_ADDED_YET": "No friends added yet.",
-    "LATEST_REVIEWS": "Latest reviews"
+    "LATEST_REVIEWS": "Latest reviews",
+    "MY_REVIEWS": "Minhas avaliações",
+    "NOTE": "Note",
+    "LIKES": "Likes",
+    "WATCHED_ON": "Watched on"
   },
   "Analytics": {
     "HOME": "home",
