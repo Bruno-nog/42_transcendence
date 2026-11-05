@@ -27,11 +27,15 @@ export default function RegisterPage() {
 
   async function onSubmit(data: RegisterFormData) {
     try {
-      await mutateAsync(data);
+      const response = await mutateAsync(data);
+
+      if (!response.token) {
+        throw new Error("Cadastro não retornou um token de autenticação");
+      }
 
       toast.success("Conta criada com sucesso!");
-
-      router.push("/login");
+      localStorage.setItem("token", response.token);
+      router.push("/");
     } catch {
       toast.error("Não foi possível criar a conta.");
     }
