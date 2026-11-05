@@ -98,10 +98,10 @@ _(módulo: Standard user management — Major 2pts)_
 
 ## Social - LUIZ
 
-- [ ] `POST /users/{id}/follow` — seguir usuário — `#34` _(depende de #14)_
-- [ ] `DELETE /users/{id}/follow` — deixar de seguir — `#35` _(depende de #34)_
-- [ ] `GET /users/{id}/followers` e `GET /users/{id}/following` — `#36`
-- [ ] `GET /feed` — feed de atividades dos usuários que você segue — `#37` _(depende de #34)_
+- [x] `POST /users/{id}/follow` — seguir usuário — `#34` _(depende de #14)_
+- [x] `DELETE /users/{id}/follow` — deixar de seguir — `#35` _(depende de #34)_
+- [x] `GET /users/{id}/followers` e `GET /users/{id}/following` — `#36`
+- [x] `GET /feed` — feed de atividades dos usuários que você segue — `#37` _(depende de #34)_
 
 ---
 
