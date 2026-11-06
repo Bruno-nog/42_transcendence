@@ -105,7 +105,7 @@ _(módulo: Standard user management — Major 2pts)_
 
 ---
 
-## Public API - BRUNO
+## Public API - HELENA
 _(módulo: Web Major — 2pts)_
 
 - [ ] Documentação automática via FastAPI `/docs` — `#38`
@@ -134,7 +134,7 @@ _(módulo: Data & Analytics Major — 2pts)_
 
 ---
 
-## GDPR Compliance - BRUNO
+## GDPR Compliance - GABRIEL
 _(módulo: Data & Analytics Minor — 1pt)_
 
 - [ ] `GET /users/me/export` — exportar todos os dados do usuário — `#49`
