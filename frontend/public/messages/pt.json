@@ -83,7 +83,15 @@
     "MY_REVIEWS": "Minhas avaliações",
     "NOTE": "Nota",
     "LIKES": "Curtidas",
-    "WATCHED_ON": "Assistido em"
+    "WATCHED_ON": "Assistido em",
+
+    "LOADING_STATISTICS": "Carregando estatísticas...",
+    "STATISTICS_REVIEWS": "Avaliações",
+    "STATISTICS_AVERAGE_RATING": "Média de Notas",
+    "STATISTICS_LIKES_RECEIVED": "Curtidas Recebidas",
+    "STATISTICS_FAVORITES": "Favoritos",
+    "STATISTICS_FRIENDS": "Amigos",
+    "STATISTICS": "Estatísticas"
   },
   "Analytics": {
     "HOME": "Início",
@@ -96,6 +104,9 @@
     "START_DATE": "Data inicial",
     "END_DATE": "Data final",
     "GENRE": "Gênero",
+    "MONTH": "mês",
+    "MONTHS": "meses",
+    "REVIEWS": "avaliações",
     "APPLY": "Aplicar",
     "CLEAR": "Limpar",
     "EXPORTING": "Exportar",

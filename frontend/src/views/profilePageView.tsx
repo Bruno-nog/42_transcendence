@@ -12,12 +12,18 @@ import { useTranslations } from "next-intl";
 import { Link } from "../i18n/routing";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { Avatar } from "../components/ui/Avatar";
-import { getCurrentUser } from "@/src/services/auth/user";
+import {
+  getCurrentUser,
+  getUserStats,
+  type UserStats,
+} from "@/src/services/auth/user";
+
 import {
   getUserReviews,
   UserReview,
 } from "@/src/services/auth/reviews";
 import { API_BASE_URL } from "../utils/data";
+import { UserStatsSection } from "../components/UserStatsCard";
 
 export default function ProfilePageView() {
   const t = useTranslations('Profile');
@@ -29,22 +35,26 @@ export default function ProfilePageView() {
   const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
   const [reviews, setReviews] = useState<UserReview[]>([]);
 
+  const [stats, setStats] = useState<UserStats | null>(null);
+
   const fetchProfileData = async () => {
     try {
       setLoading(true);
 
       const user = await getCurrentUser();
 
-      const [favoritesData, friendsData, reviewsData] =
+      const [favoritesData, friendsData, reviewsData, statsData] =
         await Promise.all([
           getFavorites(),
           getFriends(),
           getUserReviews(user.id),
+          getUserStats(user.id),
         ]);
 
       setFavorites(favoritesData || []);
       setFriends(friendsData || []);
       setReviews(reviewsData || []);
+      setStats(statsData);
     } catch (error) {
       console.error(t("ERROR_LOADING_PROFILE_DATA"), error);
     } finally {
@@ -77,7 +87,7 @@ export default function ProfilePageView() {
   };
 
   const getImageUrl = (url: string | null) => {
-    if (!url) return "/placeholder.png";
+    if (!url) return "/maria.png";
     if (url.startsWith("http")) return url;
     return `${API_BASE_URL}${url}`;
   };
@@ -105,6 +115,8 @@ export default function ProfilePageView() {
         <SideBar />
 
         <main className="flex-1 space-y-8">
+          <UserStatsSection stats={stats} loading={loading} />
+
           <section className="rounded-xl bg-[#232a36] p-6 space-y-5 shadow-lg">
             <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-3">
               <Typography variant="h3" className="text-base font-bold text-white">

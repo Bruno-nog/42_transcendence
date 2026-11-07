@@ -4,7 +4,7 @@ from pathlib import Path
 import uuid
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
-from sqlalchemy import or_
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from auth import get_current_user
@@ -321,6 +321,62 @@ def get_my_recommendations(
             if ranked_recommendations
             else "Não encontramos filmes disponíveis no catálogo para os seus gêneros favoritos."
         ),
+    }
+
+
+@router.get("/{user_id}/stats")
+def get_user_stats(
+    user_id: int,
+    db: Session = Depends(get_db),
+):
+    user = db.query(User).filter(User.id == user_id).first()
+
+    if not user:
+        raise HTTPException(404, "Usuário não encontrado")
+
+    # Estatísticas das avaliações
+    reviews_stats = (
+        db.query(
+            func.count(Reviews.id),
+            func.avg(Reviews.rate),
+            func.coalesce(func.sum(Reviews.likes), 0),
+        )
+        .filter(Reviews.user_id == user_id)
+        .first()
+    )
+
+    # Quantidade de mídias favoritas
+    total_favorites = (
+        db.query(func.count(Favorite.id))
+        .filter(Favorite.user_id == user_id)
+        .scalar()
+    )
+
+    # Quantidade de amizades
+    total_friends = (
+        db.query(func.count(Friendship.id))
+        .filter(
+            or_(
+                Friendship.user_id == user_id,
+                Friendship.friend_id == user_id,
+            )
+        )
+        .scalar()
+    )
+
+    total_reviews, average_rating, total_likes_received = reviews_stats
+
+    return {
+        "user_id": user_id,
+        "total_reviews": total_reviews,
+        "average_rating": (
+            round(float(average_rating), 2)
+            if average_rating is not None
+            else 0
+        ),
+        "total_likes_received": total_likes_received,
+        "total_favorites": total_favorites,
+        "total_friends": total_friends,
     }
 
 

@@ -25,13 +25,13 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 ## Requisitos obrigatórios do subject (independente de módulos)
 
 - [ ] Frontend responsivo e acessível em todos os dispositivos — `#1`
-- [ ] CSS framework (Tailwind já no Next.js) — `#2`
-- [ ] Suporte a múltiplos usuários simultâneos sem race conditions — `#3`
-- [ ] HTTPS no backend — `#4`
-- [ ] Validação de inputs no frontend E no backend — `#5`
-- [ ] Página de Privacy Policy acessível (footer) com conteúdo real — `#6`
-- [ ] Página de Terms of Service acessível (footer) com conteúdo real — `#7`
-- [ ] Sem warnings ou erros no console do Chrome — `#8`
+- [x] CSS framework (Tailwind já no Next.js) — `#2`
+- [x] Suporte a múltiplos usuários simultâneos sem race conditions — `#3`
+- [x] HTTPS no backend — `#4`
+- [x] Validação de inputs no frontend E no backend — `#5`
+- [x] Página de Privacy Policy acessível (footer) com conteúdo real — `#6`
+- [x] Página de Terms of Service acessível (footer) com conteúdo real — `#7`
+- [x] Sem warnings ou erros no console do Chrome — `#8`
 - [ ] `docker compose up` funcionando com um único comando — `#9`
 - [ ] README completo com todas as seções exigidas pelo subject — `#10`
 
@@ -71,7 +71,7 @@ _(módulo: Standard user management — Major 2pts)_
 - [x] Sistema de amigos (adicionar, remover, ver lista) — `#20` _(depende de #14)_
 - [x] Online status dos usuários — `#21` _(depende de #20)_
 - [x] `GET /users/{id}/reviews` — reviews de um usuário — `#22`
-- [ ] `GET /users/{id}/stats` — estatísticas do usuário — `#23`
+- [x] `GET /users/{id}/stats` — estatísticas do usuário — `#23`
 
 ---
 
