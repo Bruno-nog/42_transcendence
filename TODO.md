@@ -91,21 +91,21 @@ _(módulo: Standard user management — Major 2pts)_
 - [x] `GET /reviews/{id}` — ver review — `#29`
 - [x] `PATCH /reviews/{id}` — editar própria review — `#30` _(depende de #14)_
 - [x] `DELETE /reviews/{id}` — deletar própria review — `#31` _(depende de #14)_
-- [ ] Calcular média das notas por categoria automaticamente no backend — `#32` _(depende de #28)_
+- [x] Calcular média das notas por categoria automaticamente no backend — `#32` _(depende de #28)_
 - [X] `POST /reviews/{id}/like` — dar like — `#33` _(depende de #14)_
 
 ---
 
 ## Social - LUIZ
 
-- [ ] `POST /users/{id}/follow` — seguir usuário — `#34` _(depende de #14)_
-- [ ] `DELETE /users/{id}/follow` — deixar de seguir — `#35` _(depende de #34)_
-- [ ] `GET /users/{id}/followers` e `GET /users/{id}/following` — `#36`
-- [ ] `GET /feed` — feed de atividades dos usuários que você segue — `#37` _(depende de #34)_
+- [x] `POST /users/{id}/follow` — seguir usuário — `#34` _(depende de #14)_
+- [x] `DELETE /users/{id}/follow` — deixar de seguir — `#35` _(depende de #34)_
+- [x] `GET /users/{id}/followers` e `GET /users/{id}/following` — `#36`
+- [x] `GET /feed` — feed de atividades dos usuários que você segue — `#37` _(depende de #34)_
 
 ---
 
-## Public API - BRUNO
+## Public API - HELENA
 _(módulo: Web Major — 2pts)_
 
 - [ ] Documentação automática via FastAPI `/docs` — `#38`
@@ -134,7 +134,7 @@ _(módulo: Data & Analytics Major — 2pts)_
 
 ---
 
-## GDPR Compliance - BRUNO
+## GDPR Compliance - GABRIEL
 _(módulo: Data & Analytics Minor — 1pt)_
 
 - [ ] `GET /users/me/export` — exportar todos os dados do usuário — `#49`
