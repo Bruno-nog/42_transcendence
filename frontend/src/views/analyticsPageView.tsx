@@ -319,8 +319,8 @@ export default function AnalyticsPageView() {
                 <span className="text-sm text-neutral-500">
                   {monthlyEvolution.length}{" "}
                   {monthlyEvolution.length === 1
-                    ? t('MONTH') || "mês"
-                    : t('MONTHS') || "meses"}
+                    ? t('MONTH')
+                    : t('MONTHS')}
                 </span>
               </div>
 
@@ -358,7 +358,7 @@ export default function AnalyticsPageView() {
                           </span>
                           <div className="flex h-full w-full items-end">
                             <div
-                              title={`${item.reviews_count} ${t('REVIEWS') || 'avaliações'}`}
+                              title={`${item.reviews_count} ${t('REVIEWS')}`}
                               className="w-full rounded-t-lg bg-violet-600 transition-all hover:bg-violet-400"
                               style={{ height: `${height}%` }}
                             />

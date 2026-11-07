@@ -82,7 +82,14 @@
     "MY_REVIEWS": "Minhas avaliações",
     "NOTE": "Note",
     "LIKES": "Likes",
-    "WATCHED_ON": "Watched on"
+    "WATCHED_ON": "Watched on",
+    "LOADING_STATISTICS": "Loading statistics...",
+    "STATISTICS_REVIEWS": "Reviews",
+    "STATISTICS_AVERAGE_RATING": "Average Rating",
+    "STATISTICS_LIKES_RECEIVED": "Likes Received",
+    "STATISTICS_FAVORITES": "Favorites",
+    "STATISTICS_FRIENDS": "Friends",
+    "STATISTICS": "Statistics"
   },
   "Analytics": {
     "HOME": "home",
@@ -95,6 +102,9 @@
     "START_DATE": "start Date",
     "END_DATE": "end Date",
     "GENRE": "genre",
+    "MONTH": "month",
+    "MONTHS": "months",
+    "REVIEWS": "reviews",
     "APPLY": "apply",
     "CLEAR": "clear",
     "EXPORTING": "EXPORTING",

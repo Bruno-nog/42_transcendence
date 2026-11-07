@@ -40,7 +40,7 @@ export function LatestReviewsSection({
   const [likingReviewId, setLikingReviewId] = useState<number | null>(null);
 
   const getImageUrl = (url: string | null) => {
-    if (!url) return "/placeholder.png";
+    if (!url) return "/maria.png";
     if (url.startsWith("http")) return url;
     return `${API_BASE_URL}${url}`;
   };

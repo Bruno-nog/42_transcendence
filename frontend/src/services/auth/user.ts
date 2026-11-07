@@ -18,6 +18,20 @@ export interface UserUpdate {
   bio: string | null;
 }
 
+export interface UserStats {
+  user_id: number;
+  total_reviews: number;
+  average_rating: number;
+  total_likes_received: number;
+  total_favorites: number;
+  total_friends: number;
+}
+
+export async function getUserStats(userId: number): Promise<UserStats> {
+  const response = await api.get<UserStats>(`/users/${userId}/stats`);
+  return response.data;
+}
+
 export async function getCurrentUser(): Promise<UserProfile> {
   const response = await api.get<UserProfile>("/users/me");
   return response.data;
