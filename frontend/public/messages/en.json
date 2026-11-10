@@ -57,6 +57,7 @@
     "MOVIES": "Movies",
     "GRAPHIC": "Graphic",
     "LOGOUT": "Log out",
+    "PROFILE": "Profile",
     "FEATURED_MOVIES": "Featured Movies",
     "ERROR_SERACH_MOVIE": "No movies registered yet.",
     "IVE_JUST_ANALYZED": "I've just analyzed...",
@@ -94,6 +95,7 @@
   "Analytics": {
     "HOME": "home",
     "MOVIES": "movies",
+    "PROFILE": "Profile",
     "YOUER_HISTORY": "your History",
     "ANALYTICS": "analytics",
     "TRY_AGAIN": "try Again",
