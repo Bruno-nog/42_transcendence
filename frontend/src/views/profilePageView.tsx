@@ -111,10 +111,10 @@ export default function ProfilePageView() {
         <LanguageSwitcher />
       </header>
 
-      <div className="flex min-h-screen w-full bg-[#181d27] p-6 gap-6">
+      <div className="flex flex-col md:flex-row min-h-screen w-full bg-[#181d27] p-4 md:p-6 gap-6">
         <SideBar />
 
-        <main className="flex-1 space-y-8">
+        <main className="flex flex-col justify-between gap-3 w-full">
           <UserStatsSection stats={stats} loading={loading} />
 
           <section className="rounded-xl bg-[#232a36] p-6 space-y-5 shadow-lg">

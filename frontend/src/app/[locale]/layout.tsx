@@ -10,6 +10,9 @@ import { UserPresence } from "@/src/components/UserPresence.tsx";
 export const metadata: Metadata = {
   title: "MediaHub",
   description: "Track movies, series, books and games.",
+  icons: {
+    icon: '/login_img.png',
+  },
 };
 
 export default async function LocaleLayout({
@@ -33,7 +36,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <UserPresence />
-            <div className="min-h-screen w-full flex flex-col bg-[#181d27]">
+            <div className="min-h-screen w-full flex flex-col gap-1 bg-[#181d27]">
               {children}
             </div>
           </Providers>

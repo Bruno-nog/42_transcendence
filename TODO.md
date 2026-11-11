@@ -181,7 +181,7 @@ _(módulo: Accessibility Minor — 1pt)_
 
 - [x] HTTPS no backend — `#4`
 - [ ] README completo com todas as seções do subject — `#10` BRUNO
-- [ ] `.env.example` atualizado — `#66`
+- [ ] `.env.example` atualizado — `#66` ANDRE
 - [ ] Testar tudo no Chrome sem erros de console — `#8`
 - [ ] `docker compose up` do zero funcionando — `#9`
 

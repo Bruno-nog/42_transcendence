@@ -21,7 +21,6 @@ export default function HomePage() {
   const [dbMovies, setDbMovies] = useState<Media[]>([]);
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
 
-  // Busca os filmes cadastrados no banco de dados
   useEffect(() => {
     async function fetchDbMovies() {
       try {
@@ -53,10 +52,9 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#181d24] text-white flex flex-col justify-between">
-      <div>
-        <SearchMovie />
-
+    <div className="w-full flex flex-col items-center bg-[#14181f] text-white min-h-screen pb-12">
+      <div className="w-full max-w-5xl px-6 py-10 flex flex-col gap-10">
+          <SearchMovie />
         <main className="w-full max-w-6xl mx-auto flex flex-col items-center gap-10 px-4 sm:px-6 py-10">
           <section className="w-full space-y-4">
             <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
@@ -99,9 +97,7 @@ export default function HomePage() {
             </Typography>
           </div>
 
-          {/* Seção Inferior: Grid Responsivo com Avaliações Populares e Listas */}
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            {/* Coluna Esquerda: Avaliações da Semana */}
             <section className="flex flex-col gap-4 w-full">
               <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
                 <Typography variant="h3" className="text-base font-bold text-white">

@@ -58,6 +58,7 @@
     "HOME": "Início",
     "MOVIES": "Filmes",
     "GRAPHIC": "Graficos",
+    "PROFILE": "Perfil",
     "LOGOUT": "Sair",
     "FEATURED_MOVIES": "Filmes em Destaques",
     "ERROR_SERACH_MOVIE": "Nenhum filme cadastrado ainda.",
@@ -96,6 +97,7 @@
   "Analytics": {
     "HOME": "Início",
     "MOVIES": "Filmes",
+    "PROFILE": "Perfil",
     "YOUER_HISTORY": "Seu histórico",
     "ANALYTICS": "Análise de dados",
     "TRY_AGAIN": "Tentar novamente",
