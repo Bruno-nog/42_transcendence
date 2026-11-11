@@ -79,8 +79,8 @@ _(módulo: Standard user management — Major 2pts)_
 
 - [x] `GET /search?title=X` — busca na TMDB e salva sem duplicatas
 - [x] `GET /media/{id}` — detalhes de uma mídia — `#24`
-- [ ] `GET /media/{id}/reviews` — listar reviews de uma mídia — `#25`
-- [ ] Buscar e salvar gêneros da TMDB no campo `genres` — `#26`
+- [x] `GET /media/{id}/reviews` — listar reviews de uma mídia — `#25`
+- [x] Buscar e salvar gêneros da TMDB no campo `genres` — `#26`
 - [ ] Suporte a jogos via IGDB API — `#27`
 
 ---
