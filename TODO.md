@@ -177,10 +177,10 @@ _(módulo: Accessibility Minor — 1pt)_
 
 ---
 
-## Deployment / Polish - OS DOIS
+## Deployment / Polish - TODOS
 
 - [x] HTTPS no backend — `#4`
-- [ ] README completo com todas as seções do subject — `#10`
+- [ ] README completo com todas as seções do subject — `#10` BRUNO
 - [ ] `.env.example` atualizado — `#66`
 - [ ] Testar tudo no Chrome sem erros de console — `#8`
 - [ ] `docker compose up` do zero funcionando — `#9`
