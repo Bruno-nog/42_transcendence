@@ -92,7 +92,9 @@
     "STATISTICS_LIKES_RECEIVED": "Curtidas Recebidas",
     "STATISTICS_FAVORITES": "Favoritos",
     "STATISTICS_FRIENDS": "Amigos",
-    "STATISTICS": "Estatísticas"
+    "STATISTICS": "Estatísticas",
+    "FOLLOWERS": "Seguidores",
+    "FOLLOWING": "Seguindo"
   },
   "Analytics": {
     "HOME": "Início",

@@ -13,6 +13,7 @@ import {
 import EditProfileModal from "../ui/EditProfileModal";
 import { useTranslations } from "next-intl";
 import { Link } from "@/src/i18n/routing";
+import { getFollowers, getFollowing } from "@/src/services/auth/follows";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const DEFAULT_AVATAR = "/maria.png";
@@ -35,12 +36,22 @@ export default function SideBar() {
   const [uploading, setUploading] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
 
   useEffect(() => {
     async function loadUser() {
       try {
         const userData = await getCurrentUser();
         setUser(userData);
+
+        const [followers, following] = await Promise.all([
+          getFollowers(userData.id),
+          getFollowing(userData.id),
+        ]);
+
+        setFollowersCount(followers.length);
+        setFollowingCount(following.length);
       } catch {
         toast.error(t('UNABLE_TO_LOAD_YOUR_PROFILE'));
       } finally {
@@ -150,7 +161,25 @@ export default function SideBar() {
         <hr className="w-full border-gray-700/60" />
 
         <div className="flex w-full flex-col gap-3 text-center">
-          <p>add numeros de seguidores</p>
+          <div className="flex justify-around">
+            <div>
+              <p className="text-xl font-bold text-white">
+                {followersCount}
+              </p>
+              <p className="text-sm text-gray-400">
+                {t('FOLLOWERS')}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-xl font-bold text-white">
+                {followingCount}
+              </p>
+              <p className="text-sm text-gray-400">
+                {t('FOLLOWING')}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
