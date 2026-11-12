@@ -24,6 +24,7 @@ import {
 } from "@/src/services/auth/reviews";
 import { API_BASE_URL } from "../utils/data";
 import { UserStatsSection } from "../components/UserStatsCard";
+import { FeedActivity, getFeed } from "../services/auth/feed";
 
 export default function ProfilePageView() {
   const t = useTranslations('Profile');
@@ -36,6 +37,7 @@ export default function ProfilePageView() {
   const [reviews, setReviews] = useState<UserReview[]>([]);
 
   const [stats, setStats] = useState<UserStats | null>(null);
+  const [feed, setFeed] = useState<FeedActivity[]>([]);
 
   const fetchProfileData = async () => {
     try {
@@ -43,18 +45,23 @@ export default function ProfilePageView() {
 
       const user = await getCurrentUser();
 
-      const [favoritesData, friendsData, reviewsData, statsData] =
+      const [favoritesData, friendsData, reviewsData, statsData, feedData] =
         await Promise.all([
           getFavorites(),
           getFriends(),
           getUserReviews(user.id),
           getUserStats(user.id),
+          getFeed().catch((error) => {
+            console.error("Erro ao carregar feed:", error);
+            return [];
+          }),
         ]);
 
       setFavorites(favoritesData || []);
       setFriends(friendsData || []);
       setReviews(reviewsData || []);
       setStats(statsData);
+      setFeed(feedData || []);
     } catch (error) {
       console.error(t("ERROR_LOADING_PROFILE_DATA"), error);
     } finally {
@@ -116,6 +123,92 @@ export default function ProfilePageView() {
 
         <main className="flex flex-col justify-between gap-3 w-full">
           <UserStatsSection stats={stats} loading={loading} />
+
+
+          <section className="rounded-xl bg-[#232a36] p-6 space-y-5 shadow-lg">
+            <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-3">
+              <Typography
+                variant="h3"
+                className="text-base font-bold text-white"
+              >
+                {t('RECENT_ACTIVITIES')}
+              </Typography>
+            </div>
+
+            {loading ? (
+              <Typography className="text-gray-400">
+                {t('LOADING_ACTIVITIES')}
+              </Typography>
+            ) : feed.length === 0 ? (
+              <Typography className="text-gray-400">
+                {t('NO_RECENT_ACTIVITY')}
+              </Typography>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {feed.map((activity) => (
+                  <article
+                    key={activity.id}
+                    className="flex flex-col gap-3 rounded-lg border border-gray-700/50 bg-gray-800/50 p-4"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Avatar
+                        src={getImageUrl(activity.user_avatar)}
+                        alt={activity.username}
+                        className="h-10 w-10 rounded-full object-cover"
+                      />
+
+                      <div className="flex flex-col">
+                        <Typography className="text-sm font-semibold text-white">
+                          {activity.username}
+                        </Typography>
+
+                        <Typography className="text-xs text-gray-400">
+                          {t('POSTED_A_REVIEW')} ·{" "}
+                          {new Date(activity.created_at).toLocaleDateString("pt-BR")}
+                        </Typography>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-4">
+                      {activity.cover_url && (
+                        <img
+                          src={getImageUrl(activity.cover_url)}
+                          alt={activity.title}
+                          className="h-28 w-20 shrink-0 rounded-md object-cover"
+                        />
+                      )}
+
+                      <div className="flex min-w-0 flex-1 flex-col gap-2">
+                        <Typography className="font-semibold text-white">
+                          {activity.title}
+                          {activity.release_year
+                            ? ` (${activity.release_year})`
+                            : ""}
+                        </Typography>
+
+                        <Typography className="text-sm font-medium text-emerald-400">
+                          ⭐ {t('NOTICE')}: {activity.rate}/10
+                        </Typography>
+
+                        {activity.review && (
+                          <Typography className="text-sm text-gray-300">
+                            {activity.review}
+                          </Typography>
+                        )}
+
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm">❤️</span>
+                          <Typography className="text-xs text-gray-400">
+                            {activity.likes} {t('LIKES')}
+                          </Typography>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </section>
 
           <section className="rounded-xl bg-[#232a36] p-6 space-y-5 shadow-lg">
             <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-3">
