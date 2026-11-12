@@ -169,7 +169,7 @@ _(módulo: Accessibility Minor — 1pt)_
 - [x] Página de detalhes de um filme/jogo — `#60`
 - [x] Modal de review (notas por categoria) — `#61`
 - [x] Página de perfil do usuário — `#62`
-- [ ] Feed de atividades — `#63`
+- [x] Feed de atividades — `#63`
 - [x] Dashboard de analytics — `#64`
 - [x] Página de Privacy Policy — `#6`
 - [x] Página de Terms of Service — `#7`
