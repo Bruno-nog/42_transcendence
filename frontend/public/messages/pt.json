@@ -92,7 +92,15 @@
     "STATISTICS_LIKES_RECEIVED": "Curtidas Recebidas",
     "STATISTICS_FAVORITES": "Favoritos",
     "STATISTICS_FRIENDS": "Amigos",
-    "STATISTICS": "Estatísticas"
+    "STATISTICS": "Estatísticas",
+    "FOLLOWERS": "Seguidores",
+    "FOLLOWING": "Seguindo",
+
+    "RECENT_ACTIVITIES": "Atividades recentes",
+    "LOADING_ACTIVITIES": "Carregando atividades...",
+    "NO_RECENT_ACTIVITY": "Nenhuma atividade recente. Siga outros usuários para acompanhar suas avaliações!",
+    "POSTED_A_REVIEW": "Publicou uma avaliação",
+    "NOTICE": "Nota"
   },
   "Analytics": {
     "HOME": "Início",

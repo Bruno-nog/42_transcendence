@@ -90,7 +90,14 @@
     "STATISTICS_LIKES_RECEIVED": "Likes Received",
     "STATISTICS_FAVORITES": "Favorites",
     "STATISTICS_FRIENDS": "Friends",
-    "STATISTICS": "Statistics"
+    "STATISTICS": "Statistics",
+    "FOLLOWERS": "followers",
+    "FOLLOWING": "following",
+    "RECENT_ACTIVITIES": "Recent activities",
+    "LOADING_ACTIVITIES": "Loading activities...",
+    "NO_RECENT_ACTIVITY": "No recent activity. Follow other users to keep up with their reviews!",
+    "POSTED_A_REVIEW": "Posted a review",
+    "NOTICE": "notice"
   },
   "Analytics": {
     "HOME": "home",

@@ -1,6 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Friend } from "@/src/services/auth/friends";
+import {
+  getFollowing,
+  followUser,
+  unfollowUser,
+} from "@/src/services/auth/follows";
+import { getCurrentUser } from "@/src/services/auth/user";
 import { Typography } from "@/src/components/ui/Typography";
 import { Avatar } from "../ui/Avatar";
 import { API_BASE_URL } from "@/src/utils/data";
@@ -16,6 +23,35 @@ export function FriendDetailsModal({
   onClose,
   onRemoveFriend,
 }: FriendDetailsModalProps) {
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [loadingFollow, setLoadingFollow] = useState(false);
+
+  useEffect(() => {
+    if (!friend) return;
+
+    let cancelled = false;
+
+    const checkFollowing = async () => {
+      try {
+        const currentUser = await getCurrentUser();
+        const following = await getFollowing(currentUser.id);
+
+        if (!cancelled) {
+          setIsFollowing(
+            following.some((user) => user.id === friend.id)
+          );
+        }
+      } catch (error) {
+        console.error("Erro ao verificar seguidores:", error);
+      }
+    };
+
+    checkFollowing();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [friend]);
 
   if (!friend) return null;
 
@@ -23,6 +59,24 @@ export function FriendDetailsModal({
     if (!url) return "/maria.png";
     if (url.startsWith("http")) return url;
     return `${API_BASE_URL}${url}`;
+  };
+
+  const handleFollow = async () => {
+    try {
+      setLoadingFollow(true);
+
+      if (isFollowing) {
+        await unfollowUser(friend.id);
+        setIsFollowing(false);
+      } else {
+        await followUser(friend.id);
+        setIsFollowing(true);
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar follow:", error);
+    } finally {
+      setLoadingFollow(false);
+    }
   };
 
   return (
@@ -51,7 +105,10 @@ export function FriendDetailsModal({
           </div>
 
           <div className="space-y-1">
-            <Typography variant="h3" className="text-xl font-bold text-white">
+            <Typography
+              variant="h3"
+              className="text-xl font-bold text-white"
+            >
               {friend.username}
             </Typography>
           </div>
@@ -64,6 +121,22 @@ export function FriendDetailsModal({
               {friend.bio || "Este usuário não possui biografia cadastrada."}
             </Typography>
           </div>
+
+          <button
+            onClick={handleFollow}
+            disabled={loadingFollow}
+            className={`w-full py-2 rounded-lg text-sm font-medium transition disabled:opacity-50 ${
+              isFollowing
+                ? "bg-zinc-800 text-zinc-200 border border-zinc-700 hover:bg-zinc-700"
+                : "bg-emerald-600 text-white hover:bg-emerald-500"
+            }`}
+          >
+            {loadingFollow
+              ? "Aguarde..."
+              : isFollowing
+                ? "Deixar de seguir"
+                : "Seguir"}
+          </button>
         </div>
 
         <div className="flex items-center justify-between pt-2 border-t border-zinc-800">
@@ -78,6 +151,7 @@ export function FriendDetailsModal({
               Remover Amigo
             </button>
           )}
+
           <button
             onClick={onClose}
             className="ml-auto px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-sm font-medium transition text-zinc-200"
