@@ -105,7 +105,7 @@ _(módulo: Standard user management — Major 2pts)_
 
 ---
 
-## Public API - HELENA
+## Public API - ELENA
 _(módulo: Web Major — 2pts)_
 
 - [ ] Documentação automática via FastAPI `/docs` — `#38`
