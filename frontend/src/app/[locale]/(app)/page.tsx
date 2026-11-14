@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import { Typography } from "@/src/components/ui/Typography";
-import { Avatar } from "@/src/components/ui/Avatar";
 import { useAuth } from "@/src/hooks/useAuth";
 import { Loader } from "@/src/components/ui/loader";
 import UserDashboard from "@/src/app/[locale]/Dashboard/page";
@@ -95,78 +94,6 @@ export default function HomePage() {
               <br className="hidden sm:inline" />{" "}
               {t("SHARE_YOUR_LIFE_THROUGH_CINEMA")}
             </Typography>
-          </div>
-
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            <section className="flex flex-col gap-4 w-full">
-              <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
-                <Typography variant="h3" className="text-base font-bold text-white">
-                  {t("THIS_WEEK_MOST_POPULAR_REVIEWS")}
-                </Typography>
-              </div>
-
-              <div className="flex flex-col gap-4">
-                {[1, 2].map((item) => (
-                  <div
-                    key={item}
-                    className="flex gap-4 rounded-xl bg-[#2b3342] p-4 transition hover:bg-[#323c4e]"
-                  >
-                    <div className="h-20 w-14 flex-shrink-0 overflow-hidden rounded bg-gray-700">
-                      <img
-                        src="/f7.png"
-                        alt="Poster"
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col justify-between min-w-0">
-                      <div>
-                        <Typography
-                          variant="h4"
-                          className="text-sm font-bold text-white truncate"
-                        >
-                          A Odisseia
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          className="mt-1 line-clamp-2 text-xs text-gray-400 leading-snug"
-                        >
-                          Agamemnon estava nos portões da frente de Troia,
-                          movendo-se como Darth Vader...
-                        </Typography>
-                      </div>
-                      <div className="flex items-center justify-between pt-2">
-                        <Avatar name="Usuário" size="sm" />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="flex flex-col gap-4 w-full">
-              <div className="flex items-center gap-2 border-l-4 border-emerald-500 pl-2">
-                <Typography variant="h3" className="text-base font-bold text-white">
-                  {t("POPULAR_LISTS")}
-                </Typography>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="h-28 w-full overflow-hidden rounded-xl bg-gray-800 transition hover:opacity-90">
-                  <img
-                    src="/f5.png"
-                    alt="Lista 1"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <div className="h-28 w-full overflow-hidden rounded-xl bg-gray-800 transition hover:opacity-90">
-                  <img
-                    src="/f6.png"
-                    alt="Lista 2"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </div>
-            </section>
           </div>
 
           <MovieDetailsModal

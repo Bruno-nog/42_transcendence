@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from auth import get_current_user
 from database import get_db
-from models import Media, ReviewLike, Reviews, User
+from models import Media, ReviewLike, Reviews, User, Notification
 from schemas import ReviewCreate
 
 
@@ -111,6 +111,8 @@ def like_review(
     review = db.query(Reviews).filter(Reviews.id == review_id).first()
     if not review:
         raise HTTPException(status_code=404, detail="Review não encontrada")
+    if review.user_id == current_user.id:
+        raise HTTPException(status_code=400, detail="Você não pode curtir seu próprio review")
 
     db.add(ReviewLike(user_id=current_user.id, review_id=review_id))
     try:
@@ -127,6 +129,7 @@ def like_review(
         .where(Reviews.id == review_id)
         .values(likes=Reviews.likes + 1)
     )
+    db.add(Notification(actor_id=current_user.id, recipient_id=review.user_id, notification_type="like", review_id=review.id))
     db.commit()
     db.refresh(review)
 

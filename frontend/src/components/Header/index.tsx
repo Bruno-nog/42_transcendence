@@ -11,6 +11,7 @@ import { Link } from "@/src/i18n/routing";
 import { getCurrentUser } from "@/src/services/auth/user";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "@/src/utils/data";
+import { NotificationsPopover } from "@/src/components/NotificationsPopover";
 
 interface UserData {
   id: number;
@@ -102,14 +103,15 @@ export default function Header({ bannerUrl }: HeaderProps) {
                   size="sm" 
                 />
               </Link>
-              <button
+			  <NotificationsPopover />
+			  <button
                 type="button"
                 onClick={logout}
                 className="w-[70px] cursor-pointer rounded-xl bg-red-500 py-1 text-center text-xs text-white transition-colors"
               >
                 {t('LOGOUT')}
               </button>
-
+			
               <LanguageSwitcher />
             </div>
           )}
@@ -151,19 +153,21 @@ export default function Header({ bannerUrl }: HeaderProps) {
               </div>
 
               {isAuthenticated && user && (
-                <Link 
-                  href="/profile" 
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-gray-800/50 border border-gray-700/50"
-                >
-                  <Avatar 
-                    src={getImageUrl(user?.avatar_url ?? null)} 
-                    name={user?.username || "Usuário"} 
-                    size="sm" 
-                  />
-                  <Typography variant='body1' className="text-amber-100 font-medium truncate">{user?.username}</Typography>
-                </Link>
-              )}
+                <>
+					<Link 
+					href="/profile" 
+					onClick={() => setIsMenuOpen(false)}
+					className="flex items-center gap-3 p-3 rounded-xl bg-gray-800/50 border border-gray-700/50"
+					>
+					<Avatar 
+						src={getImageUrl(user?.avatar_url ?? null)} 
+						name={user?.username || "Usuário"} 
+						size="sm" 
+					/>
+					<Typography variant='body1' className="text-amber-100 font-medium truncate">{user?.username}</Typography>
+					</Link>
+				</>
+              )}			  
 
               <hr className="border-gray-700/60" />
 
