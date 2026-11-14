@@ -135,6 +135,17 @@
     "ABOUT_YOUR_DATA": "Sobre seus dados",
     "DATA_DISCLAIMER": "As estatísticas são calculadas com base nas avaliações registradas na sua conta.  Exporte seus dados em CSV para analisar em uma planilha ou em PDF para guardar um relatório."
   },
+  "Notifications": {
+  "title": "Notificações",
+  "unread": "{count, plural, one {# não lida} other {# não lidas}}",
+  "empty": "Nenhuma notificação nova",
+  "follow": "<strong>{name}</strong> começou a seguir você",
+  "like": "<strong>{name}</strong> curtiu sua review",
+  "friend": "<strong>{name}</strong> agora é seu amigo",
+  "failed_to_load_notifications": "<strong>Erro</strong>, falha ao carregar as notificações",
+  "mark_all_read": "Marcar todas como lidas",
+  "failed_to_mark_read": "Falha ao marcar as notificações como lidas"
+  },
   "Language": {
     "pt": "Português",
     "en": "Inglês"

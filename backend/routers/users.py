@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 
 from auth import get_current_user
 from database import get_db
-from models import Favorite, Follow, Friendship, Media, Reviews, User
+from models import Favorite, Follow, Friendship, Media, Reviews, User, Notification
 from schemas import UserUpdate
 from services.tmdb import get_movie
 
@@ -124,6 +124,7 @@ def add_friend(
         return {"message": "Usuário já está na sua lista de amigos"}
 
     db.add(Friendship(user_id=first_id, friend_id=second_id))
+    db.add(Notification(actor_id=current_user.id, recipient_id=user_id, notification_type="friend"))
     db.commit()
     return {"message": "Amigo adicionado com sucesso"}
 
@@ -165,6 +166,7 @@ def follow_user(
     if existing:
         raise HTTPException(409, "Você já segue este usuário")
     db.add(Follow(follower_id=current_user.id, following_id=user_id))
+    db.add(Notification(actor_id=current_user.id, recipient_id=user_id, notification_type="follow"))
     db.commit()
     return {"message": "Usuário seguido com sucesso", "following": True}
 

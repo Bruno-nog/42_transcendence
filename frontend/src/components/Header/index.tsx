@@ -11,6 +11,7 @@ import { Link } from "@/src/i18n/routing";
 import { getCurrentUser } from "@/src/services/auth/user";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "@/src/utils/data";
+import { NotificationsPopover } from "@/src/components/NotificationsPopover";
 
 interface UserData {
   id: number;
@@ -163,6 +164,8 @@ export default function Header({ bannerUrl }: HeaderProps) {
                   />
                   <Typography variant='body1' className="text-amber-100 font-medium truncate">{user?.username}</Typography>
                 </Link>
+                
+                <NotificationsPopover />
               )}
 
               <hr className="border-gray-700/60" />
