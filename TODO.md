@@ -108,10 +108,10 @@ _(módulo: Standard user management — Major 2pts)_
 ## Public API - ELENA
 _(módulo: Web Major — 2pts)_
 
-- [ ] Documentação automática via FastAPI `/docs` — `#38`
-- [ ] Rate limiting nas rotas públicas — `#39`
-- [ ] API key para acesso externo — `#40`
-- [ ] Garantir 5+ endpoints públicos com GET, POST, PUT, DELETE — `#41`
+- [x] Documentação automática via FastAPI `/docs` — `#38`
+- [x] Rate limiting nas rotas públicas — `#39`
+- [x] API key para acesso externo — `#40`
+- [x] Garantir 5+ endpoints públicos com GET, POST, PUT, DELETE — `#41`
 
 ---
 
