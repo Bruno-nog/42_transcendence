@@ -32,7 +32,7 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 - [x] Página de Privacy Policy acessível (footer) com conteúdo real — `#6`
 - [x] Página de Terms of Service acessível (footer) com conteúdo real — `#7`
 - [x] Sem warnings ou erros no console do Chrome — `#8`
-- [ ] `docker compose up` funcionando com um único comando — `#9`
+- [x] `docker compose up` funcionando com um único comando — `#9`
 - [ ] README completo com todas as seções exigidas pelo subject — `#10`
 
 > ⚠️ Privacy Policy e Terms of Service vazias ou placeholder = rejeição imediata do projeto
@@ -105,13 +105,13 @@ _(módulo: Standard user management — Major 2pts)_
 
 ---
 
-## Public API - HELENA
+## Public API - ELENA
 _(módulo: Web Major — 2pts)_
 
-- [ ] Documentação automática via FastAPI `/docs` — `#38`
-- [ ] Rate limiting nas rotas públicas — `#39`
-- [ ] API key para acesso externo — `#40`
-- [ ] Garantir 5+ endpoints públicos com GET, POST, PUT, DELETE — `#41`
+- [x] Documentação automática via FastAPI `/docs` — `#38`
+- [x] Rate limiting nas rotas públicas — `#39`
+- [x] API key para acesso externo — `#40`
+- [x] Garantir 5+ endpoints públicos com GET, POST, PUT, DELETE — `#41`
 
 ---
 

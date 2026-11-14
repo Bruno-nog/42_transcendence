@@ -8,6 +8,7 @@ POSTGRES_DB=transcendence
 DATABASE_URL=postgresql://bruno:1234@db:5432/transcendence
 TMDB_API_KEY=1f80937de1f4ff93588373b36e7b6dde
 SECRET_KEY=d00d78f8dafde68448d096ca5c388c1adcfb66c1d4664ab92ead27140dccd924
+PUBLIC_API_KEY=bae3ff4137350ef6e3a3414a0b77f535587a3e2c5ab5bc39ad969e3421f27b4b
 ```
 
 ```docker compose up --build```
