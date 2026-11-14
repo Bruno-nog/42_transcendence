@@ -14,6 +14,7 @@ import {
 } from "@/src/services/auth/favorites";
 import { ReviewModal } from "@/src/components/ReviewModal";
 import { API_BASE_URL } from "@/src/utils/data";
+import { LatestReviewsSection } from "@/src/components/LatestReviewsSection";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -194,10 +195,12 @@ export default function MovieDetailsPage({ params }: PageProps) {
                 Faça login para avaliar ou favoritar este filme.
               </p>
             )}
+			
           </div>
         </div>
       </main>
 
+		
       <Footer />
 
       {movie && (

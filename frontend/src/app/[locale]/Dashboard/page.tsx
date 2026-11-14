@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 
 import { Typography } from "@/src/components/ui/Typography";
-import { Avatar } from "@/src/components/ui/Avatar";
 import { useAuth } from "@/src/hooks/useAuth";
 import { Loader } from "@/src/components/ui/loader";
 import Footer from "@/src/components/Fotter";
@@ -180,59 +179,7 @@ export default function HomePage() {
           </Typography>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 items-start">
-
-          {/* Coluna Esquerda: Avaliações */}
-          <section className="flex flex-col gap-4">
-            <div className="flex items-center gap-2 border-l-2 border-[#2ECC71] pl-2">
-              <Typography variant="h3" className="text-sm font-semibold text-white">
-                Avaliações mais populares desta semana
-              </Typography>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              {[1, 2].map((item) => (
-                <div key={item} className="relative flex gap-3 rounded-2xl bg-[#d9d9d9] text-gray-900 p-3.5 shadow-sm">
-                  <div className="h-16 w-12 flex-shrink-0 overflow-hidden rounded bg-gray-400">
-                    <img src="/f7.png" alt="Poster" className="h-full w-full object-cover" />
-                  </div>
-
-                  <div className="flex flex-1 flex-col justify-between pr-8">
-                    <div>
-                      <h4 className="text-xs font-bold text-gray-900">A Odisseia</h4>
-                      <p className="mt-1 text-[11px] text-gray-600 line-clamp-2 leading-tight">
-                        Agamemnon estava nos portões da frente de Troia, movendo-se como Darth Vader...
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="absolute top-3 right-3">
-                    <Avatar name="Usuário" size="sm" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <div className="hidden md:block w-[1px] bg-gray-700/60 self-stretch my-2" />
-
-          <section className="flex flex-col gap-4">
-            <div className="flex items-center gap-2 border-l-2 border-[#2ECC71] pl-2">
-              <Typography variant="h3" className="text-sm font-semibold text-white">
-                Listas populares
-              </Typography>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <div className="h-24 w-full overflow-hidden rounded-xl bg-gray-800">
-                <img src="/f5.png" alt="Lista 1" className="h-full w-full object-cover" />
-              </div>
-              <div className="h-24 w-full overflow-hidden rounded-xl bg-gray-800">
-                <img src="/f6.png" alt="Lista 2" className="h-full w-full object-cover" />
-              </div>
-            </div>
-          </section>
-        </div>
+        
       </div>
 
       <MovieDetailsModal
