@@ -1,7 +1,9 @@
 import os
 import secrets
+import time
+from collections import defaultdict, deque
 
-from fastapi import APIRouter, Depends, HTTPException, Security
+from fastapi import APIRouter, Depends, HTTPException, Request, Security
 from fastapi.security import APIKeyHeader
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
@@ -25,11 +27,42 @@ def verify_api_key(api_key: str | None = Security(api_key_header)) -> str:
         raise HTTPException(status_code=401, detail="Invalid API key")
     return api_key
 
+RATE_LIMIT_REQUESTS = 30
+RATE_LIMIT_WINDOW_SECONDS = 60
+
+# Times of recent requests for each client, kept in memory
+request_history: dict[str, deque] = defaultdict(deque)
+
+
+def rate_limit(request: Request) -> None:
+    """Allow at most RATE_LIMIT_REQUESTS per window for each client."""
+    if request.client is None:
+        client_id = "unknown"
+    else:
+        client_id = request.client.host
+
+    now = time.monotonic()
+    history = request_history[client_id]
+
+    # Forget requests that are older than the window
+    while history and now - history[0] > RATE_LIMIT_WINDOW_SECONDS:
+        history.popleft()
+
+    if len(history) >= RATE_LIMIT_REQUESTS:
+        retry_after = int(RATE_LIMIT_WINDOW_SECONDS - (now - history[0])) + 1
+        raise HTTPException(
+            status_code=429,
+            detail="Too many requests, try again later",
+            headers={"Retry-After": str(retry_after)},
+        )
+
+    history.append(now)
+
 # Every route in this router requires a valid API key
 router = APIRouter(
     prefix="/api/v1",
     tags=["public api"],
-    dependencies=[Depends(verify_api_key)],
+    dependencies=[Depends(rate_limit), Depends(verify_api_key)],
 )
 
 def media_to_dict(media: Media) -> dict:
