@@ -46,18 +46,37 @@ def get_media_averages(db: Session, media_id: int) -> dict:
         for field in AVERAGE_FIELDS
     }
 
-
 @router.get("/search")
 def search_movie(title: str, db: Session = Depends(get_db)):
     movie = search_movies(title)[0]
-    existing = db.query(Media).filter(Media.external_id == movie["external_id"]).first()
+
+    existing = db.query(Media).filter(
+        Media.external_id == movie["external_id"]
+    ).first()
+
     if existing:
-        return media_with_averages(existing, get_media_averages(db, existing.id))
+        if not existing.genres:
+            details = get_movie(existing.external_id)
+            existing.genres = details.get("genres")
+            db.commit()
+            db.refresh(existing)
+
+        return media_with_averages(
+            existing,
+            get_media_averages(db, existing.id)
+        )
+
+    movie = get_movie(movie["external_id"])
+
     new_media = Media(**movie)
     db.add(new_media)
     db.commit()
     db.refresh(new_media)
-    return media_with_averages(new_media, get_media_averages(db, new_media.id))
+
+    return media_with_averages(
+        new_media,
+        get_media_averages(db, new_media.id)
+    )
 
 
 @router.get("/search/tmdb")

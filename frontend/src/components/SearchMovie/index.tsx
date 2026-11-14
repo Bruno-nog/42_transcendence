@@ -30,12 +30,12 @@ export default function SearchMovie() {
   }
 
   return (
-    <section className="mx-auto max-w-container">
-      <h1 className="text-3xl font-bold text-white">
+    <section className="mx-auto max-w-container px-4 md:px-0 space-y-6 mb-12">
+      <h1 className="text-2xl md:text-3xl font-bold text-white text-center md:text-left">
         {t('DISCOVER_MOVIES')}
       </h1>
 
-      <div className="mt-6 flex max-w-2xl gap-3">
+      <div className="flex flex-col sm:flex-row max-w-2xl gap-3">
         <div className="relative flex-1 flex items-center">
           <input
             type="text"
@@ -53,7 +53,7 @@ export default function SearchMovie() {
                 handleSearch();
               }
             }}
-            className="h-11 w-full rounded-md border border-border bg-surface pl-4 pr-10 text-white outline-none placeholder:text-muted focus:border-primary"
+            className="h-11 w-full rounded-md border border-border bg-surface pl-4 pr-10 text-white outline-none placeholder:text-muted focus:border-primary text-sm md:text-base"
           />
 
           {title && (
@@ -72,25 +72,25 @@ export default function SearchMovie() {
           type="button"
           onClick={handleSearch}
           disabled={isPending}
-          className="h-11 rounded-md bg-primary px-6 font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
+          className="h-11 rounded-md bg-primary px-6 font-semibold text-primary-foreground hover:opacity-90 transition-opacity text-sm md:text-base shrink-0"
         >
           {isPending ? `${t('SEARCHING')}` : `${t('SEARCH')}`}
         </button>
       </div>
 
       {error && (
-        <p className="mt-6 text-danger">
+        <p className="text-danger text-sm md:text-base">
           {t('THE_MOVIE_COULD_NOT_BE_FOUND')}
         </p>
       )}
 
       {data && (
-        <section className="mt-10">
-          <h2 className="mb-4 text-xl font-semibold text-white">
+        <section className="space-y-4 pt-4">
+          <h2 className="text-lg md:text-xl font-semibold text-white">
             {t('SEARCH_RESULTS')}
           </h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {Array.isArray(data) ? (
               data.map((movie: Media) => (
                 <MediaCard

@@ -58,6 +58,7 @@
     "HOME": "Início",
     "MOVIES": "Filmes",
     "GRAPHIC": "Graficos",
+    "PROFILE": "Perfil",
     "LOGOUT": "Sair",
     "FEATURED_MOVIES": "Filmes em Destaques",
     "ERROR_SERACH_MOVIE": "Nenhum filme cadastrado ainda.",
@@ -91,11 +92,20 @@
     "STATISTICS_LIKES_RECEIVED": "Curtidas Recebidas",
     "STATISTICS_FAVORITES": "Favoritos",
     "STATISTICS_FRIENDS": "Amigos",
-    "STATISTICS": "Estatísticas"
+    "STATISTICS": "Estatísticas",
+    "FOLLOWERS": "Seguidores",
+    "FOLLOWING": "Seguindo",
+
+    "RECENT_ACTIVITIES": "Atividades recentes",
+    "LOADING_ACTIVITIES": "Carregando atividades...",
+    "NO_RECENT_ACTIVITY": "Nenhuma atividade recente. Siga outros usuários para acompanhar suas avaliações!",
+    "POSTED_A_REVIEW": "Publicou uma avaliação",
+    "NOTICE": "Nota"
   },
   "Analytics": {
     "HOME": "Início",
     "MOVIES": "Filmes",
+    "PROFILE": "Perfil",
     "YOUER_HISTORY": "Seu histórico",
     "ANALYTICS": "Análise de dados",
     "TRY_AGAIN": "Tentar novamente",

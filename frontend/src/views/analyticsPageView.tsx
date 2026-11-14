@@ -164,11 +164,10 @@ export default function AnalyticsPageView() {
         <LanguageSwitcher />
       </header>
 
-      <div className="flex items-start justify-between min-h-screen bg-neutral-950">
+      <div className="flex flex-col md:flex-row min-h-screen w-full bg-[#181d27] p-4 md:p-6 gap-6">
         <SideBar />
 
-        <main className="flex-1 w-full max-w-7xl px-4 py-8 text-neutral-100 sm:px-6 lg:px-10 overflow-hidden">
-          <div className="mx-auto max-w-7xl">
+        <main className="flex flex-col justify-between gap-3">
             <header className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
               <div>
                 <p className="text-sm font-medium uppercase tracking-[0.2em] text-violet-400">
@@ -380,7 +379,6 @@ export default function AnalyticsPageView() {
                 {t('DATA_DISCLAIMER')}
               </p>
             </section>
-          </div>
         </main>
       </div>
     </>

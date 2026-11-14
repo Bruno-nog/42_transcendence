@@ -79,8 +79,8 @@ _(módulo: Standard user management — Major 2pts)_
 
 - [x] `GET /search?title=X` — busca na TMDB e salva sem duplicatas
 - [x] `GET /media/{id}` — detalhes de uma mídia — `#24`
-- [ ] `GET /media/{id}/reviews` — listar reviews de uma mídia — `#25`
-- [ ] Buscar e salvar gêneros da TMDB no campo `genres` — `#26`
+- [x] `GET /media/{id}/reviews` — listar reviews de uma mídia — `#25`
+- [x] Buscar e salvar gêneros da TMDB no campo `genres` — `#26`
 - [ ] Suporte a jogos via IGDB API — `#27`
 
 ---
@@ -169,7 +169,7 @@ _(módulo: Accessibility Minor — 1pt)_
 - [x] Página de detalhes de um filme/jogo — `#60`
 - [x] Modal de review (notas por categoria) — `#61`
 - [x] Página de perfil do usuário — `#62`
-- [ ] Feed de atividades — `#63`
+- [x] Feed de atividades — `#63`
 - [x] Dashboard de analytics — `#64`
 - [x] Página de Privacy Policy — `#6`
 - [x] Página de Terms of Service — `#7`
@@ -177,11 +177,11 @@ _(módulo: Accessibility Minor — 1pt)_
 
 ---
 
-## Deployment / Polish - OS DOIS
+## Deployment / Polish - TODOS
 
 - [x] HTTPS no backend — `#4`
-- [ ] README completo com todas as seções do subject — `#10`
-- [ ] `.env.example` atualizado — `#66`
+- [ ] README completo com todas as seções do subject — `#10` BRUNO
+- [ ] `.env.example` atualizado — `#66` ANDRE
 - [ ] Testar tudo no Chrome sem erros de console — `#8`
 - [ ] `docker compose up` do zero funcionando — `#9`
 
