@@ -137,7 +137,7 @@
 	"unread": "{count, plural, one {# unread} other {# unread}}",
 	"empty": "No new notifications",
 	"follow": "<strong>{name}</strong> started following you",
-	"like": "<strong>{name}</strong> liked your review",
+	"like": "<strong>{name}</strong> liked your review {movie}",
 	"friend": "<strong>{name}</strong> is now your friend",
 	"failed_to_load_notifications": "<strong>Error</strong>, failed to load notifications",
 	"mark_all_read": "Mark all as read",

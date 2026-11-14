@@ -25,6 +25,7 @@ import {
 import { API_BASE_URL } from "../utils/data";
 import { UserStatsSection } from "../components/UserStatsCard";
 import { FeedActivity, getFeed } from "../services/auth/feed";
+import { NotificationsPopover } from "../components/NotificationsPopover";
 
 export default function ProfilePageView() {
   const t = useTranslations('Profile');
@@ -114,8 +115,10 @@ export default function ProfilePageView() {
             {t('MOVIES')}
           </Link>
         </nav>
-
+		<div className="flex items-center gap-2">
+		<NotificationsPopover />
         <LanguageSwitcher />
+		</div>
       </header>
 
       <div className="flex flex-col md:flex-row min-h-screen w-full bg-[#181d27] p-4 md:p-6 gap-6">

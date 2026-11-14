@@ -140,7 +140,7 @@
   "unread": "{count, plural, one {# não lida} other {# não lidas}}",
   "empty": "Nenhuma notificação nova",
   "follow": "<strong>{name}</strong> começou a seguir você",
-  "like": "<strong>{name}</strong> curtiu sua review",
+  "like": "<strong>{name}</strong> curtiu sua review {movie}",
   "friend": "<strong>{name}</strong> agora é seu amigo",
   "failed_to_load_notifications": "<strong>Erro</strong>, falha ao carregar as notificações",
   "mark_all_read": "Marcar todas como lidas",

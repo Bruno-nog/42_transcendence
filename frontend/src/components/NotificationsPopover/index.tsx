@@ -29,6 +29,7 @@ export function NotificationsPopover () {
 			try {
 				const response = await getNotifications();
 				setNotifications(response);
+				console.log(response);
 			} catch(error) {
 				console.log(error);
 				toast.error(t('failed_to_load_notifications'));
@@ -110,6 +111,7 @@ export function NotificationsPopover () {
 																<p className="text-sm text-zinc-300">
 																		{t.rich(notification.message, {
 																				name: notification.actor_name,
+																				movie: notification.movie_title,
 																				strong: (chunks) => <strong className="font-semibold text-white">{chunks}</strong>,
 																		})}
 																</p>

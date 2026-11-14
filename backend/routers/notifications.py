@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from auth import get_current_user
 from database import get_db
-from models import User, Notification
+from models import User, Notification, Media, Reviews
 
 
 router = APIRouter(prefix="/notifications", tags=["notifications"])
@@ -16,9 +16,11 @@ def get_user_notifications(
     db: Session = Depends(get_db)
 ):
     notifications = (
-        db.query(Notification, User)
-		.join(User, Notification.actor_id == User.id)
-		.filter(Notification.read_at.is_(None), Notification.recipient_id == current_user.id)
+        db.query(Notification, User, Media)
+        .join(User, Notification.actor_id == User.id)
+        .outerjoin(Reviews, Notification.review_id == Reviews.id)
+        .outerjoin(Media, Reviews.media_id == Media.id)
+        .filter(Notification.read_at.is_(None), Notification.recipient_id == current_user.id)
         .all()
     )
 
@@ -31,9 +33,10 @@ def get_user_notifications(
 					"actor_id": notification.actor_id,
 					"actor_name": user.username,
 					"message": notification.notification_type,
+					"movie_title": media.title if media else None,
 					"created_at": notification.created_at,
 				}
-				for notification, user in notifications
+				for notification, user, media in notifications
 			],
 		}
 

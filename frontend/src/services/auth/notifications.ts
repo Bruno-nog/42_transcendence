@@ -5,6 +5,7 @@ interface Notification {
 	actor_id: number;
 	actor_name: string;
 	message: "follow" | "like" | "friend";
+	movie_title: string | "";
 	created_at: string;
 }
 
