@@ -29,7 +29,6 @@ export function NotificationsPopover () {
 			try {
 				const response = await getNotifications();
 				setNotifications(response);
-				console.log(response);
 			} catch(error) {
 				console.log(error);
 				toast.error(t('failed_to_load_notifications'));
