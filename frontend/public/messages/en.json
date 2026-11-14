@@ -123,6 +123,17 @@
     "ABOUT_YOUR_DATA": "about Your Data",
     "DATA_DISCLAIMER": "the Statistics Are Calculated Based On The Reviews Registered In Your Account Export Your Data In Csv To Analyze In AS preadsheet Or In Pdf To Keep A Report"
   },
+  "Notifications": {
+	"title": "Notifications",
+	"unread": "{count, plural, one {# unread} other {# unread}}",
+	"empty": "No new notifications",
+	"follow": "<strong>{name}</strong> started following you",
+	"like": "<strong>{name}</strong> liked your review",
+	"friend": "<strong>{name}</strong> is now your friend",
+	"failed_to_load_notifications": "<strong>Error</strong>, failed to load notifications",
+	"mark_all_read": "Mark all as read",
+	"failed_to_mark_read": "Failed to mark notifications as read"
+  },
   "Language": {
     "pt": "Portuguese",
     "en": "English"

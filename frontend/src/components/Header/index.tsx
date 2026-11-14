@@ -12,9 +12,7 @@ import { Link } from "@/src/i18n/routing";
 import { getCurrentUser } from "@/src/services/auth/user";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "@/src/utils/data";
-import { Badge } from "@/src/components/ui/Badge";
-import { Bell } from "lucide-react";
-import { getNotificationsQty } from "@/src/services/auth/notifications";
+import { NotificationsPopover } from "@/src/components/NotificationsPopover";
 
 interface UserData {
   id: number;
@@ -31,7 +29,6 @@ export default function Header({ bannerUrl }: HeaderProps) {
   const { isAuthenticated, logout } = useAuth();
 
   const [user, setUser] = useState<UserData | null>(null);
-  const [notificationsQty, setNotificationsQty] = useState<number>(0);
   const [loadingUser, setLoadingUser] = useState(true);
 
   useEffect(() => {
@@ -43,9 +40,6 @@ export default function Header({ bannerUrl }: HeaderProps) {
       try {
         const userData = await getCurrentUser();
         setUser(userData);
-		const userNotificationsQty = await getNotificationsQty();
-		setNotificationsQty(userNotificationsQty);
-		console.log("User notifications quantity:", userNotificationsQty);
       } catch {
         toast.error(t('UNABLE_TO_LOAD_YOUR_PROFILE'));
       } finally {
@@ -108,14 +102,9 @@ export default function Header({ bannerUrl }: HeaderProps) {
                 size="sm" 
               />
             </Link>
-			<Link href="/profile" className="flex items-center justify-between gap-2">
-				<Badge
-					variant="warning"
-					size="lg"
-					icon={<Bell size={20} />}>
-						 {notificationsQty}
-				</Badge>
-			</Link>
+
+			<NotificationsPopover />
+
             <button
               type="button"
               onClick={logout}

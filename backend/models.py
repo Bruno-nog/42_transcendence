@@ -1,6 +1,6 @@
 from sqlalchemy.sql import func
 from database import Base
-from sqlalchemy import Column, Integer, String, DateTime, Date, Boolean, Float, ForeignKey, UniqueConstraint, CheckConstraint
+from sqlalchemy import Column, Integer, String, DateTime, Date, Boolean, Float, ForeignKey, UniqueConstraint, CheckConstraint, Enum
 
 class User(Base):
     __tablename__ = "users"
@@ -132,3 +132,27 @@ class Follow(Base):
             name="ck_follow_distinct_users",
         ),
     )
+
+class Notification(Base):
+    __tablename__ = "notifications"
+
+    id = Column(Integer, primary_key=True)
+    actor_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    recipient_id = Column(
+        Integer,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+		index=True,
+    )
+    read_at = Column(DateTime, nullable=True)
+    notification_type = Column(Enum("follow", "like", "friend", name="notification_type"), nullable=False)
+    review_id = Column(
+        Integer,
+        ForeignKey("reviews.id", ondelete="CASCADE"),
+        nullable=True,
+    )
+    created_at = Column(DateTime, default=func.now(), nullable=False)
