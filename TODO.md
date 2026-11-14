@@ -32,7 +32,7 @@ Backlog do projeto organizado por área. Cada item tem uma GitHub Issue correspo
 - [x] Página de Privacy Policy acessível (footer) com conteúdo real — `#6`
 - [x] Página de Terms of Service acessível (footer) com conteúdo real — `#7`
 - [x] Sem warnings ou erros no console do Chrome — `#8`
-- [ ] `docker compose up` funcionando com um único comando — `#9`
+- [x] `docker compose up` funcionando com um único comando — `#9`
 - [ ] README completo com todas as seções exigidas pelo subject — `#10`
 
 > ⚠️ Privacy Policy e Terms of Service vazias ou placeholder = rejeição imediata do projeto
