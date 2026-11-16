@@ -10,7 +10,7 @@ export function LanguageSwitcher() {
   const pathname = usePathname();
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLocale = e.target.value as 'pt' | 'en';
+    const newLocale = e.target.value as 'pt' | 'en' | 'es';
     router.replace(pathname, { locale: newLocale });
   };
 
@@ -27,6 +27,9 @@ export function LanguageSwitcher() {
         </option>
         <option value="en" className="bg-zinc-900 text-zinc-200">
           EN
+        </option>
+        <option value="es" className="bg-zinc-900 text-zinc-200">
+          ES
         </option>
       </select>
       <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-400 text-xs">
